@@ -1,5 +1,4 @@
 "use strict";
-"use strict";
 
 // Create a function that takes two parameters (a and b) and returns the sum of the two numbers.
 
