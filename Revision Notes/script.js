@@ -122,3 +122,40 @@ const showContent = function () {
 //dab on the non-believers
 sneaky.addEventListener("click", hideContent);
 not.addEventListener("click", showContent);
+
+const massMark = 78;
+const heightMark = 1.69;
+const massJohn = 92;
+const heightJohn = 1.95;
+
+const BMIMark = massMark / (heightMark * heightMark);
+const BMIJohn = massJohn / (heightJohn * heightJohn);
+console.log(BMIMark, BMIJohn);
+
+/* Write your code below. Good luck! 🙂 */
+
+if (BMIMark >= BMIJohn) {
+  console.log(`Mark's BMI (${BMIMark}) is higher than John's (${BMIJohn})!`);
+} else {
+  console.log(`John's BMI (${BMIJohn}) is higher than Mark's (${BMIMark})!`);
+}
+
+// Tip 15% if the bill is between 50 and 300
+// if it's not between that range, then it's a 20% tip
+// create a variable called tip
+// no if/else, only ternary operator
+// output the string to the console containing the bill value, the tip, and the final value (bill + tip)
+// i.e. The Bill was 275, the tip was 41.25, and the total damage was 316.25
+// Given data values:
+// Bill: 275
+// Tip: 40
+// Total Damage: 430
+// MY SOLUTION:
+
+const bill = 430;
+const tip = bill <= 300 && bill >= 50 ? bill * 0.15 : bill * 0.2;
+console.log(
+  `The bill was ${bill}, the tip was ${tip}, and the total value of the feed is ${
+    bill + tip
+  }`
+);
