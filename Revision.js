@@ -63,25 +63,93 @@ console.log(fruitProcessor(2, 3));
 //Create a function to calculate the average of 3 scores
 const calcAverage = (score1, score2, score3) => (score1 + score2 + score3) / 3;
 
-// Create two new variables — scoreDolphins and scoreKoalas, and assign the value returned from the calcAverage function to them (you will need to call this function, and pass scores as arguments).
-const scoreDolphins = calcAverage(44, 23, 71);
+//========================================
+//Arrays
+//========================================
+const friend1 = "Michael";
+const friend2 = "Steven";
+const friend3 = "Peter";
 
-// Create a function checkWinner that takes the average score of each team as parameters (avgDolphins and avgKoalas), and then logs the winner to the console, together with the victory points, according to the rule above. Example: Koalas win (30 vs. 13) (use avgDolphins and avgKoalas instead of hard-coded values).
-function checkWinner(avgDolphins, avgKoalas) {
-  if (avgDolphins >= 2 * avgKoalas) {
-    console.log(`Dolphins win (${avgDolphins} vs. ${avgKoalas})`);
-  } else if (avgKoalas >= 2 * avgDolphins) {
-    console.log(`Koalas win (${avgKoalas} vs. ${avgDolphins})`);
-  } else {
-    console.log("No team wins...");
-  }
-}
+const friends = ["Michael", "Steven", "Peter"];
+console.log(friends);
 
-// Use the checkWinner function to determine the winner for both DATA 1 and DATA 2.
-checkWinner(scoreDolphins, scoreKoalas);
+//Arrays start at 0
+console.log(friends[0]);
+console.log(friends[2]);
 
-// Ignore draws this time. Instead, log No team wins... to the console if there is no winner.
+//.length gives me the Length of an array
+console.log(friends.length);
+console.log(friends[friends.length - 1]);
 
-// TEST DATA 1: Dolphins scored 44, 23, and 71. Koalas scored 65, 54, and 49.
+//Arrays are mutable
+//I can change the value of an array, ijn this case I change the value of the 3rd element in the array
+friends[2] = "Jay";
+console.log(friends);
 
-// TEST DATA 2: Dolphins scored 85, 54, and 41. Koalas scored 23, 34, and 27.
+//Arrays can hold different data types
+const firstName = "Pat";
+const pat = [firstName, "Hernandez", 2021 - 1994, "Student", friends];
+console.log(pat);
+
+const testYears = [1990, 1967, 2002, 2010, 2018];
+const age1 = calcAge(testYears[0]);
+const age2 = calcAge(testYears[1]);
+const age3 = calcAge(testYears[testYears.length - 1]);
+console.log(age1, age2, age3);
+
+const ages = [
+  calcAge(testYears[0]),
+  calcAge(testYears[1]),
+  calcAge(testYears[testYears.length - 1]),
+];
+console.log(ages);
+
+//========================================
+//Array Methods
+//========================================
+
+//.push adds to the end of the array, and also returns the new length of the array
+const newLength = friends.push("Pat");
+console.log(friends);
+console.log(newLength);
+
+//.unshift adds to the beginning of the array, and also returns the new length of the array
+friends.unshift("John");
+console.log(friends);
+
+//.pop removes the last element of the array, and also returns the removed element
+const popped = friends.pop();
+console.log(friends);
+console.log(popped);
+
+//.shift removes the first element of the array, and also returns the removed element
+friends.shift();
+console.log(friends);
+
+//.indexOf returns the index of the element in the array
+console.log(friends.indexOf("Steven"));
+console.log(friends.indexOf("Bob"));
+
+//.includes returns a boolean value (true/false) if the element is in the array
+console.log(friends.includes("Steven"));
+console.log(friends.includes("Bob"));
+
+//Write a function calcTip that takes any bill value as an input and returns the corresponding tip, calculated based on the rules above (you can check out the code from the first tip calculator challenge if you need to). Use the function type you like the most. Test the function using a bill value of 100.
+
+//Next, create an array called bills containing the test data below.
+//TEST DATA: 125, 555, 44
+
+//Create an array called tips containing the tip value for each bill, calculated from the calcTip function.
+//MY SOLUTION:
+const calcTip = (bill) =>
+  bill >= 50 && bill <= 300 ? bill * 0.15 : bill * 0.2;
+console.log(calcTip(125));
+
+const bills = [125, 555, 44];
+const tips = [calcTip(bills[0]), calcTip(bills[1]), calcTip(bills[2])];
+const totals = [bills[0] + tips[0], bills[1] + tips[1], bills[2] + tips[2]];
+console.log(tips, totals);
+
+//========================================
+//Objects
+//========================================
