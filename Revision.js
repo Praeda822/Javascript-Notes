@@ -153,3 +153,163 @@ console.log(tips, totals);
 //========================================
 //Objects
 //========================================
+
+const patArray = ["Pat", "Kelly", 2024 - 1994, "Plumber", friends];
+
+const patObject = {
+  firstName: "Pat",
+  lastName: "Kelly",
+  birthYear: 1994,
+  job: "Plumber",
+  friends: ["Michael", "Steven", "Peter"],
+  hasDriversLicense: true,
+
+  //I can also add functions to an object
+  // calcAge: function (birthYear) {
+  //   return 2037 - birthYear;
+  // },
+
+  //I can essentially "store" a function in an object as a property,
+  //and call it by invoking the method on the object
+  calcAge: function () {
+    //I can use the 'this' keyword to store a new property in the object
+    //so I calculate the age, and then store it in patObject
+    //now I can replace the function call with a request specifically for the age property on patObject
+    //This is a good way to store data in an object, and is THE MOST EFFICIENT SOLUTION
+    //AS I CAN STORE THE DATA IN THE OBJECT, AND THEN RETRIEVE IT LATER, ONLY CALCULATING THE DATA ONCE
+    this.age = 2037 - this.birthYear;
+    return this.age;
+  },
+
+  //Write a method called getSummary and this method should return a string that should summarize the data about patObject that reads as follows:
+  //"Pat is a 43-year old plumber, and he has 3 friends, as well as "
+  //MY SOLUTION:
+
+  getSummary: function () {
+    return `${this.firstName} is a ${this.calcAge()} year old ${
+      this.job
+    }, and he has ${this.friends.length} friends, as well as ${
+      this.hasDriversLicense ? "his" : "no"
+    } driver's license.`;
+  },
+};
+
+//outputs 43 above the object in console - good shiiiiit maaaaaaaate
+//using the 'this' keyword to refer to the object that the method is called on
+console.log(patObject.calcAge());
+console.log(patObject.getSummary());
+console.log(patObject.age);
+
+console.log(patObject);
+//Dot Notation to retrieve data from an object
+console.log(patObject.lastName);
+//Bracket Notation to retrieve data from an object
+console.log(patObject["lastName"]);
+
+//nameKey is a variable that holds the string "Name"
+const nameKey = "Name";
+//I can use the nameKey variable to retrieve the value of the object's key
+console.log(patObject["first" + nameKey]);
+console.log(patObject["last" + nameKey]);
+
+//I should use dot notation wherenever applicable, and bracket notation when I need to compute the key name
+
+// Declare a function named `prompt` that simulates asking a user for input.
+// This function takes a string as an argument, which acts as the question asked to the user.
+const question = prompt(
+  "Prompt me for age, job, friends, firstname, or lastname."
+);
+
+// Use the `console.log` function to output the answer from the user.
+// Here, `question` variable holds the user's response to "What's your Job?".
+// console.log(question);
+
+// here I output the value of the patObject's key that matches the value of the question variable!!
+// console.log(patObject[question]);
+
+//========================================
+//So here I'm using the prompt function to ask the user for input, and then I'm using the console.log function to output the answer from the user.
+//if the user's response matches the value of the patObject's key, then I output the value of the patObject's key that matches the value of the question variable!!
+//Otherwise, I output "WRONG PROMPT"
+
+if (patObject[question]) {
+  console.log(patObject[question]);
+} else {
+  console.log("WRONG PROMPT");
+}
+
+//========================================
+//Here I'm adding new properties to the object
+//I can (and should) use dot notation or bracket notation to add new properties to the object
+patObject.location = "Australia";
+patObject["twitter"] = "@patkellyAUS";
+console.log(patObject);
+
+//Challenge 2 - output the sentence below WITHOUT HARDCODING ANY VALUES
+// "Pat has 3 mates and his best mate is called Michael"
+//MY SOLUTION:
+
+console.log(
+  patObject.firstName +
+    " has " +
+    patObject.friends.length +
+    " mates and his best mate is called " +
+    patObject.friends[0]
+);
+
+//access patObject and take firstname keyword
+//concatenate the string " has " with the total length of the friends array (3)
+//concatenate the string " mates and his best mate is called " with the first element of the friends array (Michael)
+
+// const massMark = 78;
+// const heightMark = 1.69;
+// const massJohn = 92;
+// const heightJohn = 1.95;
+
+// const BMIMark = massMark / (heightMark * heightMark);
+// const BMIJohn = massJohn / (heightJohn * heightJohn);
+// console.log(BMIMark, BMIJohn);
+
+// if (BMIMark >= BMIJohn) {
+//   console.log(`Mark's BMI (${BMIMark}) is higher than John's (${BMIJohn})!`);
+// } else {
+//   console.log(`John's BMI (${BMIJohn}) is higher than Mark's (${BMIMark})!`);
+// }
+
+const mark = {
+  fullName: "Mark Miller",
+  mass: 78,
+  height: 1.69,
+
+  calcBMI: function () {
+    this.bmi = this.mass / this.height ** 2;
+    return this.bmi;
+  },
+};
+
+const john = {
+  fullName: "John Smith",
+  mass: 92,
+  height: 1.95,
+
+  calcBMI: function () {
+    this.bmi = this.mass / this.height ** 2;
+    return this.bmi;
+  },
+};
+
+mark.calcBMI();
+john.calcBMI();
+
+if (mark.bmi > john.bmi) {
+  console.log(
+    `${mark.fullName}'s BMI (${mark.bmi}) is higher than ${john.fullName}'s (${john.bmi})!`
+  );
+} else john.bmi > mark.bmi;
+console.log(
+  `${john.fullName}'s BMI (${john.bmi}) is higher than ${mark.fullName}'s (${mark.bmi})!`
+);
+
+//I used .this to store the caluclated values of john and mark
+//in a NEW variable called "bmi", so after I've called the calcBMI method on each of the objects,
+//I can then ACCESS that NEW STORED VARIABLE I USED .this FOR and OUTPUT it in a TEMPLATE literal!!
