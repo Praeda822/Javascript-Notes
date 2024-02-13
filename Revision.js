@@ -406,4 +406,41 @@ while (dice !== 6) {
 //========================================
 // CHALLENGE 4
 //========================================
-//
+const billsArray = [22, 295, 176, 440, 37, 105, 10, 1100, 86, 52];
+const tipsArray = [];
+const totalsArray = [];
+
+// now iterate through the entire billsArray with a for loop
+for (let i = 0; i < billsArray.length; i++) {
+  // calculate the tip for each bill item in the bills array
+  // store value in new variable, tip
+  const tip = calcTip(billsArray[i]);
+  // push each calculated value to the empty tips array
+  tipsArray.push(tip);
+  // now fill the empty totals array
+  // so I push each of the bills index items from the start of the array
+  // and sum it with the tip
+  totalsArray.push(billsArray[i] + tip);
+}
+
+console.log(billsArray, tipsArray, totalsArray);
+
+//========================================
+// BONUS CHALLENGE
+//========================================
+const arr = [22, 295, 176, 440, 37, 105, 10, 1100, 86, 52];
+
+function calcAvg(arr) {
+  // init sum variable within function for scope
+  let sum = 0;
+  // loop over the entire numbers array, arr
+  for (let i = 0; i < arr.length; i++) {
+    // add each array element to the sum variable
+    sum += arr[i];
+  }
+  //Return mean calc after full loop iteration and OUTSIDE of function
+  return sum / arr.length;
+}
+// now call the function with the totals array
+// so "use" the function on the totals array to calculate the total
+console.log(calcAvg(totalsArray));
