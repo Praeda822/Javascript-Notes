@@ -38,30 +38,25 @@ let score = 20;
 // Global STATE variable to hold highscore value
 let highscore = 0;
 
-// Next I select the number class that will hold the secret number, .number, and I update its textContent with the value generated in my secretNumber variable
+// DRY principle to reduce reused code to function call
+const displayMessage = message =>
+  (document.querySelector('.message').textContent = message);
+
+// I select the number class that will hold the secret number, .number, and I update its textContent with the value generated in my secretNumber variable
 document.querySelector('.number').textContent = secretNumber;
 
-// Here I select the .check class on the button
-// Then I add the .addEventListener method on the class
-// And the event I'm listening for a click from the user "click"
-// When that click happens I want to DEFINE the function that logs the .value entered within the .guess input field and logs it to the console
 // This function will only be called when the event happens as I've passed it INTO the addEventListener method
 document.querySelector('.check').addEventListener('click', function () {
   const guess = Number(document.querySelector('.guess').value);
   console.log(guess, typeof guess);
 
-  // If there is NO guess, then print No Number to the console
-  // Use the if/else block to account for all guesses
-  // Too high, too low, bang on, no number
-  // score-- will decrease the score variable's value and then displays the updated score to reflect the change
-
   // When there is no input
   if (!guess) {
-    document.querySelector('.message').textContent = 'No Number!';
+    displayMessage('No number, bro!?');
 
     // When player wins
   } else if (guess === secretNumber) {
-    document.querySelector('.message').textContent = 'Correct Number!!!!';
+    displayMessage('Correct Number!!!!');
     document.querySelector('.number').textContent = secretNumber;
 
     // When mucking around with styles, I need to pass the value as a string
@@ -76,29 +71,18 @@ document.querySelector('.check').addEventListener('click', function () {
       document.querySelector('.highscore').textContent = highscore;
     }
 
-    // When guess is too high
-  } else if (guess > secretNumber) {
+    // When guess is wrong
+  } else if (guess !== secretNumber) {
     if (score > 1) {
-      document.querySelector('.message').textContent = 'Guess too high, bro!';
+      displayMessage(
+        guess > secretNumber
+          ? 'Your guess is too high, bro!'
+          : 'Your guess is too low, bro..'
+      );
       score--;
       document.querySelector('.score').textContent = score;
-
-      // When out of guesses
     } else {
-      document.querySelector('.message').textContent = 'YOU LOSE, BRUV';
-      document.querySelector('.score').textContent = 0;
-    }
-
-    // When guess is too low
-  } else if (guess < secretNumber) {
-    if (score > 1) {
-      document.querySelector('.message').textContent = 'Guess too low, bro..';
-      score--;
-      document.querySelector('.score').textContent = score;
-
-      // When out of guesses
-    } else {
-      document.querySelector('.message').textContent = 'YOU LOSE, BRUV';
+      displayMessage('You LOSE, bro!!!');
       document.querySelector('.score').textContent = 0;
     }
   }
