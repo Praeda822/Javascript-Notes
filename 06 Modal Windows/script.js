@@ -54,7 +54,7 @@ document.addEventListener('keydown', function (e) {
   console.log(e.key);
 
   // If pressed key is Escape
-  // And if the modal does NOT contain the hidden class, close the modal by calling closeModal
+  // AND if the modal does NOT contain the hidden class, close the modal by calling closeModal
   if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
     closeModal();
   }
