@@ -1,21 +1,36 @@
 'use strict';
 
 //========================================
-// What *is* Javascript?
+// **Computer Science Notes**
 //========================================
 
-// High-level
+// **Compilation vs Interpretation**
 //========================================
 
-// Garbage Collection
+// **Compilation** is a process where entire code is converted into machine code at once.
+// Then the code is written to a binary file that can be executed by a computer in the CPU.
+
+// **Interpretation** is a process where an *Interpreter* runs through the source code and **executes the code line by line**.
+
+// **Just-in-time Compilation** is a process that blends both **Compilation *and* Interpretation**
+// We achieve this by **compiling the entire code into machine code at once, then executing it right away**.
+
+//========================================
+// **What *is* Javascript?**
+//========================================
+
+// **High-level**
+//========================================
+
+// **Garbage Collection**
 //========================================
 // Javascript has in-built "Garbage Collection" which is an algorithm inside the Javascript engine that automatically old, unused objects from the computer's memory
 
-// Interpreted or Just-in-time compiled
+// **Interpreted or Just-in-time compiled**
 //========================================
 // Javascript is an interpreted or "just-in-time compiled" language
 
-// Multi-paradigm
+// **Multi-paradigm**
 //========================================
 // Javascript is a multi-paradigm language
 // In programming, a **Paradigm** is an approach and mindset of structuring code, which will direct your coding style and technique
@@ -26,20 +41,20 @@
 // Procedural programming is what I've been doing so far, just organising the code in a very linear way with some functions in between
 // We can also define many paradigms as **Imperative** vs. **Declarative**
 
-// Prototype-based object-oriented
+// **Prototype-based object-oriented**
 //========================================
 // The Javascript language is a Prototype-based object-oriented approach to programming
 // That means that *almost* **everything** in Javascript is an **object**, *except* for **primitive** values such as **numbers**, **strings**, **etc.*
 // Arrays, for instance, are objects we can pass methods to because they are built from a blueprint, beginning with a **Prototype**. This prototype contains all of the **array methods**.
 // Then, the arrays I create in my code **inherit** the methods *from* that blueprint so that they are able to be used on the array(s).
 
-// First-class functions
+// **First-class functions**
 //========================================
 // In a language with first-class functions, **functions are simply treated as variables**
 // This means I am able **to pass them into other functions, and return them from other functions**.
 // An example of a first-class function is when I coded the modal window and **passed the closeModal function, responsible for adding classes to elements, into another function as an *argument***.
 
-// Dynamic
+// **Dynamic**
 //========================================
 // Javascript is a dynamic language, which means ***Dynamically Typed***.
 // This means with Javascript, **I don't assign data types to variables**.
@@ -47,9 +62,9 @@
 // Also, the types of variables are able to be easily changed as I reassign variables, kind of like "automatic updating", and this is what *dyanamically typed* means
 // **MOST OTHER LANGUAGES DO NOT HAAVE THIS | I MUST ASSIGN DATA TYPES TO MY VARIABLES - C, JAVA, RUBY**.
 
-// Single-threaded
+// **Single-threaded**
 // &
-// Non-blocking event loop (concurrency model)
+// **Non-blocking event loop (concurrency model)**
 //========================================
 // A **Concurrency Model** is how the Javascript engine handles multiple tasks happening at the same time
 // I *need* this for Javascript, because the language only runs in *one* **Single Thread**, *which means it can **only do one thing at a time***.
@@ -59,5 +74,48 @@
 // Keep in mind this *is* a **HUGE** over-simplification.
 
 //========================================
-// The Javascript Engine
+// **The Javascript Engine**
+//========================================
+
+// Every Javascript engine always contains a **Callstack** and a **Heap**.
+// The **callstack is where our code is executed** using something called **Execution Context**
+// Then, the **Heap** is an **Unstructured Memory Pool** that **stores all of the objects our application needs in the memory**.
+// So when a piece of Javascript code enters the engine, the first step we take is to **PARSE** the code, which means *to read* the code.
+// During the *parsing* process, the code is parsed into a *data structure* called the **Abstract Syntax Tree**, or *AST*
+// This works by first splitting up each line of code into pieces that ae *meaningful* to the language, **such as the *const* or *function* keywords**, and **then *saving* all of these pieces to the tree in a structured way**.
+// This step *also* checks for any syntax errors, **with the resulting tree consequently being used to generate the machine code**.
+// Next is **Compilation**. This where we take the *AST* and **compile it into machine code**
+// Then, this code is **Executed** in the **Call Stack** right away, as Javascript is a *Just-in-time* compiled language
+// During this entire process, our code is being **optimized & recompiled** in the background during the already running programming execution
+// This can be done multiple times, and every time the code is *optimized*, the *unoptimized code* is *swept up*, or **Garbage Collected**, without every stopping execution of the application
+// All of this *parsing*, *compiling*, *executing*, and *optimizing*, happens in *special threads* that we can't access from the codebase, with different engines implementing this process in different ways.
+
+//========================================
+// **The Javascript Runtime**
+//========================================
+
+// Imagine a big box, this is the **Runtime**, that contains smaller boxes, denoted with the following:
+
+// **The Javascript engine, the *Heart***.
+//========================================
+// The *Javascript Engine* contains the **heap** (*an **Unstructured Memory Pool** where my application's objects are stored in memory*) and the **call stack** (*where my code is **executed***).
+
+// **WEB APIs**
+//========================================
+// **WEB APIs** are **functionalities provided to the engine that are *not* actually part of the Javascript language itself**.
+// Javascript has *access* to these APIs through the **global window object**.
+// **WEB APIs** contain everything related to the **DOM**, **Timers**, **FetchAPI**, **Console.log()**, **etc.**
+
+// **Callback Queue**
+//========================================
+// The **Calback Queue** is a *data structure* that **contains all of the *callback functions* that are *ready to be executed***.
+// The **Callback Queue** contains things like **'click'**, **'timer'**, **'data'**, **etc.**
+// An example of a **Callback Function** is an **Event-handler Function** attached to a *button* in the **DOM**
+// These **Event-handler Functions** are also called **Callback Functions**, because *as an (the) event happens*, for example a *click*, the **callback function will be called**.
+// Behind the scenes, the **Callback Function** is put into the **Callback Queue*, then, when the **Call Stack** is empty, the **Callback Function** is *passed to the stack so it can be **executed***.
+// This is handled by something called the **Event Loop**, and this is also the **Event Loop**'s primary job, as well as being a ***strict requirement*** for Javascript's **Single-Threaded Non-blocking Concurrency Model**, which is again, just a fancy way of saying ***how the Javascript engine handles multiple tasks happening at the same time***
+// The ***Node.JS Javascript Runtime*** would look as if the **WebAPIs** box has been removed and replaced instead with **C++ bindings** * a **Thread Pool**.
+
+//========================================
+// **How Javascript is executed in The Callstack**
 //========================================
