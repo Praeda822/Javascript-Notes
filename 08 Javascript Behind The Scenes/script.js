@@ -117,5 +117,47 @@
 // The ***Node.JS Javascript Runtime*** would look as if the **WebAPIs** box has been removed and replaced instead with **C++ bindings** * a **Thread Pool**.
 
 //========================================
+// **What is an Execution Context?**
+//========================================
+// An **Execution Context** is an *abstract concept* that can be defined as ***an environment in which a piece of Javascript code is executed***
+// The **Execution Context** is like **a box that stores all the necessary information for some code to be executed, such as *local variables*, or *arguments passed into a function***
+// Javascript code **ALWAYS** runs inside an **Executon Context**
+// There is only ever ***ONE* Global Execution Context**, and it is *always* there as the **Default Context**, and the **Default Context** is created for code **that is not inside any function**, again, *AKA **Top-level Code***
+
+//========================================
 // **How Javascript is executed in The Callstack**
+//========================================
+
+// So our code has been compiled and is **ready to be executed**
+// Now a ***Global Execution Context* is created for the *Top-level code***, with "*Top-level code*" simply meaning **code that is *not* inside any function**
+// So, again, **ONLY** the code **outside** of functions will be executed, since functions should *only* be executed when they are *called*, like my **number guessing game** and my **init()** function
+
+// Now that the *top-level code* has finished executing, **functions now start to execute** as well
+// For each and every function call, a new **Execution Context** will be created that **contains all of the information necessary to run that *exact* function**
+// This same rule *also* applies to **methods**, as well, as **methods** are simply *functions that are attached to objects*
+// All of these *execution contexts* together make up the **Callstack**
+// When *all* the of the **functions** are done executing, the Javascript engine will basically wait around for the **callback functions** to arrive so that it can *execute* them, like a *'click' event*, for example
+// Keeping in mind that it is the **Event Loop** responsible for *providing* these new **callback functions**
+
+//========================================
+// **What is *inside* an Execution Context?**
+//========================================
+// The inside of an **Execution Context** is known as a *Variable Environment* and this is where all our variables (***let**, **const**, **var***) and function declarations are stored
+// We also have a special object known as the ***Arguments Object***, which contains **all of the arguments that were passed into the function that the *current* execution context belongs to**
+// So **since every *function* gets its own *execution context* as soon as the function is called, all of the *variables* that are *declared inside a function* will *end up within its Variable Environment***
+// However, functions can access variables outside the function, due to something called the **Scope Chain**, and **Scoping**
+// The **Scope Chain** contains **references to variables that are located outside of the current function**, and to keep track of the **Scope Chain** it is **stored within each *Execution Context***
+// Finally, each *Execution Context* contains the ***this*** keyword
+// *All* of the **Execution Environment**'s contents are generated during the *creation phase*, **right before execution**
+// **Arrow Functions** do ***NOT*** get their own ***arguments** object*, and do ***NOT** get their own ***this*** keyword, **instead they can use the *arguments* object from their nearest *regular function parent***
+
+//========================================
+// **What *is* the Javascript Callstack?**
+//========================================
+// The **Javascript Callstack**, together with the **Memory Heap**, make up the **Javascript Engine** itself.
+// The **Javascript Callstack** is where *Execution Contexts* get *stacked* ontop of one each other so as to keep traack of where each *Execution Context* is at in the program's *execution*
+// So the *Execution Context* that is **ON TOP OF THE STACK** is the one that is *currently running*, and when it is done, it will move to the *bottom of the stack* to make room for the next *Execution Context*
+
+//========================================
+// **Scope and the Scope Chain**
 //========================================
