@@ -161,3 +161,167 @@
 //========================================
 // **Scope and the Scope Chain**
 //========================================
+// Now we know that each **Execution Context** will include its own **Variable Environment**, **Scope Chain**, and **this** keyword
+// Scoping can be defined as how our program's variables are **organized** and **accessed**
+// Javascript has something called **Lexical Scoping**
+// **Lexical Scoping** means that the way variables are organized and accessed is *entirely controlled by the placement of functions and of blocks in the programs* code
+// So, again, **variable scoping** is influenced by where exactly we write our *functions and code blocks*
+// **SCOPE is the space or environment in which a certain variable is declared**
+// There is a **Global** Scope, **Function** Scope, and **Block** Scope
+// In the case of *functions*, that is essentially the **Variable Environment** *which is stored in the **function's Execution Context***
+// The **Scope of a Variable** is the **region of our code where a certain variable can be accessed**
+
+//========================================
+// **The 3 Types of Scope**
+//========================================
+// There is a **Global** Scope, accessible **EVERYWHERE** as well as outside of **ANY** *function or block*.
+// **Function** Scope, where variables are accessible **only inside the function, *NOT* outside**, also called the **Local Scope**
+// **Block** Scope, which is everything within the curly *{ }* braces, such as an **if block**, **for loop block**, **etc.**
+// **Variables are only accessible *inside the block* (block scoped), HOWEVER**, this *only* applies to **let** and **const** variables!
+// *Functions* are **also blocked scoped** (*only in strict mode*)
+
+//========================================
+// **The Scope Chain**
+//========================================
+// The scope chain is the order in which functions are **written in the code**
+// The Scope Chain has **nothing** to do with the *order in which the functions were called*!
+// The **Callstack** is the order in which the functions were *called*
+
+// myName variable is part of the global scope
+
+const myName = 'Jonas';
+
+// first() is the next function scope
+
+function first() {
+  const myAge = 30;
+
+  if (myAge >= 30) {
+    //true
+    const decade = 3;
+    var millenial = true;
+  }
+
+  // The nested second() function is my second scope
+
+  function second() {
+    const myJob = 'teacher';
+
+    console.log(`${myName} is a ${myAge}-old ${myJob}`);
+    // Jonas is a 30 year old teacher
+  }
+  // I can still access the first scope's variables as **Scope has access to variables from *all outer scopes***
+  // This process is called **Variable Lookup**, and thid does **NOT* work the other way around
+  // Scopes can only look **UP** to their parents, **never down** to their children
+  // *AGAIN*, **let** and **const** are **block-scoped**, whereas **var is function-scoped**
+  second();
+}
+
+first();
+
+//========================================
+// **Notes on Scoping**
+//========================================
+
+// Scoping asks the question, *Where do variables live?*, or, *Where can we access a certain variable, and where not?*
+// There are **3 types** of scope in Javascript: **Global Scope**, **Scopes defined by functions**, and **Scopes defined by blocks**
+// Only **let** and **const** variables are **block-scoped**, whereas Variables declared with **var** *end up in the closest function scope*
+// In Javascript, we have **Lexical Scoping**, so the rules of where we can access variables are based on exactly where in the code our functions and blocks are written
+// Every scope always has access to all the variables from all of its outer scopes - **THIS IS THE SCOPE CHAIN**
+// When a variable is *not* in the *current scope*, the Javascript engine looks up in the scope chain until it finds the variable it's looking for - this is called **Variable Lookup**
+// The Scope Chain is a one-way street, in that, a scope will **NEVER** have access to the variables of an inner scope
+// The Scope Chain in a certain scope is equal to adding together all the variable environments of all the parent scopes
+// The scope chain has nothing to do with the order in which functions are/were called, and it does **NOT** affect the scope chain whatsoever
+
+//========================================
+// **Scoping in Practice**
+//========================================
+
+function newCalcAge(birthyear) {
+  const newAge = 2037 - birthyear;
+
+  function printAge() {
+    const output = `You are ${newAge} years old, born in ${birthyear}`;
+    console.log(output);
+  }
+  printAge();
+
+  return newAge;
+}
+
+const firstName = 'Patrick';
+newCalcAge(1994);
+
+//========================================
+// **Variable Environments: Hoisting
+//========================================
+
+// **Hoisting** makes some types of variables accessible/usable in the code before they are actually declared
+// **Before execution**, code is scanned for variablke declarations, and for each variable, a new property is created in the **variable environment object
+// So:
+// *Function declarations* are **Hoisted**, have an *initial value* of **Actual Function**, and are **block-scoped**
+// *var variables* are **Hoisted**, have an *initial value* of **undefined** and are **function-scoped**
+// *let* and *const* variables are **NOT HOISTED**, have an *initial value* of **UNINITIALIZED/TDZ (*Temporal Dead Zone*), and are **block-scoped**
+
+test();
+
+function test() {
+  console.log('Hello');
+}
+// We can call the test() function before it was declared in code; that's the hoisting in practice.
+// The JavaScript engine scans the code before executing it and creates a property for each variable or function in the code
+// For normal variables, it assigns an undefined value, and for functions it assigns a reference to that function in memory
+// That's why we can call a function, but if we try to access a variable, we will get undefined
+
+// function scope() {
+//   console.log(var1); // undefined
+//   console.log(va1); // undefined
+
+//   var var1 = 'Hello';
+//   var var2 = 'Hi';
+// }
+
+//========================================
+// **Variable Environments: Temporal Dead Zone (TDZ)**
+//========================================
+
+// The **Temporal Dead Zone**(*TDZ*) can be defined as a region of code where the variable is defined, but can't be used in any way
+// TDZ **makes it easier to avoid and catch errors**, since accessing variables before their declaration is bad practice and should be avoided
+// Utilising the TDZ to use functions before their actual declaration, for instance, is essential for some programming techniques such as *Mutual Recursion*
+
+//========================================
+// **Hoisting and TDZ in Practice**
+//========================================
+
+// Variables
+//========================================
+// console.log(me);
+// console.log(job);
+// console.log(year);
+
+// var me = 'Pat';
+// let job = 'Plumber';
+// const year = 1994;
+
+// The *var* variable is hoisted as **undefined**
+// But the *let* variable is uninitiliazed as it is still in the TDZ, as the TDZ for variables that start with *let/const* start from the **beginning of the current scope** (in this case the *Global Scope*), up until the point of the code were the variable is defined
+
+// Functions
+//========================================
+// console.log(addDecl(2, 3));
+// console.log(addExpr(2, 3));
+// console.log(addArrow(2, 3));
+
+// function addDecl(a, b) {
+//   return a + b;
+// }
+
+// const addExpr = function (a, b) {
+//   return a + b;
+// };
+
+// const addArrow = (a, b) => a + b;
+
+//========================================
+// **The *this* Keyword**
+//========================================
