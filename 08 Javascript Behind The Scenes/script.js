@@ -471,11 +471,93 @@ pkNew.calcAge();
 //
 // **Regular Functions also get access to an *arguments* keyword**
 // **ONLY REGULAR FUNCTIONS GET THE ARGUMENTS KEYWORD**
+// This *can* be useful when I **need a function to accept more parameters than I've actually specified**
 //
-//
-const addExp = function (a, b) {
+//========================================
+const addExpr = function (a, b) {
   console.log(arguments);
   return a + b;
 };
+addExpr(2, 5);
+addExpr(2, 5, 8, 12);
 
-var addArrow = (a, b) => a + b;
+// var addArrow = (a, b) => {
+//   console.log(arguments);
+//   return a + b;
+// };
+
+// addArrow(2, 5, 8);
+//========================================
+// So the **arguments** keyword returns all the parameters, or *arguments*, passed to the function, as an **array**
+// For example, I could *use a loop* and then *loop over the array* to **add all of the numbers together**
+// Since arrow functions, again, **do not get their own this keyword, the same applies for *arguments* as well**
+
+//========================================
+// **Primitives vs. Objects**
+//========================================
+// Javascript **Primitives** are: **Number**, **String**, **Boolean**, **Undefined**, **Null**, **Symbol** and **BigInt**
+//
+// **Everything** *else* is, essentially, an **Object**: **Object Literal**, **Arrays**, **Functions**, **etc.*
+//
+// In regards to **Object-Oriented Programming**, When we're talking about *memory* and *memory management*, it's usual to say:
+// *Primitives* = **Primitive Types**
+// *Objects* = **Reference Types**
+// If I consider how the Javascript engine works, with its two components: the **Call Stack**(*where functions are executed), and **The Heap**(*where objects are stored in memory*)
+// That means that **all** *objects*, or **references types**, will get stored in the *Memory Heap**
+//
+// On the other hand, **Primitives**, or *Primitive Types*, are stored in the **Call Stack**
+// That *also* means that **Primitive Types** are stored inside the **Execution Contexts** (*in which they are declared*)
+//========================================
+//
+let age = 30;
+let oldAge = age;
+age = 31;
+console.log(age);
+console.log(oldAge);
+//
+//========================================
+// So now I know that **Primitive Values**, or *Primitives*, are stored in the **Call Stack**
+// Then in my **Call Stack**, the variables age, and oldAge, are *Numbers*, and therefore, are **Primitive Values** which means they get stored in the **Call Stack**:
+// my *age* variable is known by its **Identifier**, *age*
+// my *age* variable is converted to an **Address** of *0001*
+// my *age* variable, now a Memory Address, *0001* has a **Value** of *30*
+// That also means that oldAge will point to the *same* **memory address** as *age*, since *oldAge* = *age*
+// But then I set *age* = *31*, however the **value** at **address** *0001* does **not** become *31*, since the **value of a memory address cannot be changed as it is *immutable***
+// Instead, **a *new* piece of memory is allocated**, in this instance, *0002*, and the *age* **identifier** *now* points to this *new* **address** which holds the **new value** of *31*
+//
+//
+//========================================
+//
+const me = {
+  name: 'Pat',
+  age: 30,
+};
+const friend = me;
+friend.age = 27;
+console.log('Friend:', friend);
+// {name: 'Pat', age: 27 }
+console.log('Me', me);
+// {name: 'Pat', age: 27 }
+//
+//========================================
+//
+// But in my code above here, *both* my Friend object **AND** my me object have an age of 27 despite me never changing the age of the *me* object
+// However *Objects*, or **Reference Types** work a little differently in the **Heap**:
+// As aforementioned, there is a **memory address**, and then the **value** itself, but in the case of **Reference Values**, the *me* object, or *me* **identifier**, does not point to directly to its newly created **memory address**, in this case **D30F**, within the **Heap**:
+// my *me* object has a **memory address** of *D30F*
+// my *me* object has a **Value** of the objects contents
+// Instead, it will point to a *new* piece of memory in the stack, in this case *0003*, so *me* = *0003*
+// And this *new* piece of memory will then point to the *object* that's in the heap by using the **memory address** as its **value**
+// The **piece of memory** in the **call stack** has a *reference to* the **piece of memory** in the **heap** which holds the **object**
+//
+// Again, when I declare a *variable* as an *object*, an **Identifier** is created
+// This **identifier** points to a **piece of memory in the stack**, which in turn points to a **piece of memory in the heap**, where the *object* is **ACTUALLY** stored
+// And it's works in this seemingly convoluted way because some objects might be too *large* to be stored in the stack, and instead they need to be stored in the *, which is, again, like an **Unlimited Memory Pool**
+// The **callstack** will then just hold a reference to *where* the object is **really** stored in the heap so that it can access it whenever *necessary*
+// So, in my code above, the *friend* **Identifier** will point to the *exact same memory address* as the *me* identifier
+// And, again, that **address** contains the **reference**, which then points to the **object** itself
+// And voila, the *friend* object is now essentially **the exact same** as the *me* object
+// Which means that when I changed the *age* property in the friends object, by setting *friend.age = 27*, the object is found within the heap, and is changed from *30* to **27**
+// This means both *me* and *friend* can point to the same **memory address** in the callstack, as that addresses **value** is simply just a **reference** to the memory address in the Heap
+// And that **Reference** is what is holding the objects *age* **value**, so no actual change has occurred to the original value, only in *reference* to it
+// So it's a bit of a misconception that all variables declared with **const** are *immutable*, since that is *only* true for **Primitive Values**, but **NOT** for **Reference Values**
