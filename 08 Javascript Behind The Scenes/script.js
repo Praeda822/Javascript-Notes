@@ -71,7 +71,8 @@
 // Obviously this sounds counter-intuitive when you take into consideration *long-running tasks* clogging up the entire thread like a fresh poo in an under-sized 65mm pipe
 //  However, by using an **event loop** I can take said long-running task, *execute them in the background*, and then **put them back in the main thread once they are finished**.
 // This in, in a nutshell, Javascript's **Non-blocking Concurrency Model with a Single Thread**.
-// Keep in mind this *is* a **HUGE** over-simplification.
+// JavaScript also uses the event loop to handle **asynchronous operations**, allowing **non-blocking I/O operations**
+// Keep in mind this *is* a **HUGE** over-simplification
 
 //========================================
 // **The Javascript Engine**
@@ -561,3 +562,89 @@ console.log('Me', me);
 // This means both *me* and *friend* can point to the same **memory address** in the callstack, as that addresses **value** is simply just a **reference** to the memory address in the Heap
 // And that **Reference** is what is holding the objects *age* **value**, so no actual change has occurred to the original value, only in *reference* to it
 // So it's a bit of a misconception that all variables declared with **const** are *immutable*, since that is *only* true for **Primitive Values**, but **NOT** for **Reference Values**
+//
+//
+//========================================
+// **Primitives vs. Objects: In Practice**
+//========================================
+//
+//
+//========================================
+// Primitive Types (not objects lol)
+let newLastName = 'Kelly';
+let oldLastName = newLastName;
+newLastName = 'Marshall';
+console.log(newLastName, oldLastName);
+//========================================
+// Self-explanatory:
+// newLastName is set to a value of 'Kelly'
+// oldLastName is set to the same value of newLastName: 'Kelly'
+// newLastName changes from 'Kelly', and instead becomes 'Marshall' as declared in the code
+// I get 'Marshall Kelly' in the console as a result
+//
+//
+//========================================
+// Reference Types (Objects)
+const lauren = {
+  firstName: 'Lauren',
+  lastName: 'Marshall',
+  age: 30,
+};
+
+const marriedLauren = lauren;
+marriedLauren.lastName = 'Kelly';
+console.log('Before marriage:', lauren);
+console.log('After marriage:', marriedLauren);
+//========================================
+// So when I created the new variable, *marriedLauren*, that has a value equal to the *lauren* object before it, **i did not create a new object in the heap**
+// Nah, instead marriedLauren is *really* just a **reference** in the **callstack** to the **original object in the heap**
+// Which means **BOTH** of these variables, *lauren* and *marriedLauren*, point to the **exact same memory address in the heap**
+// Because, again, in the **callstack**, they **both hold the same memory address reference**
+
+// This means when I assign a **const** variable, it's because I need the *value* of that variable to **remain constant in the stack**, and in **THIS** stack, *the value only holds the **reference** to the object*, which I'm not actually changing
+// What I **AM** actually changing, is the **underlying object that is stored in the heap**, and **THAT** is *okay* to change
+// What I **CAN'T** do, however, is to assign a completely different object to *marriedLauren*, because that *new object* would be stored at a **different position in the memory**
+// Therefore, the *reference* to that position in the memory would have to change in this new variable, *marriedLauren = {};*
+// But I *can't do that*, as since I've used **const** the **value** is already stored within the **callstack**, thus **I cannot change the *value* to a new *memory address***
+// If *const = lauren* was a **let**, then I could do it, but in this case, since the variable is a **constant**, **it is not**
+// **SO, MUTATING AN OBJECT'S VALUE, BY *ASSIGNING A COMPLETELY NEW OBJECT TO IT*, IS TOTALLY DIFFERENT IN CONTRAST TO SIMPLY *CHANGING A PROPERTY* ON AN OBJECT, LIKE I DID ABOVE
+//
+// Copying Objects
+//========================================
+//
+//
+const lauren2 = {
+  firstName: 'Lauren',
+  lastName: 'Marshall',
+  age: 30,
+  family: ['Mum', 'Dad'],
+};
+// If I really wanted to copy this object, then I can use a function like Object.assign to accomplish this
+// *Object.assign* will essentially **merge two objects and then return a new one**
+//========================================
+//
+//
+const laurenCopy = Object.assign({}, lauren2);
+laurenCopy.lastName = 'Kelly';
+laurenCopy.family.push('Sister');
+laurenCopy.family.push('Brother');
+console.log('Before marriage:', lauren2);
+console.log('After marriage:', laurenCopy);
+//
+//
+//========================================
+//
+// However using **Object.assign** only works on the *first level*
+// This means that if, for instance, I had an object inside another object, then the **inner object**  will still point to the **same place in the memory**
+// That's why this technique, **Object.assign**, only creates what is known as a **Shallow Copy**, which is a copy that only copies over the *properties* of an object in the *first level*
+// However, I want what's called a **Deep Clone**, which is a copy that copies over **EVERYTHING**
+// This also means that the family array is copied over because **an array is *essentially* an object, this is why the array is **shared between both *lauren2* and *laurenCopy***
+
+//========================================
+// **Notes**
+//========================================
+// Primitives vs. Objects: Primitives (like strings) are copied by value, while objects are copied by reference. This is why changing newLastName does not affect oldLastName, but changing a property of the marriedLauren object also changes the lauren object — they both refer to the same object in memory.
+
+// Constants: The const keyword ensures that the variable cannot be reassigned to a different value (or reference), but it does not prevent the object it points to from being modified.
+
+// Mutating Objects: If an object is assigned a const variable, then I can still mutate its properties and values. However I cannot reassign this variable to a new object since it has been defined with const. const ensures that the variable's reference to the object in memory cannot be changed, but it does not protect the object itself from being modified
