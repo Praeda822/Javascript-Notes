@@ -325,3 +325,157 @@ function test() {
 //========================================
 // **The *this* Keyword**
 //========================================
+//
+//
+// **this** will **never** point to the function in which we are using it
+// **this** will **never** point to the **variable environment** of the function
+// **The *this* keyword/variable** is a special variable that is created **for every *execution context* (every function)**
+// **this** takes the **value of** (*points to*) the *owner* **of the function in which the keyword is used**
+// **this** is **NOT** static, which means the keyword is dependant upon *how* the function is called, **and its value is only assigned when the *function is actually called***
+//
+//
+//========================================
+// We can call a function in **One of Four** ways:
+//
+// **1. As a Method**
+//========================================
+//
+// *this* = <Object that is calling the method>
+//
+//
+// The **first** is as a **Method**, or as a **function attached to an object**
+// So when I call a method, the **this** keyword inside that method will **simply *point to the object* on which the *method* is called**
+// aka, **this** points to the **object** that is *calling* the **method**:
+
+const pk = {
+  name: 'Pat',
+  year: 1994,
+  calcAge: function () {
+    return 2037 - this.year;
+  },
+};
+console.log(pk.calcAge()); // 43
+
+// So I call the calcAge method here and in the logic is *this.year*, the **this** keyword accesses the object first, **pk*, and I can access all the properties it has, so *this.year* === *pk.year*
+//
+//
+//
+// **2. As a Normal Function**
+//========================================
+//
+// *this* = *undefined*
+//
+//
+// The **second** way I can call function is by simply *calling* them as **normal functions**, i.e. **NOT** as a method
+// In the second instance, ***this* will be undefined in STRICT MODE!!**, Otherwise, it will **point to the window object** (*in the browser*)
+//
+//
+//
+// **4. As an Arrow Function**
+//========================================
+//
+// *this* = <*this* of surrounding function (*lexical this*)>
+//
+//
+// **Arrow functions do not get their own *this* keyword**
+// Instead, if I use the **this** variable in an arrow function, it will simply **be the *this* keyword of the surrounding function**, or of **the parent function**
+// This is as known as **the Lexical Keyword**, because it simply gets *picked up* from the **outer lexical scope** of the **arrow function**
+//
+//
+//
+// **4. As an Event Listener**
+//========================================
+//
+// *this* = <*DOM* element that the handler is attached to>
+//
+//
+// If a function is called as an **Event Listener**, then the **this** keyword will **always point to the *DOM* element that the handler function is attached to**
+//
+//
+//========================================
+// **Regular Functions vs Arrow Functions**
+//========================================
+
+// var birthName = 'Pattyboi';
+
+const pkNew = {
+  birthName: 'Patrick',
+  year: 1994,
+  calcAge: function () {
+    console.log(2037 - this.year);
+
+    // Solution 1:
+    //========================================
+    // const self = this; // can also be *self*, *that*, or *debt*
+    // const isMillenial = function () {
+    //   console.log(self);
+    //   console.log(self.year >= 1981 && self.year <= 1996);
+    // };
+    // isMillenial();
+    //========================================
+    //
+    // Solution 2:
+    //========================================
+    const isMillenial = () => {
+      console.log(this);
+      console.log(this.year >= 1981 && this.year <= 1996);
+    };
+    isMillenial();
+    //========================================
+  },
+
+  // greet: () => console.log(`Hey ${this.birthName}`),
+  greet: function () {
+    console.log(this);
+    console.log(`Hey ${this.birthName}`);
+  },
+};
+
+pkNew.greet();
+pkNew.calcAge();
+//
+//========================================
+// The code above returns *undefined* because **arrow functions do not get their own *this* keyword
+// I get *undefined* because the **parent scope of the  arrow function** is the **Global Scope**
+// Since we're accessing the **Global Scope**, if we're not running strict mode, then the **this** keyword is accessing the **window object** (*uh oh..**)
+// If I wanted my global object to have properties, then I would use a globally scoped variable like **var**
+// **NEVER EVER USE AN *ARROW FUNCTION* AS A METHOD**
+// And in the code above, and also in future projects, the **entire shitshow can be avoided** by adhering to the rule above of **never ever use an arrow function as a method**
+//
+// With the isMillenial function call inside of a method, since it is a **regular function call**, the **this keyword must be undefined**
+// Which means I end up with an error saying *undefined*, when in theory it should otherwise work
+// BUT **RULEZ R RULEZ, BRO**
+// **TRY NOT TO GET CAUGHT OUT BY THIS FUCKERY**
+// There are **TWO** solutions to the *isMillenial*  = *undefined* problem:
+//
+// **Solution 1. | The *self* variable**
+//========================================
+//
+// The **Solution** to this problem, is to use an *extra* variable, usually called *self* and assign *it* the value of **this**
+// So I define *self* **outside of the function**, as **this**, and since I'm now **outside of the *isMillenial()* function**, the **this** keyword is still set to pkNew, or the **pkNew Object**
+// Finally, I can change the **this** keyword inside of my *isMillenial()* function to **self** to reflect the change and output **true** since the boolean condition is met
+// So, *self* is referenced within the *isMillenial()* function, but since *self* is not within the function's scope, Javascript goes **up the scope chain** and into the *parent scope*, which is **calcAge()**, which is also the scope where *self* is defined
+//
+//
+// **Solution 2. | The *Arrow Function***
+//========================================
+// The **second** solution to this problem is to use an **Arrow Function**, since **Arrow Functions do *not* have their own *this* keyword**
+// Which means, since I don't have a **this** keyword, and I'm using an **arrow function**, I **inherit the *this* keyword from my parent scope**, which is still *pkNew*, or the **pkNew Object!!!** | how fucken clever is that
+// This is an **extremely useful usecase for arrow functions**
+//
+//
+//
+//========================================
+// **The *arguments* Keyword**
+//========================================
+//
+// **Regular Functions also get access to an *arguments* keyword**
+// **ONLY REGULAR FUNCTIONS GET THE ARGUMENTS KEYWORD**
+//
+//
+const addExp = function (a, b) {
+  console.log(arguments);
+  return a + b;
+};
+
+var addArrow = (a, b) => a + b;
