@@ -15,15 +15,6 @@ const restaurant = {
   categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
   starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
   mainMenu: ['Pizza', 'Pasta', 'Risotto'],
-
-  // New functioin that takes two arguments, starterIndex and mainIndex, and returns the respective array item from the object
-  // My .this keyword goes up to its function's parent since it's a regular function
-  // So return starterMenu array item at (argument value equivalent to array item value),
-  // mainMenu array at (argument value equivalent to array item value)
-  order: function (starterIndex, mainIndex) {
-    return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
-  },
-
   openingHours: {
     thu: {
       open: 12,
@@ -38,7 +29,43 @@ const restaurant = {
       close: 24,
     },
   },
+  // New function that takes two arguments, starterIndex and mainIndex, and returns the respective array item from the object
+  // My .this keyword goes up to its function's parent since it's a regular function
+  // So return starterMenu array item at (argument value equivalent to array item value),
+  // mainMenu array at (argument value equivalent to array item value)
+  order: function (starterIndex, mainIndex) {
+    return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
+  },
+
+  // Here I've created a sort-of "Object Builder" for orders
+  // The function takes an Object as an argument
+  // But I can actually destructure the argument since it's still an object
+  // Now I have a function that takes in ONE argument (one object), and creates an order object that doesn't care about the sequential order, nor the exact names, of the index items, which is really useful to specify my arguments
+  // I can even add DEFAULT VALUES to my functions arguments, so I don't even need to specify the time or mainIndex for the second orderDelivery call
+  orderDelivery: function ({
+    starterIndex = 1,
+    mainIndex = 0,
+    time = '20:00',
+    address,
+  }) {
+    console.log(
+      `Your order of ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} has been received! Your order will be delivered to ${address} at ${time}.`
+    );
+  },
 };
+// So when I call the function on the restaurant object, I end up creating a new object with the NEW values of time, and address
+// AS WELL AS the returned property values for mainIndex and starterIndex from invoking the order function
+restaurant.orderDelivery({
+  time: '22:30',
+  address: '123 Sesame Street',
+  mainIndex: 2,
+  starterIndex: 2,
+});
+
+restaurant.orderDelivery({
+  address: '123 Sesama Street',
+  starterIndex: 1,
+});
 
 const arr = [2, 3, 4];
 const a = arr[0];
@@ -104,4 +131,61 @@ console.log(p, q, r);
 //
 //========================================
 // **Destructuring Objects**
+//========================================
+
+// Destructuring Objects is extremely useful when dealing with data retrieved from an API Call, or a web Application, like weather data or data about movies, etc.
+// By specifying the exact names of variables I want to extract, I can create 3 new objects each with the respective value found in the restaurant object
+const { name, openingHours, categories } = restaurant;
+console.log(name, openingHours, categories);
+// String, Object, Object
+
+// I can destructure objects and assign the extracted property values to variables with NEW variable names (that don't (have to) match the property name)
+const {
+  name: restaurantName,
+  openingHours: hours,
+  categories: tags,
+} = restaurant;
+console.log(restaurantName, hours, tags);
+//
+//
+// Default Values
+//========================================
+// I can also set default values just like I did with arrays
+// Again, REALLY useful when we DON'T have hardcoded data (like we do here)
+//
+const { menu = [], starterMenu: starters = [] } = restaurant;
+//
+// So I end up with the default value for menu, an empty array
+// and the starters empty array is equal to the contents' property values of starterMenu in my restaurant object
+//
+console.log(menu, starters);
+//
+//
+// Mutating Variables
+//========================================
+//
+let one = 111;
+let two = 999;
+const obj = { one: 23, two: 7, three: 14 };
+
+// When I'm mutating objects, I can't just start a line of code with curly braces as Javascript expects a block of code to follow it
+// Instead, I need to wrap my destructuring assignment in parentheses ()
+({ one, two } = obj);
+console.log(one, two); // 23 7
+//
+//
+// Nested Objects
+//========================================
+// Again, I can retrieve the property values of nested objects just like I can with arrays
+// All I need to do is match the variable name with the property value I want to extract
+// So here I get the open: 11, close: 23 that represents the openingHours nested object, friday's property value
+// but I can FURTHER destruct the object by appending my variable with a colon : , which then also allows me to fruther break it down into two seperate variables, 11 and 23
+const {
+  fri: { open, close },
+} = openingHours;
+console.log(open, close);
+//
+//
+//========================================
+// **The Spread Operator**
 //========================================
