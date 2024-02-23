@@ -330,5 +330,32 @@ printBookInfo({ title: 'Algorithms', author: 'Robert Sedgewick' });
 // Each book object has the author property, which stores an array of strings (author names) if there are multiple authors, or a single string (author name) if there is just one author.
 //Declare an array called bookAuthors, and fill it with authors of the first two books from the books array. The bookAuthors array should have just one level (no nested arrays).
 
+const bookAuthors = { ...author };
+console.log(bookAuthors);
+
+// CORRECT CODE:
+//const bookAuthors = [...books[0].author, ...books[1].author];
+
 // 3.2
 // Write a function called spellWord that accepts a single string as an argument. This function should log to the console each letter of the argument separated by a space.
+
+function spellWord(str) {
+  console.log(...str);
+}
+
+spellWord('Patrick');
+//
+//
+//
+//========================================
+// Rest Patterns and Parameters
+//========================================
+//
+// 4.1
+// Destructure the keywords property (array) of the first book from the books array into variables called mainKeyword and rest. The first keyword should be assigned to mainKeyword, and the rest of the keywords should be assigned to the rest variable (it should be an array).
+
+// 4.2
+// Destructure the second book from the books array into a variable called bookPublisher. The bookPublisher variable should be assigned with the value of the publisher property of the book object. Assign the rest of the properties to the restOfTheBook variable.
+
+// 4.3
+// Write a function called printBookAuthorsCount that has two parameters called title and authors. The authors parameter should accept any number of arguments. This function should log to the console a string formatted like that: "The book "${title}" has ${authors.length} authors".

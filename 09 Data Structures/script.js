@@ -52,6 +52,12 @@ const restaurant = {
       `Your order of ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} has been received! Your order will be delivered to ${address} at ${time}.`
     );
   },
+
+  orderPasta: function (ing1, ing2, ing3) {
+    console.log(
+      `Here is your delicious Pasta, made from ${ing1}, ${ing2}, ${ing3}`
+    );
+  },
 };
 // So when I call the function on the restaurant object, I end up creating a new object with the NEW values of time, and address
 // AS WELL AS the returned property values for mainIndex and starterIndex from invoking the order function
@@ -188,4 +194,81 @@ console.log(open, close);
 //
 //========================================
 // **The Spread Operator**
+//========================================
+
+// This is the old, shitty way of adding new array elements to an array
+const myNewArr = [7, 8, 9];
+const badNewArr = [1, 2, arr[0], arr[1], arr[2]];
+console.log(badNewArr);
+
+// Instead I can use the spread operator to iterate over the shitty array to add all the array contents of myNewArray to newArr in one line
+// I'm not INCLUDING the array, since using the spraed operator it's like taking the values out of the original array and adding them to the new one
+
+const newArr = [1, 2, ...myNewArr];
+console.log(newArr);
+
+// I can, and should, use the spread opreator whenever I would otherwise need to write multiple values, seperated with commas (like in the first example)
+// the spread operator is useful for 2 situations: the first happens whenever I write an **array literal**, which is the myNewArr array
+// With the second situation being whenevr I pass arguments into functions
+
+console.log(...myNewArr);
+// Again, whener I need the **elements of an array individually**, I can, and should, use the spread operator
+
+const newMenu = [...restaurant.mainMenu, 'Gnocci'];
+console.log(newMenu);
+// Here I'm NOT creating a new array
+// I am simply manipulating the data of the restaurant object, accessing the mainMenu array, creating a new string, 'Gnocci', and adding it to main menu, returning the value inside of a NEW array + the new string
+
+// The spread operator takes all the elemnts from an array, but it does **NOT** create new variables, and as a direct consequence, we can only use it where there are values seperated by commas
+
+// Shallow-copying arrays
+//========================================
+
+const mainMenuCopy = [...restaurant.mainMenu];
+
+// Joining two arrays together
+//========================================
+// Create an aray that joins both the man menu, and the starter menu, together into ONE array
+const heyMenu = [...restaurant.mainMenu, ...restaurant.starterMenu];
+console.log(heyMenu);
+
+// I can also use the spread operator on iterables
+// Iterables, in Javascript, are all *arrays*, *strings*, *maps*, or *sets*, but **NOT** *objects*
+
+const str = 'pat';
+const letters = [...str, ' ', 'S.'];
+// So here I can unpack my string into its individual letters by using the spread operator
+console.log(...str);
+console.log(letters);
+
+// So here I've created a new array, ingrdients
+// ingredients holds 3 prompts which will I will pass as one single argument into my orderPasta function using the spread operator
+// Real-world example
+//========================================
+// const ingredients = [
+//   prompt("Let's make some pasta! What is your first ingredient?"),
+//   prompt('And how about your second?'),
+//   prompt('And finally, your third ingredient?'),
+// ];
+// console.log(ingredients);
+
+// Again, call the function, use the spread operator to iterate over the entire ingredients array
+// restaurant.orderPasta(...ingredients);
+
+// Objects
+//========================================
+// The spread operator also works on objects, even though objects are NOT iterables
+const newRestaurant = { foundedIn: 1994, ...restaurant, founder: 'Patrick' };
+console.log(newRestaurant);
+
+// So here I've used the spread operator to iterate over the entire restaurant object and copy it into a new variable, restaurantCopy, WITHOUT changing any of the first objects values
+// Then I assign a new name to my new copy and log it to the console to see if it worked (it did)
+const restaurantCopy = { ...restaurant };
+restaurantCopy.name = 'Pats new Restaurant';
+console.log(restaurantCopy);
+console.log(restaurant.name);
+//
+//
+//========================================
+// Rest Patterns and Parameters
 //========================================
