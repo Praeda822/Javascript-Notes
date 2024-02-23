@@ -354,8 +354,186 @@ spellWord('Patrick');
 // 4.1
 // Destructure the keywords property (array) of the first book from the books array into variables called mainKeyword and rest. The first keyword should be assigned to mainKeyword, and the rest of the keywords should be assigned to the rest variable (it should be an array).
 
+const [mainKeyword, ...rest] = books[0].keywords;
+console.log(mainKeyword, rest);
+
 // 4.2
 // Destructure the second book from the books array into a variable called bookPublisher. The bookPublisher variable should be assigned with the value of the publisher property of the book object. Assign the rest of the properties to the restOfTheBook variable.
 
+const [bookPublisher, ...restOfTheBook] = [books[1].publisher];
+console.log(bookPublisher, restOfTheBook);
+// WRONG
+// READ THE QUESTION, DICKHEAD
+// CORRECT ANSWER:
+// const {publisher: bookPublisher, ...restOfTheBook} = books[1];
+
 // 4.3
 // Write a function called printBookAuthorsCount that has two parameters called title and authors. The authors parameter should accept any number of arguments. This function should log to the console a string formatted like that: "The book "${title}" has ${authors.length} authors".
+
+function printBookAuthorsCount(title, ...authors) {
+  console.log(`The book ${title} has ${authors.length} authors`);
+}
+
+printBookAuthorsCount('Algorithms', 'Robert Sedgewick', 'Kevin Wayne');
+//
+//
+//========================================
+// PRACTICE BECAUSE I'M A DICKHEAD
+//========================================
+//
+// For each question try to use a loop to iterate over the array and apply the logic for it
+//
+// 1.
+// Write a function that takes an array of numbers as an argument and returns the sum of all even numbers in the array.
+
+// here is my fucking DOGSHIT attempt at question one...
+//========================================
+//
+// function sumEvenNumbers(...numbers) {
+//   let sumEven = 0;
+//   for (let i = 0; i < numbers.length; i++) {
+//     if (
+//       numbers[i] / 2 == true
+//         ? console.log((sumEven += numbers[i] / 2))
+//         : 'No valid numbers, bro..'
+//     ) {
+//     }
+//   }
+// }
+//
+// sumEvenNumbers(1, 2, 3, 4, 5, 6);
+//
+//========================================
+//
+// I fucked it up completely until the if conditional..
+
+//I'm getting undefined because I''m trying to console.log inside the ternary operator..
+// CONSOLE.LOG OUTSIDE OF LOOPS, IDIOT
+// Instead, I should add the even number to sumEven AND THEN log sumEven after the loop
+// I can use the MODULO OPERATOR ( % ) to check if the number is even (divisible by two), NOT fucking mathematical operators..
+
+// numbers[i] % 2 === 0 ? numbers[i] : 0;
+// condition ? value_if_true : value_if_false
+// is the number, inside the numbers array, at index value i, even? If it is, add it to the sumEven variable
+
+// Finally I can check for the false conditional by checking if sumEven is equal to 0
+// Otherwise ( : ), don't add anything ( 0 )
+
+function sumEvenNumbers(...numbers) {
+  let sumEven = 0;
+  for (let i = 0; i < numbers.length; i++) {
+    sumEven += numbers[i] % 2 === 0 ? numbers[i] : 0;
+  }
+  console.log(sumEven);
+}
+// 1. sumEven initialised with a value of zero
+// 2. for loop that, when function is called, loops over the entire "numbers array" (numbers.length) by use of REST parameter ( "..." left of the assignment operator)
+// 3. conditional statement  declaring that the sumEven variable should be summed up, and equalled to the sum of, whether each number at each of the index values, starting from the first array index value ( numbers[i] ), is divisible by two by use of the MODULO OPERATOR ( % 2 ) by checking if the remainder of that number is equal to 0 when it is divided by 2 ( === 0 ? )
+// 4. If that condition is met, then it adds that number at the integer position ( [numbers[i] ) , to sumEven ( sumEven += numbers[i] )
+// 5. Otherwise, nothing gets added to sumEven variable ( : 0 )
+//
+//
+//========================================
+//
+// 2.
+// Write a function that takes an array and a target value as arguments and returns the number of times the target value appears in the array.
+
+let numArr = [2, 50, 6, 2, 27, 51, 9, 2];
+
+function countOccurrences(array, target) {
+  let occurence = 0;
+  for (let i = 0; i < array.length; i++) {
+    if (array[i] === target) {
+      occurence++;
+    }
+  }
+  return occurence;
+}
+
+countOccurrences(numArr, 2);
+console.log(countOccurrences(numArr, 2));
+//
+// Almost..
+//
+//========================================
+//
+// 3.
+// Write a function that takes an array as an argument and returns a new array that contains the elements of the original array in reverse order.
+
+let myStr = "Gday, cunt, I'm Pat and I suck at this shit";
+
+function reverseArray(arrStr) {
+  return arrStr.split('').reverse().join('');
+}
+console.log(reverseArray(myStr));
+//
+// Returns "tihs siht ta kcus I dna taP m'I ,tnuc ,yadG"
+// I can return the string backwards by splitting it up, then reversing it, then joining it back together
+// Doesn't work with just argument.reverse()
+//
+//========================================
+// 4.
+// Write a function that takes an array of numbers as an argument and returns the largest number in the array
+//
+function findMax(...numbers) {
+  for (let i = 0; i < numbers.length; i++) {
+    return Math.max(...numbers);
+  }
+}
+//
+// I don't actually need the for loop here since Math.max can take multiple arguments and return the largest one
+// I can directly use the spread operator with my numbers variable to pass all my array elements as arguments:
+//
+function findMax(...numbers) {
+  return Math.max(...numbers);
+}
+//
+//========================================
+// 5.
+// Write a function that takes an array of numbers as an argument and returns a new array that contains only the odd numbers from the original array.
+
+// I initialize an empty array myNewArr to store the odd numbers.
+// I use a for loop to iterate through each number in the numbers array.
+// Inside the loop, I check if the number is odd using numbers[i] % 2 !== 0. If it is, I use the push method to add it to myNewArr.
+// After the loop, I return myNewArr, which now contains only the odd numbers from the original array.
+
+function filterOddNumbers(...numbers) {
+  let myNewArr = [];
+  for (let i = 0; i < numbers.length; i++) {
+    if (numbers[i] % 2 !== 0) {
+      myNewArr.push(numbers[i]);
+    }
+  }
+  return myNewArr;
+}
+
+console.log(filterOddNumbers(1, 2, 3, 4, 5, 6, 7, 8, 9));
+// [1, 3, 5, 7, 9]
+
+//========================================
+// Short Circuiting (&& and ||)
+//========================================
+
+// 5.1
+// Some of the book objects have the programmingLanguage property, which specifies what programming language is used in the book, for example:
+//
+// {
+//   title: 'Algorithms',
+//   author: ['Robert Sedgewick', 'Kevin Wayne'],
+//   ...
+//   programmingLanguage: 'Java',     // <-- HERE
+// }
+//
+//Write a function called hasExamplesInJava that takes a book object from the books array as an argument. This function should return true if the book uses Java, or a string 'no data available' if it uses other language or no programming language at all.
+// Ensure you use short-circuiting.
+// Examples:
+// hasExamplesInJava(books[0]); // true
+// hasExamplesInJava(books[1]); // "no data available"
+
+// 5.2
+// Some of the book objects have the onlineContent property, which is either true or false. Loop over the books array, and for the books that provide online content, log to the console a string in this format: "${title}" provides online content. Use short-circuiting.
+// {
+//   title: 'Operating System Concepts',
+//   // ... removed for clarity
+//   onlineContent: false,          // <-- HERE
+// },

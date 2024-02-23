@@ -53,10 +53,19 @@ const restaurant = {
     );
   },
 
+  // This method takes 3 prompt inputs, that are stored in an array called ingredients, from a user and spits out a template literal of what those ingredients are
+  // I'm able to pass in all three ing arguments at once to the function by using the spread operator (...ingredients) as an argument
   orderPasta: function (ing1, ing2, ing3) {
     console.log(
       `Here is your delicious Pasta, made from ${ing1}, ${ing2}, ${ing3}`
     );
+  },
+
+  // Using **REST Parameters** as my arguments, or **REST Arguments**, **my first argument is stored in the *mainIngredients* variable, with **all other ingredients being stored inside of my *otherIngredients* variable as an array**
+  // If I only have *one* argument, for example, then I'll get the first ingredient variable returned as a string, and the second as an **empty array** as there's *nothing to collect*
+  orderPizza: function (mainIngredients, ...otherIngredients) {
+    console.log(mainIngredients);
+    console.log(otherIngredients);
   },
 };
 // So when I call the function on the restaurant object, I end up creating a new object with the NEW values of time, and address
@@ -255,7 +264,7 @@ console.log(letters);
 // Again, call the function, use the spread operator to iterate over the entire ingredients array
 // restaurant.orderPasta(...ingredients);
 
-// Objects
+// **Objects**
 //========================================
 // The spread operator also works on objects, even though objects are NOT iterables
 const newRestaurant = { foundedIn: 1994, ...restaurant, founder: 'Patrick' };
@@ -270,5 +279,114 @@ console.log(restaurant.name);
 //
 //
 //========================================
-// Rest Patterns and Parameters
+// **REST Pattern and Parameters**
 //========================================
+//
+// We use the **Spread Operator** to **build new arrays or pass *multiple* values into a function**
+// In both cases, we use the spread operator to expand arrays into their individual elements
+// The **REST Pattern** uses the exact same syntax, only backwards, however it collects multiple elements and condenses them into an array
+// ERGO:
+// **Spread is to unpack an array**
+// **REST** is to pack an array
+
+// **Spread Operator: Building Arrays**
+//========================================
+//
+// I know in the code here that I am using the spread operator because I am using it on the **RIGHT HAND SIDE OF THE ASSIGNMENT OPERATOR ( = )**
+
+const spreadArr = [1, 2, ...[3, 4]];
+
+// But I can *also* use it on the left hand side of the assignment operator ( = ) by using destructuring
+// Using it on the **LEFT HAND SIDE** makes it **REST**
+// So I'm using the **REST Pattern** to select the numbers I didn't assign to a specific letter variable
+// THUS THE NAME
+const [aa, ab, ...others] = [1, 2, 3, 4, 5];
+console.log(aa, ab, others);
+
+// Again, I'm using the **REST Pattern** (*... on left-hand side of assignment operator*)
+// I then create three new variables pizza, risotto, and otherFood
+// I access the restaurant object using the spread operator to iterate over the entire object
+// Then I assign pizza and risotto to their exact same string names in the manMenu nested object by "skipping" over 'Pasta'
+// Then I use the **REST Pattern** (*because I'm still on the left-hand side of the assignment operator = *) to *pack* the variable otherFood with *everything* inside of the nested starterMenu object
+
+const [pizza, , risotto, ...otherFood] = [
+  ...restaurant.mainMenu,
+  ...restaurant.starterMenu,
+];
+console.log(pizza, risotto, otherFood);
+
+// When using the **REST Pattern**, it **MUST ALWAYS BE LAST IN THE DESTRUCTURING ASSIGNMENT**
+// Otherwise, Javascript can't tell when to collect *the rest* of the unselected elements
+// For the same reason, **there can only ever be *ONE* REST Pattern in a destructuring assignment** (*again, on the fucken LEFT OF THE ASSIGNMENT*)
+
+// **Spread Operator: Building Objects**
+//========================================
+//
+// I can, again, use the **REST Pattern* to build objects
+// In this case I want to create a new object splitting up the weekdays and weekend into their own respective categories
+// So I declare my new object with two variables sat, and then my second variable, which will encompass *literally* the rest of the days
+const { sat, ...weekdays } = restaurant.openingHours;
+console.log(weekdays);
+//
+//
+// **Spread Operator: Passing Multiple Arguments into a Function**
+//========================================
+//
+// The *second* usecase for the **Spread Operator** is to **pass multiple arguments into a function all at the same time**
+// Just like I did with my ingredients array with the prompts in the *Real-World Usecase Example*:
+//
+//========================================
+//
+// const ingredients = [
+//   prompt("Let's make some pasta! What is your first ingredient?"),
+//   prompt('And how about your second?'),
+//   prompt('And finally, your third ingredient?'),
+// ];
+// console.log(ingredients);
+
+// orderPasta: function (ing1, ing2, ing3) {
+//   console.log(
+//     `Here is your delicious Pasta, made from ${ing1}, ${ing2}, ${ing3}`
+//   );
+// },
+
+// restaurant.orderPasta(...ingredients);
+//
+//========================================
+//
+// I'm able to pass in **all three *ing* arguments at once** using the spread operator on my ingredients array, which is made up entirely of whatever is input into the 3 prompts, respectively
+
+// Here I want to take an arbitrary amount of arguments and simply add all of them together
+// But first, I can demonstrate how the **Rest Pattern** works (*LEFT OF THE ASSIGNMENT OPERATOR BRO*) by passing it in the argument
+// Using the **REST Pattern**, or **REST Parameter** in this case, means that I am taking all of the numbers as arguments, and **unpacking them into a new array**
+// SPREAD = EXPAND/UNPACK
+// REST = COMPRESS/PACK
+// Without having to create entire *new variables*, such as an *array*, or an *object*, I can use the **REST Parameter** to pass in all the values at once, *effeciently*
+
+// I understood how to write the function out, but got toally lost at the logic of HOW to actually add the logic for not only all the fucking numbers to be summed together, but I also forgot to declare my loop to iterate over the fucking length of the arguments give, AS WELL as forgetting the whole "+=" bullshit AND not even remotely having the faintest idea to start at the first array integer of the numbers argument..
+// FML
+
+const add = function (...numbers) {
+  let sum = 0;
+  for (let i = 0; i < numbers.length; i++) {
+    sum += numbers[i];
+  }
+  console.log(sum);
+};
+
+add(2, 3); // 5
+add(5, 3, 7, 2); // 17
+add(8, 2, 5, 3, 2, 1, 4); // 25
+
+// OK, so what if I had a variable that held an array of numbers; how would I pass *that* as an argument into my function??
+const ac = [23, 5, 7];
+
+// It's even easier than your dumbass could have thought, my friend: **SPREAD OPERATOR**
+add(...ac); // 35
+//
+//
+//========================================
+// Short Circuiting (&& and ||)
+//========================================
+
+console.log(3 || 'Pat');
