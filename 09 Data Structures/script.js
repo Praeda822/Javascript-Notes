@@ -386,7 +386,83 @@ add(...ac); // 35
 //
 //
 //========================================
-// Short Circuiting (&& and ||)
+// **Short Circuiting (&& and ||)**
 //========================================
+//
+// **Short-Circuiting** means that if the *first returned value* is a **truthy** value, then **it will immediately return that first value
+// Just like what I was doing with the functions homework I gave myself before
 
-console.log(3 || 'Pat');
+// **Short-Circuiting: The || (*or*) Operator**
+//========================================
+//
+// Logical operators can *use* **ANY DATA TYPE**
+// Logical operators can *return* **ANY DATA TYPE**
+// Logical operators can **SHORT-CIRCUIT**
+// Here I compare two values that are *not* **boolean**, and I return a value that is **not a boolean**
+// So if the *first* operand is **truthy** here, then the *other operand* will **not even be evaluated whatsoever**, hence the term **Short-circuiting**
+
+console.log(3 || 'Pat'); // 3
+console.log('' || 'Pat'); // Pat
+console.log(true || 0); // true
+console.log(undefined || null); // null
+
+console.log('------- OR -------');
+// Short-circuiting the entire evaluation here as the operand returns true as soon as it hits the hello string, fuck the rest of it
+console.log(undefined || 0 || '' || 'Hello' || 23 || null); // 'Hello'
+
+// Same shit here as before with those ternary operators and the functions, mate
+// the variable guests1 is declared with a value equal to whether or not the numGuests object exists or not on my restaurant object
+// If it doesn't exist, then I set a *default value* of 10
+//
+const guests1 = restaurant.numGuests ? restaurant.numGuests : 10;
+console.log(guests1); // 10 - no such object, bruz
+//
+// Again, numGuests doesn't exist and so is a **falsy** value, therefore the **or** operator evaluates the **truthy** value of *10*
+const guests2 = restaurant.numGuests || 10;
+console.log(guests2);
+
+console.log('------- AND -------');
+//
+//
+// **Short-Circuiting: The && (*and*) Operator**
+//========================================
+//
+// The **&& (*and*) Operator** works in the exact *opposite* way to the **|| (*or*) Operator**
+// So the **&& (*and*) Operator** looks for the **first *falsy* value and returns it**, fuck the second operand
+// **||** = *Short-circuits* when **true**
+// **&&** = *Short-circuits* when **false**
+//
+console.log(0 && 'Pat'); // 0
+//
+// However, **when all the values are truthy, only the *last* value is returned**
+//
+console.log(7 && 'Pat'); // Pat
+//
+// So I get a short-circuit here at *null* since it's the **first falsy value**, so the **&&** operand returns *true*
+//
+console.log('Hello' && 29 && null && 'Pat');
+//
+// Here I'm checking if a method exists, and if itn does, I want to call it
+//
+if (restaurant.orderPizza) {
+  restaurant.orderPizza('mushrooms', 'spinach');
+}
+//
+// This code does exactly the same as the code above, only I'm using the **&&** operand to *short-circuit* the evaluation
+//
+restaurant.orderPizza && restaurant.orderPizza('mushrooms', 'spinach');
+//
+// false && anything → Short-circuits and returns false because the first operand is falsy.
+// true && false → Returns false because the second operand is falsy.
+// true && 'Hello' → Returns 'Hello' because both operands are truthy, so it returns the last value.
+//
+//
+//========================================
+// **The Nullish Coalescing (*??*) Operator**
+//========================================
+//
+// **The Nullish Coalescing (*??*) Operator** works with the idea of **nullish values*, instead of *falsy values*
+// **Nullish Values** are **Null** and **undefined** (*NOT 0 OR ''*)
+// So since numGuests isn't defined at all, I get 10
+const guestCorrect = restaurant.numGuests ?? 10; // 10
+console.log(guestCorrect);

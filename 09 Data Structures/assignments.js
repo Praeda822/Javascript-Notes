@@ -529,6 +529,29 @@ console.log(filterOddNumbers(1, 2, 3, 4, 5, 6, 7, 8, 9));
 // Examples:
 // hasExamplesInJava(books[0]); // true
 // hasExamplesInJava(books[1]); // "no data available"
+//
+//========================================
+// Here's my really shitty attempt, again...
+//
+// function hasExamplesInJava(obj) {
+//   if (obj.programmingLanguage === 'Java') {
+//     return true;
+//   } else {
+//     return 'No data available';
+//   }
+// }
+// hasExamplesInJava(books[0]);
+//
+// I don't even need the if conditional
+// Because I didn't read the question properly, all I needed to do was use the || or operand and check for the first **truthy** value to return
+// Then subsequently pass in the books object as my obj argument.
+
+function hasExamplesInJava(obj) {
+  return obj.programmingLanguage === 'Java' || 'no data available';
+}
+console.log(hasExamplesInJava(books[0])); //true
+//
+//========================================
 
 // 5.2
 // Some of the book objects have the onlineContent property, which is either true or false. Loop over the books array, and for the books that provide online content, log to the console a string in this format: "${title}" provides online content. Use short-circuiting.
@@ -537,3 +560,27 @@ console.log(filterOddNumbers(1, 2, 3, 4, 5, 6, 7, 8, 9));
 //   // ... removed for clarity
 //   onlineContent: false,          // <-- HERE
 // },
+
+// So in my for loop, I'm checking for the onlineContent property on each book at its respective integer value in the array by looping over the length of the array
+// Then I short-circuit the evaluation since in JS the && operator reads L>R, so if the first operand (left-hand side) is falsy, it immediately returns that value without evaluating the second operand (right-hand side)
+// If the first operand is truthy, it evaluates and returns the second operand
+// So if books[i].onlineContent is true (truthy), the console.log statement is executed, logging the message. If books[i].onlineContent is false (falsy), the console.log statement is skipped
+
+for (let i = 0; i < books.length; i++) {
+  books[i].onlineContent &&
+    console.log(`${books[i].title} provides online content.`);
+}
+//
+//
+//========================================
+// The Nullish Coalescing (??) Operator
+//========================================
+//
+//
+// 6.1
+// There are objects in the books array that don't have the onlineContent property at all. Loop over the books array, and log a string to the console in this format: "${title}" provides no data about its online content.
+
+for (let i = 0; i < books.length; i++) {
+  books[i].onlineContent ??
+    console.log(`${books[i].title} provides no data about its online content`);
+}
