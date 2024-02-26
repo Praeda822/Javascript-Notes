@@ -4,11 +4,8 @@
 const flights =
   '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
 
-//========================================
-// **Array Destructuring**
-//========================================
-
 // Data needed for first part of the section
+
 const restaurant = {
   name: 'Classico Italiano',
   location: 'Via Angelo Tavanti 23, Firenze, Italy',
@@ -33,7 +30,7 @@ const restaurant = {
   // My .this keyword goes up to its function's parent since it's a regular function
   // So return starterMenu array item at (argument value equivalent to array item value),
   // mainMenu array at (argument value equivalent to array item value)
-  order: function (starterIndex, mainIndex) {
+  order(starterIndex, mainIndex) {
     return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
   },
 
@@ -42,12 +39,7 @@ const restaurant = {
   // But I can actually destructure the argument since it's still an object
   // Now I have a function that takes in ONE argument (one object), and creates an order object that doesn't care about the sequential order, nor the exact names, of the index items, which is really useful to specify my arguments
   // I can even add DEFAULT VALUES to my functions arguments, so I don't even need to specify the time or mainIndex for the second orderDelivery call
-  orderDelivery: function ({
-    starterIndex = 1,
-    mainIndex = 0,
-    time = '20:00',
-    address,
-  }) {
+  orderDelivery({ starterIndex = 1, mainIndex = 0, time = '20:00', address }) {
     console.log(
       `Your order of ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} has been received! Your order will be delivered to ${address} at ${time}.`
     );
@@ -55,7 +47,7 @@ const restaurant = {
 
   // This method takes 3 prompt inputs, that are stored in an array called ingredients, from a user and spits out a template literal of what those ingredients are
   // I'm able to pass in all three ing arguments at once to the function by using the spread operator (...ingredients) as an argument
-  orderPasta: function (ing1, ing2, ing3) {
+  orderPasta(ing1, ing2, ing3) {
     console.log(
       `Here is your delicious Pasta, made from ${ing1}, ${ing2}, ${ing3}`
     );
@@ -63,7 +55,7 @@ const restaurant = {
 
   // Using **REST Parameters** as my arguments, or **REST Arguments**, **my first argument is stored in the *mainIngredients* variable, with **all other ingredients being stored inside of my *otherIngredients* variable as an array**
   // If I only have *one* argument, for example, then I'll get the first ingredient variable returned as a string, and the second as an **empty array** as there's *nothing to collect*
-  orderPizza: function (mainIngredients, ...otherIngredients) {
+  orderPizza(mainIngredients, ...otherIngredients) {
     console.log(mainIngredients);
     console.log(otherIngredients);
   },
@@ -81,6 +73,10 @@ restaurant.orderDelivery({
   address: '123 Sesama Street',
   starterIndex: 1,
 });
+
+//========================================
+// **Array Destructuring**
+//========================================
 
 const arr = [2, 3, 4];
 const a = arr[0];
@@ -472,6 +468,7 @@ console.log(guestCorrect);
 // **Logical Assignment Operators**
 //========================================
 //
+//
 // **Logical *or ||* Assignment Operator**
 //========================================
 // The **Logical *or ||* Assignment Operator** assigns a value to a variable **if it is currently falsy**
@@ -528,3 +525,135 @@ rest2.owner &&= '<ANONYMOUS>';
 console.log(rest2);
 // name: 'la Patricko', owner: '<ANONYMOUS>', totalGuests: 10}
 console.log(rest1);
+//
+//
+//
+//========================================
+// **Looping Arrays: The *for-of* Loop**
+//========================================
+//
+//
+const patMenu = [...restaurant.starterMenu, ...restaurant.mainMenu];
+
+// This loop will loop over the entire specified array and, in *each iteration*, it will **give us access to the *current* array element**, in this case **item**
+// the *item* variable **is always the current element in each iteration**
+// I don't need a huge if/else codeblock since I only have the one statement to execute
+for (const item of patMenu) console.log(item);
+
+// With for of loops, I can *continue* **and** *break* them, unlike other abstractions
+// But what if I need the *index value* and not the **current element**?
+// Instead of just *item* **of** *patMenu*, i would have to pass the .entries method to the array
+// And each item is consequently now an array with the index value in the array element itself
+// Since menu.entries creates an array, I can hence destructure it within the for of loop!
+for (const [i, el] of patMenu.entries()) {
+  // by using a nice template literal, I get a well ordered and neat menu
+  // But the code below is the *old* way of doing things
+  // console.log(`${item[0] + 1}: ${item[1]}`);
+  // The better way is to use destructuring:
+  console.log(`${i + 1}: ${el}`);
+}
+
+// So, menu.entries() gives me an array, with a new array, for each respective element item contained within, nested in each position within *that* array
+//
+//
+//
+//========================================
+// **Enhanced Object Literals**
+//========================================
+//
+//
+// My restaurant object has been written in the **Object-Literal Syntax**, as I have *literally* written in what the object is, and contains
+// I don't have to include the *function* word in an object's function methods
+// Just the parentheses is explicit enough
+// I can use **Enhanced Object Literals** to compute new values, like replacing hard coded values of weekdays with destructured array elements
+
+const weekdaysArr = ['mon', 'tue', 'wed', 'thurs', 'fri', 'sat', 'sun'];
+
+const tradingHours = {
+  [weekdaysArr[3]]: {
+    open: 12,
+    close: 22,
+  },
+  [weekdaysArr[4]]: {
+    open: 11,
+    close: 23,
+  },
+
+  [weekdaysArr[5]]: {
+    open: 0, // Open 24 hours
+    close: 12 + 12,
+    // I can also use **Enhanced Object Literals** to *compute* new values
+  },
+};
+
+//========================================
+// **Optional Chaining (*?.*)**
+//========================================
+// **Optional Chaining (*?.*)** can be used in any situation where you're unsure if a property exists in an object
+// **Optional Chaining (*?.*)** is basically like a checkpoint to see whether if an object, or property, is even present at all, and if it is, THEN it will execute the logic to the right hand side of it
+// But if it *doesn't**, it will *immediately* return **undefined**
+
+// I can use **Optional Chaining (*?.*)** when working with *Web APIs*
+// For instance, I have no idea whether my restaurant opens on monday, or even whether the API has an object called openingHours
+// console.log(restaurant.openingHours.mon.open) retuens an **ERROR** because i'm essentially extrapolating *undefined*
+// Howver, I *can* do it with an if statement:
+if (restaurant.openingHours.fri) console.log(restaurant.openingHours.fri.open); // 11
+// So, if openingHours.fri exists, log it to the console
+
+// But how would I even know if restaurant exists?
+// How can I chceck for both??
+// But obviously this not only *looks fucked*, it can get *even more fucked*
+if (restaurant.openingHours && restaurant.openingHours.mon)
+  console.log(restaurant.openingHours.mon.open);
+//
+//
+// **WITH Optional Chaining**
+//========================================
+// Sort of like a pedantic ternary operator, but for working with Web APIs in particular
+// Since mon doesn't exist, it returns *undefined*
+console.log(restaurant.openingHours.mon?.open);
+//
+//The syntax is obj?.prop, which means access the property prop of obj if obj exists, otherwise, return *undefined*
+
+// **Real-world example of Optional Chaining**
+//========================================
+// Lets say I want to see what days the store is open
+// I can use a *for of loop* to loop over the array
+// I log each individual day to the console stored as variable, *day*
+const days = ['mon', 'tue', 'wed', 'thurs', 'fri', 'sat', 'sun'];
+for (const day of days) {
+  // console.log(day);
+  // I need to wrap my **variable name** in brackets to pass it as a **property name**
+  // Then, using **Optional Chaining (*?.*)**, I can check if open exists on each of the day array's index values, and if they *do* exist, log them to the console, otherwise return *undefined*
+  // Then I can use the *Nullish Coalescing Operator* to return "closed" instead of undefined
+  const open = restaurant.openingHours[day]?.open ?? 'closed';
+  console.log(`On ${day}, we open at ${open}`);
+}
+//
+// **Optional Chaining on Methods**
+//========================================
+// I can use **Optional Chaining (*?.*)** to check if a method exists before I call it:
+// Since **Optional Chaining (*?.*)** will return *undefined* if something doesn't exist, I should use the **Nullish Coalescing Operator**
+//
+console.log(restaurant.order?.(0, 1) ?? 'Method does not exist'); // (2) ['Focaccia', 'Pasta']
+// But since orderRisotto doesn't exist, it *immediately* returns **undefined**, which means my entire statement returns *undefined*, therefore my nullish coalescing operator kicks in and immediatel;y returns my string
+console.log(restaurant.orderRisotto?.(0, 1) ?? 'Method does not exist'); // Method does not exist
+//
+//
+// **Optional Chaining on Arrays**
+//========================================
+// Usually I'll be using optional chaining on Arrays to check if they're *empty*
+// So here I'm declaring, only if the users array exists, * users[0]?.* then return the name property
+// Otherwise, again through the use of *nullish Coalescing Operator* which checks for undefined values to return *??*
+// Return the string, 'User array empty'
+const users = [{ name: 'Pat', email: 'hello@pat.io' }];
+console.log(users[0]?.name ?? 'User array empty');
+// Pat
+// Without **Optional Chaining (*?.*)**, I'd have to type out entire if blocks checking for greater/less than and/or equals to, etc.
+
+//
+//
+//
+//========================================
+// **Looping Objects: Keys, Values and Entries**
+//========================================

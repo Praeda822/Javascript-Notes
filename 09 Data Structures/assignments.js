@@ -731,3 +731,152 @@ console.log(
     (team1 < team2 && game.team1) || (team2 < team1 && game.team2)
   } is more likely to win`
 );
+//
+//
+//========================================
+// Looping Arrays: The for-of Loop
+//========================================
+//
+//
+// 8.1
+// Use the for-of loop to loop over the books array and sum the pages of all books. Use the pageSum variable below, and the pages property of the book objects.
+
+let pageSum = 0;
+
+for (const item of books) {
+  console.log((pageSum += item.pages));
+}
+//
+// Should be called book of books, for readability..
+//
+//
+
+// 8.2
+// Below is the allAuthors variable which stores an empty array. Use the for-of loop to fill allAuthors with the authors of each book from the books array.
+//Remember that each book object has the author property, which can be a string (if there is only a single author) or an array (if there are multiple authors). You may need to use the typeof operator. You can also use multiple loops if needed. The allAuthors array should have just one level (no nested arrays).
+
+const allAuthors = [];
+
+for (const book of books) {
+  if (typeof book.author === 'string') {
+    allAuthors.push(book.author);
+  } else {
+    for (const author of book.author) {
+      allAuthors.push(author);
+    }
+  }
+}
+
+// cunt, what the FUCK...
+// The outer for-of loop iterates over each book object in the books array.
+// Inside the loop, there's an if statement that checks if the author property of the current book is a string using typeof book.author === 'string'. If it is, it means the book has only one author, and that author's name is added to the allAuthors array with allAuthors.push(book.author).
+// The else statement is executed if the author property is not a string. In this case, it's assumed to be an array (since the author property can be either a string or an array, as per the problem statement). This is where the inner for-of loop comes into play:
+// The inner for-of loop iterates over each author in the book.author array (since book.author is an array in this case).
+// For each author in this array, allAuthors.push(author) is called to add the author's name to the allAuthors array.
+
+// 8.3
+// Use the for-of loop together with Array.entries() method to log each author from allAuthors to the console together with its index. Make the index start from 1, instead of 0.
+// Expected output:
+// 1. Robert Sedgewick
+// 2. Kevin Wayne
+// 3. Harold Abelson
+//  ...                    // part removed for clarity
+// 15. Cal Newport
+
+// Index = i, value = el
+for (const [i, el] of allAuthors.entries()) {
+  console.log(`${i + 1}: ${el}`);
+}
+//
+//
+//
+//========================================
+// Enhanced Object Literals
+//========================================
+//
+//
+// 9.1
+// Below is the bookData array that contains other arrays. Each inner array consists of the property name (first element), and the value (second element). For example, in ['title', 'Computer Networking: A Top-Down Approach'], 'title' is the property name, and 'Computer Networking: A Top-Down Approach' is meant to be the value assigned to that property name.
+
+// Using computed properties, fill the newBook object with the properties and values from the bookData array. The first one is done already.
+
+const bookData = [
+  ['title', 'Computer Networking: A Top-Down Approach'],
+  ['author', ['James F. Kurose', 'Keith W. Ross']],
+  ['publisher', 'Addison Wesley'],
+];
+
+// [0][0] = [0][1]
+// So zero zero is equal to position zero one, etc.
+const newBook = {
+  [bookData[0][0]]: bookData[0][1],
+  [bookData[1][0]]: bookData[1][1],
+  [bookData[2][0]]: bookData[2][1],
+};
+console.log(newBook);
+//
+//
+// 9.2
+// Below is the pages variable. Add it as a property of the newBook2 object. Use the shorter way.
+
+const pages = 880;
+
+const newBook2 = {
+  title: 'The C Programming Language',
+  author: ['Brian W. Kernighan', 'Dennis M. Ritchie'],
+  pages,
+};
+//
+//
+//
+//========================================
+// Optional Chaining (?.)
+//========================================
+//
+//
+// 10.1
+// Write a function called getFirstKeyword that takes the book object as an argument. This function should return the first keyword from the book's keywords property (array) or undefined (if the keywords property doesn't exist). It shouldn't throw an error. Use optional chaining for that.
+// Examples:
+// getFirstKeyword(book[0]); // "computer science"
+// getFirstKeyword(newBook2); // undefined
+
+function getFirstKeyword(book) {
+  return book.keywords?.[0];
+}
+console.log(getFirstKeyword(books[0]));
+//
+//
+//
+//
+//========================================
+// Looping Objects: Keys, Values and Entries
+//========================================
+//
+//
+// 11.1
+// Below is the entries variable that stores an empty array. Use the for-of loop together with the Object.keys() method to loop over the thirdParty.goodreads property (array) of the first book object from the books array. For each key, push a new array that contains that key to the entries array.
+// In the end, the entries array should be filled with arrays containing keys:
+[
+  ['rating'],
+  ['ratingsCount'],
+  ['reviewsCount'],
+  ['fiveStartRatingCount'],
+  ['oneStartRatingCount'],
+];
+const entries = [];
+//
+//
+// 11.2
+// The Object.values() method returns an array, which means you can call the Array's entries() method on it, for example, Object.entries(books[0].thirdParty.goodreads).entries(). The Array's entries() method returns [index, value] arrays for each element in the array.
+// Use the for-of loop together with the Object.values() method and Array's entries() method to loop over thirdParty.goodreads property of the first book from the books array.
+// Push each value to the appropriate inner array in the entries array (use index from entries()).
+
+//
+//
+// 11.3
+// Use the Object.entries() method on the thirdParty.goodreads property of the first book from the books array. Assign the returned value to the variable called entries2.
+
+//
+//
+// 11.4
+// Log the entries and entries2 variables to the console, and compare them. They should look the same.
