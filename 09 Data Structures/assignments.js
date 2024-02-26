@@ -368,7 +368,7 @@ console.log(bookPublisher, restOfTheBook);
 // const {publisher: bookPublisher, ...restOfTheBook} = books[1];
 
 // 4.3
-// Write a function called printBookAuthorsCount that has two parameters called title and authors. The authors parameter should accept any number of arguments. This function should log to the console a string formatted like that: "The book "${title}" has ${authors.length} authors".
+// Write a function called printBookAuthorsCount that has two parameters called title and authors. The authors parameter should accept any number of arguments. This function should log to the console a string formatted as the following: "The book "${title}" has ${authors.length} authors".
 
 function printBookAuthorsCount(title, ...authors) {
   console.log(`The book ${title} has ${authors.length} authors`);
@@ -410,7 +410,7 @@ printBookAuthorsCount('Algorithms', 'Robert Sedgewick', 'Kevin Wayne');
 //I'm getting undefined because I''m trying to console.log inside the ternary operator..
 // CONSOLE.LOG OUTSIDE OF LOOPS, IDIOT
 // Instead, I should add the even number to sumEven AND THEN log sumEven after the loop
-// I can use the MODULO OPERATOR ( % ) to check if the number is even (divisible by two), NOT fucking mathematical operators..
+// I SHOULD use the MODULO OPERATOR ( % ) to check if the number is even (divisible by two), NOT fucking mathematical operators..
 
 // numbers[i] % 2 === 0 ? numbers[i] : 0;
 // condition ? value_if_true : value_if_false
@@ -584,3 +584,150 @@ for (let i = 0; i < books.length; i++) {
   books[i].onlineContent ??
     console.log(`${books[i].title} provides no data about its online content`);
 }
+//
+//
+//
+//========================================
+// Logical Assignment Operators
+//========================================
+//
+//
+// 7.1
+// Some of the book objects from the books array are missing the edition property. Loop over the books array, and assign this property with a number 1 (if it doesn't already exist). Use logical assignment operators.
+
+// I know edition exists on the first few books, so I should check for the first FALSY value to return
+for (let i = 0; i < books.length; i++) {
+  books[i].edition ||= 1;
+  console.log(books);
+}
+
+// 7.2
+// Some of the book objects from the books array have the highlighted property, which by default is set to true. Iterate over the books array, and if the thirdParty.goodreads.rating property is less than 4.2, reassign it with false.
+// Use the &&= operator (tip: you may also need the ! operator)
+
+for (let i = 0; i < books.length; i++) {
+  books[0].thirdParty.goodreads.rating <= 4.2
+    ? (books[0].highlighted &&= false)
+    : (books[0].highlighted &&= true);
+  console.log(books);
+}
+
+// CORRECT ANSWER (dumbass):
+//  for (let i = 0; i < books.length; i++) {
+//    books[i].highlighted &&= !(books[i].thirdParty.goodreads.rating < 4.2)
+//  }
+
+// I used the ternary operator unnecessarily (again!)
+// The task can (and was meant to) be accomplished more straightforwardly with the &&= operator and a logical NOT ! operator.
+
+// books[i].highlighted
+// Checks for a truthy value, and if it is, it will evaluate the right-hand side of the &&= operator, since &&= is checking for the first truthy value
+// If it is false, it will skip the evaluation and move on to the next iteration of the loop
+
+// !(books[i].thirdParty.goodreads.rating < 4.2)
+// Checks if the rating is NOT less than 4.2, and if the rating is 4.2 or higher, this expression evaluates to true, and books[i].highlighted remains true (default value)
+//  If the rating is less than 4.2, the expression evaluates to false, and books[i].highlighted is set to false.
+
+// My error was mainly in my, again incorrect, use of the ternary operator as well as hardcoding both my index value of 0 (instead of the loop variable, i), as well as having all my shit around the wrong fucking way
+
+//========================================
+// CODING CHALLENGE #1:
+//========================================
+// 1. Create one player array for each team (variables 'players1' and 'players2')
+// 2. The first player in any player array is the goalkeeper, and the others are field players. For Bayern Munich (Team 1), create one variable ('gk'), with the goalkeeper's name, and one array ('fieldplayers') with all the remaining 10 field players
+// 3. Create an array, 'allPlayers', containing all players of both teams (22 players total)
+// 4. During the game, Bayern Munich (Team1) used 3 substitute players. Create a new array ('players1Final') containing all the original team1 players, plus 'Thiago', 'Coutinho', 'Perisic'
+// 5. Based on the game.odds objecty, create one variable for each odd (called 'team1', 'draw', 'team2')
+// 6. Write a function ('printGoals') that receives an arbitrary number of player names (not an array), and prints each of them to the console, along with the number of goals scored (number of player names passed in), then, call the function again with the players from game.scored
+// 7. The team with the lower odds is more likely to win. Print to the console which team is more likely to win, WITHOUT, using an if/else statement, NOR the ternary operator (logical assignment operators)
+
+// TEST DATA FOR 6:
+// 'Davies', 'Muller', 'Lewandowski', 'Kimmich'
+
+const game = {
+  team1: 'Bayern Munich',
+  team2: 'Borussia Dortmund',
+
+  players: [
+    [
+      'Neuer',
+      'Pavard',
+      'Martinez',
+      'Alaba',
+      'Davies',
+      'Kimmich',
+      'Goretzka',
+      'Coman',
+      'Muller',
+      'Gnarby',
+      'Lewandowski',
+    ],
+    [
+      'Burki',
+      'Schulz',
+      'Hummels',
+      'Akanji',
+      'Hakimi',
+      'Weigl',
+      'Witsel',
+      'Hazard',
+      'Brandt',
+      'Sancho',
+      'Gotze',
+    ],
+  ],
+
+  score: '4.0',
+  scored: ['Lewandowksi', 'Gnarby', 'Lewandowski', 'Hummels'],
+  date: 'Nov 9th 2037',
+  odds: {
+    team1: 1.33,
+    x: 3.25,
+    team2: 6,
+  },
+};
+
+//1.
+const [players1, players2] = game.players;
+console.log(players1, players2);
+
+// 2.
+// (what the fucking FUCK is THIS shit cunt!?)
+// const gk = { gk: 'Neuer', fieldPlayers: players1 };
+const [gk, ...fieldplayers] = players1;
+console.log(gk, fieldplayers);
+
+// 3.
+const allPlayers = [...players1, ...players2];
+console.log(allPlayers);
+
+// 4.
+const players1Final = [...players1, 'Thiago', 'Coutinho', 'Perisic'];
+console.log(players1Final);
+
+// 5.
+const { team1, x: draw, team2 } = game.odds;
+console.log(team1, draw, team2, game.odds);
+
+// 6.
+// cunt what the FUCK is this ESL garbage get fucked!!!!!
+// function printGoals(...names) {
+//   const totalGoals = names.length;
+//   names.forEach(names => console.log(`${names} scored ${totalGoals} goals`));
+// }
+
+// printGoals(game.scored);
+// Teacher's version (what the fuck cunt??):
+const printGoals = function (...players) {
+  console.log(`${players.length} goals were scored`);
+};
+
+printGoals('Davies', 'Muller', 'Lewandowski', 'Kimmich');
+printGoals(...game.scored);
+
+// 7.
+console.log(
+  `${
+    (team1 < team2 && game.team1) || (team2 < team1 && game.team2)
+  } is more likely to win`
+);

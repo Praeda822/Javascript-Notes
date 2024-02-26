@@ -237,7 +237,7 @@ const mainMenuCopy = [...restaurant.mainMenu];
 
 // Joining two arrays together
 //========================================
-// Create an aray that joins both the man menu, and the starter menu, together into ONE array
+// Create an aray that joins both the main menu, and the starter menu, together into ONE array
 const heyMenu = [...restaurant.mainMenu, ...restaurant.starterMenu];
 console.log(heyMenu);
 
@@ -363,7 +363,7 @@ console.log(weekdays);
 // REST = COMPRESS/PACK
 // Without having to create entire *new variables*, such as an *array*, or an *object*, I can use the **REST Parameter** to pass in all the values at once, *effeciently*
 
-// I understood how to write the function out, but got toally lost at the logic of HOW to actually add the logic for not only all the fucking numbers to be summed together, but I also forgot to declare my loop to iterate over the fucking length of the arguments give, AS WELL as forgetting the whole "+=" bullshit AND not even remotely having the faintest idea to start at the first array integer of the numbers argument..
+// I understood how to write the function out, but got toally lost at HOW to actually add the logic for not only all the fucking numbers to be summed together, but I also forgot to declare my loop to iterate over the fucking length of the arguments give, AS WELL as forgetting the whole "+=" bullshit AND not even remotely having the faintest idea to start at the first array integer of the numbers argument..
 // FML
 
 const add = function (...numbers) {
@@ -466,3 +466,65 @@ restaurant.orderPizza && restaurant.orderPizza('mushrooms', 'spinach');
 // So since numGuests isn't defined at all, I get 10
 const guestCorrect = restaurant.numGuests ?? 10; // 10
 console.log(guestCorrect);
+//
+//
+//========================================
+// **Logical Assignment Operators**
+//========================================
+//
+// **Logical *or ||* Assignment Operator**
+//========================================
+// The **Logical *or ||* Assignment Operator** assigns a value to a variable **if it is currently falsy**
+// This approach *can* get a bit dodgy when I initialise variables with **0**, since **0** *is a falsy value*, and I'll end up with a value of *10*
+//
+//
+const rest1 = {
+  name: 'Capri',
+  totalGuests: 0,
+};
+
+const rest2 = {
+  name: 'la Patricko',
+  owner: 'Patrick Bibadababidi',
+};
+
+// Here I'm returning the total number of guests (*if it does exist*), otherwise, *10* will be returned
+// but I'm instead using the **|| or Operator** to add the totalGuests to the rest2 object since totalGuests doesn't exist in the first place thanks to **Short-circuiting**
+// Since I'm returning this falsy value first, it's simply added to the object
+// rest1.totalGuests = rest1.totalGuests || 10;
+// rest2.totalGuests = rest2.totalGuests || 10; // 20
+//========================================
+// The code here does the same as above, just neater
+// rest1.totalGuests ||= 10;
+// rest2.totalGuests ||= 10;
+
+// **Logical *Nullish* Assignment Operator**
+//========================================
+// The **Logical *nullish ??* Assignment Operator** assigns a value to a variable **if it is currently null or undefined**
+//
+//
+//
+rest1.totalGuests ??= 10;
+rest2.totalGuests ??= 10;
+//
+//
+// **Logical *and &&* Assignment Operator**
+//========================================
+// The **Logical *and &&* Assignment Operator** assigns a value to a variable **if it is currently truthy**
+//
+// What if I want to anonymize the owners of the restaurant (if present)?
+// This works because && is looking for the first *falsy* value and will return it if it *is* falsy
+// Since there IS an owner property on the rest2 object, it becomes *truthy* and evaluates the <ANONYMOUS> (*second part*)
+// rest2.owner = rest2.owner && '<ANONYMOUS>';
+
+// But since rest1 **doesn't** have the owner object, it returns the first *falsy* value, which is rest1.owner
+// And since rest1owner doesn't exist, it returns *undefined*, because I'm returning **null/undefined** values, since I'm using the **&&** Operator
+// rest1.owner = rest1.owner && '<ANOYMOUS>';
+
+// I can fix that, though, by using a **logical Assignment Operator**:
+rest1.owner &&= '<ANONYMOUS>';
+rest2.owner &&= '<ANONYMOUS>';
+
+console.log(rest2);
+// name: 'la Patricko', owner: '<ANONYMOUS>', totalGuests: 10}
+console.log(rest1);
