@@ -150,7 +150,7 @@ const { name, openingHours, categories } = restaurant;
 console.log(name, openingHours, categories);
 // String, Object, Object
 
-// I can destructure objects and assign the extracted property values to variables with NEW variable names (that don't (have to) match the property name)
+// I can destructure objects and assign the extracted property values to variables with NEW variable names that don't (have to) match the property name
 const {
   name: restaurantName,
   openingHours: hours,
@@ -657,3 +657,47 @@ console.log(users[0]?.name ?? 'User array empty');
 //========================================
 // **Looping Objects: Keys, Values and Entries**
 //========================================
+//
+// **Property Names**
+// ========================================
+// I can loop over Objects, even though they aren't iterables, in an *indirect* way:
+//
+// First I use the **Object.keys** method to get an array of the object's own property names
+// In this case, I'm getting the *keys* of the **openingHours** object
+// Then I store those key values in a variable (now an array) named properties
+const properties = Object.keys(openingHours);
+console.log(properties);
+
+// Next I initialize a string, **openStr** with a *template literal* that includes the **length of the properties array**, which represents the number of *days* the business is open.
+let openStr = `We are open on ${properties.length} days: `;
+
+// Now I use a *for of* loop to iterate over **each element in the *properties* array**
+// In each iteration, the current property name (*which represents a day*) is appended to the openStr string, followed by a comma and a space
+// Finally, the updated string will contain a message about the number of days the business is open, followed by a list of those days.
+for (const day of properties) {
+  openStr += `${day}, `;
+}
+console.log(openStr);
+//
+// **Property Values**
+// ========================================
+// But what if I want the object's **values**, and not the *keys*?
+// // First I use the **Object.values** method to get an array of the object's own **property values**
+// In this case, I'm getting the *keys* of the **openingHours** object
+const values = Object.values(openingHours);
+console.log(values);
+//
+// **Entire Object**
+// ========================================
+// But in order to loop over the entire object, I really need to use the **entries()** method, which is **names** + **values** *combined together*
+const entries = Object.entries(openingHours);
+console.log(entries);
+
+// NOW I have an **array of arrays**, or *2D Array*, **which is inclusive of both a key and its respective value pair stored inside a nested array
+// So *now* I can use a *for of* loop to loop through the *new* **entries array of arrays**
+// Which ultimately gives me, both, **each key and each value**
+// So I've essentially just added *another layer of abstraction* ontop of the entries array because.....I'm going to **destructure** the *values* object, which is really an *array* but is still *technically* an Object in Javascript since **arrays are objects** lol
+//
+for (const [key, { open, close }] of entries) {
+  console.log(`On ${key} we open at ${open} and close at ${close}`);
+}

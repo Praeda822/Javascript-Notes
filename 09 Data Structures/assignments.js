@@ -692,7 +692,6 @@ const [players1, players2] = game.players;
 console.log(players1, players2);
 
 // 2.
-// (what the fucking FUCK is THIS shit cunt!?)
 // const gk = { gk: 'Neuer', fieldPlayers: players1 };
 const [gk, ...fieldplayers] = players1;
 console.log(gk, fieldplayers);
@@ -856,27 +855,86 @@ console.log(getFirstKeyword(books[0]));
 // 11.1
 // Below is the entries variable that stores an empty array. Use the for-of loop together with the Object.keys() method to loop over the thirdParty.goodreads property (array) of the first book object from the books array. For each key, push a new array that contains that key to the entries array.
 // In the end, the entries array should be filled with arrays containing keys:
-[
-  ['rating'],
-  ['ratingsCount'],
-  ['reviewsCount'],
-  ['fiveStartRatingCount'],
-  ['oneStartRatingCount'],
-];
+// [
+//   ['rating'],
+//   ['ratingsCount'],
+//   ['reviewsCount'],
+//   ['fiveStartRatingCount'],
+//   ['oneStartRatingCount'],
+// ];
 const entries = [];
-//
-//
+
+for (const key of Object.keys(books[0].thirdParty.goodreads)) {
+  entries.push([key]);
+}
+console.log(entries);
+// didn't read it properly and totally fucked it...
+// Answer provided is the correct one FML
+
 // 11.2
 // The Object.values() method returns an array, which means you can call the Array's entries() method on it, for example, Object.entries(books[0].thirdParty.goodreads).entries(). The Array's entries() method returns [index, value] arrays for each element in the array.
 // Use the for-of loop together with the Object.values() method and Array's entries() method to loop over thirdParty.goodreads property of the first book from the books array.
 // Push each value to the appropriate inner array in the entries array (use index from entries()).
 
-//
+//Ok, shit for brains, break it down into little parts:
+// Create a NEW variable to store ALL THE VALUES of thirdParty.goodreads from the FIRST BOOK, in an array
+const newValues = Object.values(books[0].thirdParty.goodreads);
+
+// Now use the entries method on the NEW array I just made
+// const newEntries = Object.entries(newValues);
+//Use the entries() method on the newValues array: THIS IS WHERE I FUCKED UP. I need to use newValues.entries() instead of Object.entries(newValues). The entries() method is a method of arrays, not objects, and it gives you an iterator that returns [index, value] pairs for each element in the array.
+
+const newEntries = newValues.entries();
+
+// for of loop over that new entries array of arrays
+// destructure the key/value pairs in the loop argument to index, value
+
+// for (const [index, value] of Object.entries(
+//   Object.values(books[0].thirdParty.goodreads)
+// )) {
+//   entries.push([index, value]);
+// }
+// console.log(entries);
+// WRONG; USELESS CUNT
+// I need to loop over newValues.entries() instead of using Object.entries() on the array of values.
+
+for (const [i, v] of newEntries) {
+  // now push each value to the appropriate inner array IN THE ENTRIES ARRAY
+  // So for each index, push the corresponding value to THAT index
+  entries[i].push(v);
+}
 //
 // 11.3
 // Use the Object.entries() method on the thirdParty.goodreads property of the first book from the books array. Assign the returned value to the variable called entries2.
+
+const entries2 = Object.entries(books[0].thirdParty.goodreads);
 
 //
 //
 // 11.4
 // Log the entries and entries2 variables to the console, and compare them. They should look the same.
+
+// THEY ARE THE SAME HOORAY
+console.log(entries);
+console.log(entries2);
+//
+//
+//========================================
+// CODING CHALLENGE #2:
+//========================================
+
+// 1.
+// Loop over the game.scored array and print each player name to the console, along with the goal number (Example: "Goal 1: Lewandowski")
+for (const [goal, kicker] of game.scored.entries()) {
+  console.log(`Goal ${goal + 1} : ${kicker}`);
+}
+
+// 2.
+// Use a loop to calculate the average odd and log it to the console
+let sum = 0;
+
+for (let i = 0; i < game.odds.length; i++) {
+  sum += game.odds[i];
+}
+
+console.log(sum); // FUCK this shit cunt
