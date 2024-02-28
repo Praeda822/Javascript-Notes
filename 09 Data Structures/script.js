@@ -846,6 +846,64 @@ checkBaggage('Clothes, books, and a gun for protection');
 console.log('a+very+nice+string'.split('+'));
 // Another very common way of dividing strings is by declaring the space as my divider
 console.log('Patrick Kelly'.split(' '));
-// Now I can use the power of destructuring to create ne variables
+// Now I can use the power of destructuring to create new variables
 const [myfirstName, myLastName] = 'Patrick Kelly'.split(' ');
 console.log(myfirstName, myLastName);
+// Let's say I want to make the lastname variable uppercase, and add a 'Mr.' title at the beginning
+// I can accomplsh this with the **join()** method
+// The **join()** method works exactly the same as split, but in reverse
+// since the split method creates a new array, I can loop over it with a for of loop
+// Looping through my array I push the new value to the already initialized empty array, namesUpper
+// *n of names* means that position 0, or the first position, of the names variable, which is equal to the input string value split up into its individual constituents, is to be UpperCase
+// Then I concatenate that with the rest of the name, starting from the *SECOND* letter (*+1*by using the slice method on the n value and the position Im slicing from
+const newName = ['Mr.', myfirstName, myLastName.toUpperCase()].join(' ');
+console.log(newName);
+
+const capName = function (name) {
+  const namesUpper = [];
+  const names = name.split(' ');
+
+  for (const n of names) {
+    // namesUpper.push(n[0].toUpperCase() + n.slice(1));
+    // So push to the empty array:
+    // value n, but replace n at position 0 (first letter), with n at position 0 but UPPERCASE
+    // The way to do this is:
+    namesUpper.push(n.replace(n[0], n[0].toUpperCase()));
+  }
+  console.log(namesUpper.join(' '));
+};
+capName('lauren marshall smith davis buttress');
+//
+// **Padding a String**
+//========================================
+// **Padding a string** means **to add a number of characters to a string until that string has the desired length**
+// So here by padding the start, i've appended my string with enough '+' characters that the resulting string now has a total of 25 characters
+// The *arguments* are (**length of the padded string**, **'what you want to pad it with'** )
+const message = 'Go git farked';
+console.log(message.padStart(25, '+'));
+// padEnd exists as well, and since padStart creates a new string value, I can use the padEnd method on it the same way I've been using all the other methods on resulting strings
+console.log(message.padStart(25, '+').padEnd(39, '+'));
+// A real world example of this is like when I see a credit card on the internet, or my PayPal
+// So no matter the length of my string, I only want to return the last 4 characters of it
+// All the other characters should be asterisks
+// And the total amount of characters should be equal to the length of the characters input
+const maskCreditCard = function (number) {
+  const str = number + '';
+  const last = str.slice(-4);
+  return last.padStart(str.length, '*');
+};
+
+console.log(maskCreditCard(1234567898763468));
+console.log(maskCreditCard('1234567898763468'));
+//
+// **The *repeat()* Method**
+//========================================
+// I can use the **repeat** method to essentially just repeat a string
+// The arguments parameter is for how many times the string should be repeated
+const message2 = 'Bad weather..All Departures Delayed... ';
+console.log(message2.repeat(5));
+// An example of this would be like a visual indicator..
+const planesWaiting = function (n) {
+  console.log(`There are ${n} planes in line ${'✈'.repeat(n)}`);
+};
+planesWaiting(5);
