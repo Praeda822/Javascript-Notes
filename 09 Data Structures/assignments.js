@@ -938,3 +938,103 @@ for (let i = 0; i < game.odds.length; i++) {
 }
 
 console.log(sum); // FUCK this shit cunt
+
+//========================================
+// Working with Strings: Part 1
+//========================================
+//
+// 15.1
+// Take the ISBN property of the first book from the books array, and log to the console characters at index 6, 4, 9 and 8. Use bracket notation to access individual characters.
+
+console.log(books[0].ISBN[6]);
+console.log(books[0].ISBN[4]);
+console.log(books[0].ISBN[9]);
+console.log(books[0].ISBN[8]);
+
+// 15.2
+// Below is the quote variable that stores a string. Find the index of the word 'chess', and log it to the console.
+
+const quote =
+  'A computer once beat me at chess, but it was no match for me at kick boxing';
+console.log(quote.indexOf('chess'));
+// 15.3
+// Extract the word "boxing" from the same quote string, and log it to the console.
+
+console.log(quote.slice(quote.lastIndexOf(' ') + 1));
+
+// 15.4
+// Some authors are noted as "(Contributor)", for example "Julie Sussman (Contributor)". Create a function called isContributor that takes an author's name as an argument, and returns either true (if he's a contributor) of false (if he's not a contributor). The string "(Contributor)" is always the last part of the author's name string.
+// Examples:
+// isContributor('Julie Sussman (Contributor)'); true
+// isContributor('Robert Sedgewick'); false
+
+// Use lastIndexOf() method is used on the author string to find the last occurrence of the substring '(Contributor)'
+// Function checks if the returned index is not equal to -1, and if not, then the substring '(Contributor)' was found in the author string,and will return true
+// If the substring '(Contributor)' is not found in the author string, the lastIndexOf() method will return -1, and the function will return false, indicating that the author is not a contributor.
+function isContributor(author) {
+  return author.lastIndexOf('(Contributor)') !== -1;
+}
+console.log(isContributor('Robert Sedgewick'));
+//
+//
+//========================================
+// Working with Strings: Part 2
+//========================================
+//
+// 16.1
+// Write a function called normalizeAuthorName that takes an author's name (string) as an argument, and returns the same string, but the first name and last name are capitalized, and the "(Contributor)" part is removed (if exists).
+// You can be sure that the author's name always consists of two words separated by a space, and possibly ends with "(Contributor)". The string may also contain trailing spaces.
+
+function normaliseAuthorName(author) {
+  author = author.replace('(Contributor)', '').trim();
+  const firstName = author.slice(0, author.indexOf(' '));
+  const lastName = author.slice(author.indexOf(' ') + 1);
+  const fixedFirstName =
+    firstName[0].toUpperCase() + firstName.slice(1).toLowerCase();
+  const fixedLastName =
+    lastName[0].toUpperCase() + lastName.slice(1).toLowerCase();
+  return fixedFirstName + ' ' + fixedLastName;
+}
+
+normaliseAuthorName('  JuliE sussMan (Contributor)');
+// 16.2
+// Take the title of the second book (books[1]) from the books array, and replace the word "Programs" with "Software". Assign the new string to the newBookTitle variable.
+
+const newBookTitle = books[1].title.replace('Programs', 'Software');
+console.log(newBookTitle);
+
+// 16.3
+// Write a function called logBookTheme that takes book's title (string), and logs to the console:
+
+function logBookTheme(title) {
+  if (title.startsWith('Computer')) {
+    console.log('This book is about computers');
+  } else if (title.includes('algorithms', 'structures')) {
+    console.log('This book is about algorithms and data structures');
+  } else if (
+    title.endsWith('system', 'systems') &&
+    title.includes('operating')
+  ) {
+    console.log(
+      'This book is about some systems, but definitely not about operating systems'
+    );
+  } else console.log('Idek what the fuck this book is about');
+}
+logBookTheme('IDK');
+
+// WRONGGGGGGGG
+// Retarded cunt
+// you fucked your operators up, shit for brains, had it right the first time....
+// CORRECT CODE:
+
+// function logBookTheme(title) {
+//   title = title.toLowerCase();
+
+//   if (title.startsWith('computer')) {
+//     console.log('This book is about computers');
+//   } else if (title.includes('algorithms') && title.includes('structures')) {
+//     console.log('This book is about algorithms and data structures');
+//   } else if ((title.endsWith('system') || title.endsWith('systems')) && !title.includes('operating')) {
+//     console.log('This book is about some systems, but definitely not about operating systems');
+//   }
+// }

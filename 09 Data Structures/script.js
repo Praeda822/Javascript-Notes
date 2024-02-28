@@ -701,3 +701,151 @@ console.log(entries);
 for (const [key, { open, close }] of entries) {
   console.log(`On ${key} we open at ${open} and close at ${close}`);
 }
+//
+// andd....here is where I want to fucking give up again becuse for some reason this entire section makes me feel fucking RETARDED
+//
+//========================================
+// **Working with Strings**
+//========================================
+//
+// I can manipulate strings the same way I do arrays
+//
+const vitriol = 'Fuck this stupid destructuring shit';
+const upsetti = 'FUC';
+console.log(upsetti[0]);
+console.log(upsetti[1]);
+console.log(upsetti[2]);
+console.log('dog'[0]);
+console.log(vitriol.length);
+
+// I can even get the position of a certain letter in the string
+// Keeping in mind a space counts as a character
+console.log(vitriol.indexOf('r'));
+// I can further narrow the definition in the case of multiple instances of the letter r
+console.log(vitriol.lastIndexOf('r'));
+// I can even search for entire words (case sensitive)
+console.log(vitriol.lastIndexOf('destructuring'));
+
+// A useful usecase for this is extracting a certain word from a astring in order to **slice** it.
+// The resulting string is known as a **sub-string**
+// This does NOT change the original string value, since **Strings are **Primitives**, however *slice* does return a new string
+console.log(vitriol.slice(17));
+// I can also specify an end value to only get half the word
+console.log(vitriol.slice(17, 25));
+
+// Many times I wont even know the string I've received from a Web API, though, so how can I do it without hard-coding the values I want to extract?
+// I can use the slice method on my variable, but then specify my starting point for extraction, which is the beginning: *0*, then i use the **indexOf** method to extract my string up until the first space character
+console.log(vitriol.slice(0, vitriol.indexOf(' ')));
+// Same again below, but for the **last** space character
+console.log(vitriol.slice(0, vitriol.lastIndexOf(' ') + 1));
+// I can even define a negative end parameter to start extracting my string from the end and vice versa
+console.log(vitriol.slice(-2));
+console.log(vitriol.slice(1, -1));
+
+// Create a function that takes an airplane seat and returns whether that seat is middle seat
+
+const checkPlaneSeat = function (seat) {
+  // B and E are middle seats
+  const s = seat.slice(-1);
+  if (s === 'B' || s === 'e') {
+    console.log('You got the middle seat!');
+  } else {
+    console.log('Lucky boyy');
+  }
+};
+
+checkPlaneSeat('3E');
+
+// But why do *strings* have *methods* when they are **Primitives**, since we're only supposed to be allowed to use methods on **objects** such as *arrays*
+// Behind the Scenes, **Javascript will automatically convert that string primitive to a string object** with the same content, and then that method is called on the object
+// This is known as **Boxing** because it takes my string and essentially puts it into a box, which is the *object*
+console.log(new String('Pat'));
+console.log(typeof new String('Pat'));
+// **All String Methods return Primitives, even if called on a String Object**
+console.log(typeof new String('Pat').slice(-1));
+//
+// I can also manipulate strings to fix capitalization
+const passenger = 'PaTrIcK';
+const passengerLower = passenger.toLowerCase();
+const passengerCorrect =
+  passengerLower[0].toUpperCase() + passengerLower.slice[1];
+console.log(passengerCorrect);
+
+// **Real-Life Example: User-Input Email**
+//========================================
+//
+// Compare the two email string values below
+const email = 'hello@pat.io';
+const loginEmail = '  Hello@Pat.Io  \n';
+// When I'm *converting* or *comparing* emails, the **first step** is usually **toLowerCase()**
+const lowerEmail = loginEmail.toLowerCase();
+const trimmedEmail = lowerEmail.trim();
+console.log(trimmedEmail);
+// But I don't need to fuck around with temporary/intermediate variable(s) to hold things when I can just do it in one line
+// This works because **toLowerCase() will return a new string**, and **on *strings* I can call String Methods**:
+const normalisedEmail = loginEmail.toLowerCase().trim();
+console.log(normalisedEmail);
+// Finally the comparison
+console.log(email === normalisedEmail);
+//
+// **Replacing Parts of a String**
+//========================================
+//
+// The **replace()** method takes *two arguments* when passed:
+// The first is the one we want to replace, and **the second argument is the *string* that will *replace* the first one**
+// Since the resulting variable from the priceUK calculation is a *string*, I can use the **.replace() method on it again immediately**
+// And since **.replace() creates a *brand new* string, it does not *mutate* the *properties* of the **original**
+const priceAu = '$42.089';
+const priceUK = priceAu.replace('$', '|||').replace('.', ',');
+console.log(priceUK);
+
+// The below doesn't work however, so I need to use somthing called a **Regular Expression**, so that I can target *all occurences* of 'fucked'
+const announcement = 'All passengers eat shit, and get fucked';
+console.log(announcement.replace('Fucked', 'home safely'));
+
+// To create a **Regular Expression**, I need to wrap my *string* in **slashes (*\*) instead of quotes (*''*)**
+// Finally I need to add the **g** flag at the end, which stands for *Global*
+console.log(announcement.replace(/door/g, 'home safely'));
+//
+// **Replacing Strings with Booleans**
+//========================================
+//
+// There are **3** simple methods that return **Booleans** (*true/false*)
+// These are: **includes()**, **startsWith()**, and **endsWith()**
+const plane = 'Airbus A320neo';
+console.log(plane.includes('A320'));
+console.log(plane.includes('Boeing'));
+console.log(plane.startsWith('Air'));
+
+// Let's check if the current plane is part of the new airbus family
+if (plane.startsWith('Airbus') && plane.endsWith('neo')) {
+  console.log('Part of the NEW AIRbus family');
+}
+//
+// **PRACTICE**
+//========================================
+//
+// Write a function to check the baggage of a passenger on the flight
+// Remember, whenever we're dealing with any sort of user input, **it's best to start with everything in lowercase**
+const checkBaggage = function (items) {
+  const baggage = items.toLowerCase();
+  if (baggage.includes('drugs') || baggage.includes('gun')) {
+    console.log('You are not coming on the plane, big fella');
+  } else {
+    console.log('Welcome aboard, mate!');
+  }
+};
+checkBaggage('I have a laptop, Snacks, and a bad Attitude');
+checkBaggage('Drugs, 2 bodies, and a pack of smokes');
+checkBaggage('Clothes, books, and a gun for protection');
+//
+// **The *split* Method**
+//========================================
+// **Split** allows me to **split a string into multiple partsbased on a *divider* string**
+// Once I declare that divider string, in this case '+' it will break that string up into its constituents and store them in a new array
+console.log('a+very+nice+string'.split('+'));
+// Another very common way of dividing strings is by declaring the space as my divider
+console.log('Patrick Kelly'.split(' '));
+// Now I can use the power of destructuring to create ne variables
+const [myfirstName, myLastName] = 'Patrick Kelly'.split(' ');
+console.log(myfirstName, myLastName);
