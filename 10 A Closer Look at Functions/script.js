@@ -205,20 +205,118 @@ document.body.addEventListener('click', high5);
 //========================================
 //
 //
+// The newGreet function is a higher-order function, which is a function that returns another function. It takes one argument, greeting, which is a string that will be used as the greeting in the returned function
 
+// The function that newGreet returns is an anonymous function that takes one argument, name. This function logs a message to the console that combines the greeting and name parameters using a template literal. Template literals are string literals that allow embedded expressions, which are enclosed by the ${} syntax
+
+// The greeterGday constant is assigned the function returned by calling newGreet with the argument 'Gday'. This means that greeterGday is a function that takes a name parameter and logs the message 'Gday, ' + name to the console
+
+// greeterGday is then called twice with the arguments 'Patrick' and 'Smelly'. These calls log the messages 'Gday, Patrick' and 'Gday, Smelly' to the console, respectively
+
+// The line newGreet('Gday')('Patrick') demonstrates function currying, which is a technique in JavaScript where a function with multiple arguments is transformed into a sequence of functions, each with a single argument. Here, newGreet('Gday') returns a function that is immediately called with the argument 'Patrick', resulting in the message 'Gday, Patrick' being logged to the console. This is equivalent to the previous call to greeterGday('Patrick')
+
+// The greetArr constant is assigned an arrow function that takes a greeting parameter and returns another arrow function that takes a name parameter. This second function logs the message 'greeting, name' to the console. Arrow functions provide a more concise syntax for writing function expressions. They are especially useful when working with higher-order functions or when you need to preserve the lexical value of this.
+
+// Finally, greetArr('Hello')('Patrick') demonstrates function currying with arrow functions. This line is equivalent to the previous call to newGreet('Gday')('Patrick'), but uses the greetArr function instead of newGreet.
+//
+
+const newGreet = function (greeting) {
+  return function (name) {
+    console.log(`${greeting}, ${name}`);
+  };
+};
+
+const greeterGday = newGreet('Gday');
+greeterGday('Patrick');
+greeterGday('Smelly');
+
+newGreet('Gday')('Patrick');
+
+// Challenge:
+//========================================
+// Convert the aforementioned code to arrow functions
+const greetArr = greeting => name => console.log(`${greeting}, ${name}`);
+greetArr('Hello')('Patrick');
+//
+//
 //
 //========================================
-// The call and apply Methods
+// The call Method
 //========================================
 //
 //
+const lufthansa = {
+  airline: 'Lufthansa',
+  iataCode: 'LH',
+  bookings: [],
+  // Improved way of writing function methods
+  book(newFlightNum, newPassengerName) {
+    // this keyword goes up looking to its parent thanks to hoisting
+    console.log(
+      `${newPassengerName} booked a seat on ${this.airline} flight ${this.iataCode}${newFlightNum}`
+    );
+    this.bookings.push({
+      flight: `${this.iataCode}${newFlightNum}`,
+      newPassengerName,
+    });
+  },
+};
 
+lufthansa.book(239, 'Patrick Kelly');
+lufthansa.book(635, 'John Citizen');
+console.log(lufthansa);
+
+const eurowings = {
+  airline: 'Eurowings',
+  iataCode: 'EW',
+  bookings: [],
+};
+//
+// Store my function method into a new variable called book
+// But now the this keyword is broken because it's just a regular function call now
+const book = lufthansa.book;
+// book(23, 'Smelly McGee');
+
+// But how can I explicitly tell Javascript where I want the this keyword to point to?
+// There are three function methods to accomplish this:
+// call, apply, and bind
+// Since a function is just an object, and objects have methods, too, and the call method is one of them
+// The first argument of the call method is exactly what I want the this keyword to point to
+// All the arguments after are just the arguments of the original function
+// So here I've called the call method
+// Then the call method calls the book function with the this keyword set to the eurowings object
+book.call(eurowings, 23, 'Patrick Kelly');
+console.log(eurowings);
+
+// Same principle again with the call() method
+book.call(lufthansa, 2393, 'Smelly Mcgee');
+console.log(lufthansa);
+//
+//
+//
+//========================================
+// The apply Method
+//========================================
+//
+// the apply method does exactly the same thing
+// The apply method does NOT receive a list of arguments after the this keyword has been specified
+// Instead, the apply method takes an array of the other arguments after the first
+const flightData = [583, 'George Washington'];
+book.apply(eurowings, flightData);
+console.log(eurowings);
+
+// But... the apply method isn't really used anymore in Javascript since I have a much better way of accomplishing the same task:
+// THE SPREAD OPERATOR
+//
+book.call(eurowings, ...flightData);
+//
 //
 //========================================
 // The bind Method
 //========================================
 //
-//
+// The bind Method allows me to manually define the this keyword for any function call
+// The catch is that the bind Method does NOT immediately call the function, instead it returns a new function where the this keyword is set to whatever value I passed into the bind method
 
 //========================================
 // CODING CHALLENGE 1:
