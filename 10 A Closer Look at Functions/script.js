@@ -190,13 +190,13 @@ transformer('Javascript is the most CONFUSING shit!', upperFirstWord);
 
 transformer('Javascript is the most CONFUSING shit!', oneWord);
 
-const high5 = function () {
-  console.log('What da fu-');
-};
-document.body.addEventListener('click', high5);
+// const high5 = function () {
+//   console.log('What da fu-');
+// };
+// document.body.addEventListener('click', high5);
 
 // Same principle of callback functions on arrays
-['Patrick', 'Martha', 'Adam'].forEach(high5);
+// ['Patrick', 'Martha', 'Adam'].forEach(high5);
 
 //
 //
@@ -317,7 +317,61 @@ book.call(eurowings, ...flightData);
 //
 // The bind Method allows me to manually define the this keyword for any function call
 // The catch is that the bind Method does NOT immediately call the function, instead it returns a new function where the this keyword is set to whatever value I passed into the bind method
+//
+const bookEW = book.bind(eurowings);
+const bookLH = book.bind(lufthansa);
+bookEW(23, 'Patty Kelly');
 
+// bookEW23 is a partial application
+// a Partial Application refers to a function that has a part of its arguments already applied by an/the original function
+// So bookEW23 is essentially the book function, but with 23 already defined
+//
+const bookEW23 = book.bind(eurowings, 23);
+bookEW23('Patrick Kelly'); // Patrick Kelly booked a seat on Eurowings flight EW23
+bookEW23('Martha Cooper'); // Martha Cooper booked a seat on Eurowings flight EW23
+//
+//
+// With Event Listeners
+//========================================
+//
+lufthansa.planes = 300;
+lufthansa.buyPlane = function () {
+  console.log(this);
+
+  this.planes++;
+  console.log(this.planes);
+};
+
+document
+  .querySelector('.buy')
+  .addEventListener('Click', lufthansa.buyPlane.bind(lufthansa));
+//
+//
+// Partial Application
+//========================================
+//
+// Partial Application just means I can preset parameters
+//
+const addTax = (rate, value) => value + value * rate;
+console.log(addTax(0.1, 200)); // 220
+
+const addVAT = addTax.bind(null, 0.23);
+console.log(addVAT(100)); // 123
+console.log(addVAT(23)); // 28.29
+//
+// Challenge:
+//========================================
+// Take the code above and instead create a new function that does exactly the same, only this new function achieves the same result by calling a function within itself
+//
+const addTaxRate = function (rate) {
+  return function (value) {
+    return value + value * rate;
+  };
+};
+
+const addVAT2 = addTaxRate(0.23);
+console.log(addVAT2(100)); // 123
+console.log(addVAT2(23)); // 28.29
 //========================================
 // CODING CHALLENGE 1:
 //========================================
