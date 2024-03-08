@@ -456,26 +456,66 @@ poll.displayResults.call({ answers: [1, 5, 3, 9, 6, 1] });
 // Immediately Invoked Function Expressions (IIFE)
 //========================================
 //
-//
+// An IIFE is a function that is declared and executed at the same time
+// An IIFE is defined by wrapping a function declaration in parentheses (), and then immediately invoking the function with another pair of parentheses
+// The main advantage of an IIFE is that any variables declared inside it won't pollute the global scope, because the IIFE has its own scope. This can be useful to avoid naming conflicts with other parts of your code.
+// ALL DATA DEFINED INSIDE A SCOPE IS PRIVATE
+const runOnce = function () {
+  console.log('This will never run again');
+};
+runOnce();
+
+// IIFE
+(function () {
+  console.log('This wont run again mate');
+  // const isPrivate = 23;
+})();
+
+// isPrivate variable is encapsulated or "protected" from being overwritten
+// console.log(isPrivate);
+
+// This doesn't run but
+() => console.log('This will ALSO never run again bro')();
+
+{
+  const isPrivate = 23;
+  var notPrivate = 46;
+}
+// var ignores the block scope
+console.log(notPrivate);
 
 //
 //========================================
 // Closures
 //========================================
 //
-//
+// A Function always has access to the Variable Environment (VE) of the Exe Context (EC) in which it was created, even after that Execution Context is gone
+// A Closure is the Variable Environment (EV) attached to the function, EXACTLY as it was at the time and place that the function was created
 
-//
-//========================================
-// More Closure Exampples
-//========================================
-//
-//
+// A closure is the combination of a function bundled together (enclosed) with references to its surrounding state (the lexical environment).
+// Closures can remember and access their lexical scope even when the function is executing outside that scope
+// The secureBooking function is a factory function that creates and returns another function
+// Inside secureBooking, a variable passengerCount is declared and initialized to 0 but this is local to secureBooking and would normally be inaccessible from outside this function.
+// However, the function that secureBooking returns has access to passengerCount due to a feature of JavaScript called closure
+// In this case, the returned function forms a closure, which includes the passengerCount variable
+// When the returned function is called, it increments passengerCount and logs the current count to the console
+// Even though passengerCount is not in its own scope, it can still access and modify passengerCount because of closure
 
-//
+const secureBooking = function () {
+  let passengerCount = 0;
 
-//========================================
-// CODING CHALLENGE 2:
-//========================================
-//
-//
+  return function () {
+    passengerCount++;
+    console.log(`${passengerCount} passengers`);
+  };
+};
+
+// The booker constant is assigned the function returned by secureBooking
+// Each time booker is called, it will increment the passengerCount and log the count, despite secureBooking having finished execution, the state (passengerCount) is still accessible and can be modified each time booker is called
+// This is a powerful feature of closures: they can remember and access their lexical scope even when the function is executing outside that scope.
+
+const booker = secureBooking();
+
+booker();
+booker();
+booker();
