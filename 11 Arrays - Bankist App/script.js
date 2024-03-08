@@ -74,3 +74,71 @@ const currencies = new Map([
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
+//========================================
+// Simple Array Methods
+//========================================
+//
+// Methods are just functions I can call on Objects
+// Which basically makes them functions that are atatched to Objects
+// Therefore, since Arrays have their own methods, then Arrays are Objects, too (IN JS), with their own attached functions (methods)
+
+// Slice
+//========================================
+
+// Slice lets me extract any part of the array, without touching the original array, and returns a NEW array made of only the extracted parts
+// slice() arguments are just like the string method arguments: (index, end)
+// So here we start at C (2), and my new array only includes c, d, e
+let arr = ['a', 'b', 'c', 'd', 'e'];
+console.log(arr.slice(2)); // c d e
+// The end parameter doesn;'t get included in the output | end - index
+console.log(arr.slice(2, 4)); // c d
+// I can define negative parametrs to start from the end of an array, just like with strings
+console.log(arr.slice(-2)); // d e
+// I can combine both pos/neg parameters
+console.log(arr.slice(1, -2)); // b c
+
+// I can also use slice to simply create a shallow copy of the array
+console.log(arr.slice());
+// Exactly the same as slice:
+console.log([...arr]);
+
+// I can use either spread operator or slice, as long as Im consistent with it
+// Slice is useful when I want to chain multiple methods together, though
+//
+// Splice
+//========================================
+//
+// Splice works almost indentically to Slice
+// EXCEPT, Splice MUTATES (changes) the ORIGINAL ARRAY
+// The argument parameters are (index, deleteValue)
+// console.log(arr.splice(2)); // c d e
+// Extracted elements are GONE from the original array
+console.log(arr); // a b
+arr.splice(-1);
+console.log(arr); // a
+//
+// Reverse
+//========================================
+//
+// Pretty self-explanatory
+// EXCEPT, reverse DOES MUTATE THE OG ARRAY
+arr = ['a', 'b', 'c', 'd', 'e'];
+const arr2 = ['j', 'i', 'h', 'g', 'f'];
+console.log(arr2.reverse());
+console.log(arr2);
+//
+// Concat
+//========================================
+//
+// Concat COMBINES two arrays together and outputs ONE array
+// Concat does NOT mutate the OG array
+const letters = arr.concat(arr2);
+console.log(letters);
+// Exactly the same
+console.log([...arr, ...arr2]);
+//
+// Join
+//========================================
+//
+// The join method will join all of the elements in an array together by the specified argument value
+console.log(letters.join(' - '));
