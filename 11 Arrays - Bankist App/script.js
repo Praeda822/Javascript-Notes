@@ -142,3 +142,36 @@ console.log([...arr, ...arr2]);
 //
 // The join method will join all of the elements in an array together by the specified argument value
 console.log(letters.join(' - '));
+//
+//
+//
+//========================================
+// The new at Method
+//========================================
+//
+// the at Method lets me specify an element explicitly, so no more mucking about with the index values
+const newArr = [23, 11, 64];
+console.log(newArr[0]); // 23
+// Same as above, just more modern looking
+console.log(newArr.at(0));
+// The at method is useful, for instance, when I don't know the length of an array
+// Getting the last element of an array:
+console.log(newArr[newArr.length - 1]); // 64
+console.log(newArr.slice(-1)[0]); // 64
+// Using at, I don't need to specify an index value or length -1
+console.log(newArr.at(-1)); // 64
+//
+//
+//
+//========================================
+// Looping Arrays: forEach
+//========================================
+//
+
+//
+//
+//
+//========================================
+// forEach With Maps and Sets
+//========================================
+//
