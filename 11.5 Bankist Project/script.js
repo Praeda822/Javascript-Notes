@@ -88,3 +88,25 @@ const displayMovements = function (movements) {
 };
 
 displayMovements(account1.movements);
+//
+//
+const user = 'Steven Thomas Williams'; //stw
+
+const createUserNames = function (accounts) {
+  accounts.forEach(function (element) {
+    element.username = element.owner
+      .toLowerCase()
+      .split(' ')
+
+      // Convert to arrow function
+      // .map(function (element) {
+      //   return element[0];
+      // })
+      // .join();
+      .map(element => element[0])
+      .join('');
+  });
+};
+createUserNames(accounts);
+console.log(accounts);
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];

@@ -231,7 +231,8 @@ console.log(squares);
 function square(element) {
   return Math.pow(element, 2);
 }
-
+//
+//
 const students = ['spongebob', 'patrick', 'squidward', 'Sandy'];
 const studentsUpper = students.map(upperCase);
 console.log(studentsUpper);
@@ -243,14 +244,62 @@ function upperCase(element) {
 function lowerCase(element) {
   return element.toLowerCase();
 }
+//
+//
 
 //
 // filter()
 //========================================
 // the filter() method will create a new array by filtering out elements
+// I should be using it to check for either a boolean value, or at least a truthy/falsy one
+// Another BIG advantage of using these methods instead of for loops is because I can chain the methods together back-to-back
 
+let lozNum = [1, 2, 3, 4, 5, 6, 7];
+let lozEvenNum = lozNum.filter(isEven);
+let lozOddNum = lozNum.filter(isOdd);
+
+console.log(lozEvenNum);
+function isEven(element) {
+  return element % 2 === 0;
+}
+
+console.log(lozOddNum);
+function isOdd(element) {
+  return element % 2 !== 0;
+}
+//
+//
+// Using filter() to return a new array by passing in a callback function
+const newAges = [16, 17, 18, 18, 19, 20, 60];
+const newAdults = newAges.filter(isAdult);
+const newChild = newAges.filter(isChild);
+
+console.log(newAdults);
+console.log(newChild);
+
+function isAdult(element) {
+  return element >= 18;
+}
+
+function isChild(element) {
+  return element < 18;
+}
+//
+//
+const deposits = movements.filter(function (element) {
+  return element > 0;
+});
+
+const withdrawals = movements.filter(element => element < 0);
+console.log(movements);
+console.log(deposits);
+console.log(withdrawals);
+//
+//
+//
 // reduce()
 //========================================
 // The reduce method will reduce the elements of an array to a single value, e.g. adding all elements together
 // reduce has two arguments, the accumulator (acc) and the current index position (i)
-// Each time reduce iterates over an array, the element value is added to the accumulator, and so on, and so on, untila t the end of the loop I have the sum total of all the elements
+// Each time reduce iterates over an array, the element value is added to the accumulator, and so on, and so on, until  I have the sum total of all the elements at the end of the loop
+// Think of like a shopping cart, inclusive of prices
