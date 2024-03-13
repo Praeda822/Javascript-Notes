@@ -155,7 +155,45 @@ currenciesUnique.forEach(function (value, key, map) {
 
 //
 //
+//========================================
+// CHALLENGE 1
+//========================================
 //
+// Create a function, 'checkDogs', which accepts 2 arrays of dogs ages ('dogsJulia' and 'dogsKate'), and does the following:
 //
-//
-//
+// 1.
+// Julia found out that the owners of the FIRST and LAST TWO dogs actually have cats, not dogs! Create a shallow copy of Julia's array, and remove the cat ages from that copied array (because it's bad practice to mutate function parameters)
+
+// 2.
+// Create an array with both Julia's (corrected) and Kate's data
+
+// 3.
+// For each remaining dog, log to the console whether it's an adult ( "Dog number 1 is an adult, and is 5 years old") or a puppy ("Dog number 2 is still a puppy")
+
+// 4.
+// Run the function for both test data sets
+
+// TEST DATA 1
+// const dogsJulia = [3, 5, 2, 12, 7];
+// const dogsKate = [4, 1, 15, 8, 3];
+
+// TEST DATA 2
+const dogsJulia = [9, 16, 6, 8, 3];
+const dogsKate = [10, 5, 6, 1, 4];
+
+// MY CODE:
+
+const checkDogs = function (dogsJulia, dogsKate) {
+  const dogsJuliaFixed = dogsJulia.slice(1, -2);
+  console.log(dogsJuliaFixed);
+  const dogsTotal = dogsJuliaFixed.concat(dogsKate);
+  console.log(dogsTotal);
+  dogsTotal.forEach(function (element, index) {
+    element >= 3
+      ? console.log(
+          `Dog number ${index + 1} is an adult, and is ${element} years old `
+        )
+      : console.log(`Dog number ${index + 1} is still a puppy`);
+  });
+};
+checkDogs(dogsJulia, dogsKate);
