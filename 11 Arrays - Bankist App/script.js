@@ -64,16 +64,8 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
-
-const currencies = new Map([
-  ['USD', 'United States dollar'],
-  ['EUR', 'Euro'],
-  ['GBP', 'Pound sterling'],
-]);
-
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
-
 /////////////////////////////////////////////////
+
 //========================================
 // Simple Array Methods
 //========================================
@@ -167,6 +159,9 @@ console.log(newArr.at(-1)); // 64
 // Looping Arrays: forEach
 //========================================
 //
+
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
 // The continue and break statement DO NOT work in a forEach loop
 // So I would use forOf loops when I want to be able to break out of a loop early, or without looping over the entire object
 
@@ -200,4 +195,28 @@ movements.forEach(function (e, i, arr) {
 //========================================
 // forEach With Maps and Sets
 //========================================
+//
+const currencies = new Map([
+  ['USD', 'United States dollar'],
+  ['EUR', 'Euro'],
+  ['GBP', 'Pound sterling'],
+]);
+
+currencies.forEach(function (value, key, map) {
+  console.log(`${key}: ${value} `);
+});
+
+// Sets don't have keys or indexes
+// So the value & key are the same
+const currenciesUnique = new Set(['USD', 'GBP', 'AUD', 'EUR', 'EUR']);
+console.log(currenciesUnique);
+currenciesUnique.forEach(function (value, key, map) {
+  console.log(`${key}: ${value} `);
+});
+
+//
+//
+//
+//
+//
 //
