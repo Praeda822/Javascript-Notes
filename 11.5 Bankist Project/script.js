@@ -66,8 +66,11 @@ const inputClosePin = document.querySelector('.form__input--pin');
 // First I want to display the application itself in the list
 // Then I want to display each value from the numbered account's corresponding movements array using forEach
 // It's best practice to have my data work by being passed directly into a function instead of having global variables floating around
+// First, I should empty the containerMovements by using innerHTML as a setter
 
 const displayMovements = function (movements) {
+  containerMovements.innerHTML = '';
+
   movements.forEach(function (element, index) {
     const type = element > 0 ? 'deposit' : 'withdrawal';
 
