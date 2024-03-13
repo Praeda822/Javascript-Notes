@@ -167,6 +167,32 @@ console.log(newArr.at(-1)); // 64
 // Looping Arrays: forEach
 //========================================
 //
+// The continue and break statement DO NOT work in a forEach loop
+// So I would use forOf loops when I want to be able to break out of a loop early, or without looping over the entire object
+
+// When I use entries(), the first value is the index
+// The second value is the array element
+for (const [i, movement] of movements.entries()) {
+  if (movement > 0) {
+    console.log(`Movement ${i + 1}: You deposited ${movement}`);
+  } else {
+    console.log(`Movement ${i + 1}: You withdrew ${Math.abs(movement)}`);
+  }
+}
+console.log('----- FOREACH ----- ');
+
+// I use callback functions to tell another Higher-order function exactly what it should do
+// forEach loops ALWAYS have the 3 arguments: element, index, array
+// AND ALWAYS IN THAT ORDER
+movements.forEach(function (e, i, arr) {
+  if (e > 0) {
+    console.log(`Movement ${i + 1}: You deposited ${e}`);
+  } else {
+    console.log(`Movement ${i + 1}: You withdrew ${Math.abs(e)}`);
+  }
+});
+// 0: function(200)
+// 1: function(450)
 
 //
 //
