@@ -60,3 +60,28 @@ const inputTransferAmount = document.querySelector('.form__input--amount');
 const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
+
+//
+//
+// First I want to display the application itself in the list
+// Then I want to display each value from the numbered account's corresponding movements array using forEach
+// It's best practice to have my data work by being passed directly into a function instead of having global variables floating around
+
+const displayMovements = function (movements) {
+  movements.forEach(function (element, index) {
+    const type = element > 0 ? 'deposit' : 'withdrawal';
+
+    const html = `        
+    <div class="movements__row">
+    <div class="movements__type movements__type--${type}">${
+      index + 1
+    } ${type}</div>
+    <div class="movements__value">${element}</div>
+  </div>
+  `;
+
+    containerMovements.insertAdjacentHTML('afterbegin', html);
+  });
+};
+
+displayMovements(account1.movements);
