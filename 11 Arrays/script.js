@@ -196,4 +196,61 @@ const checkDogs = function (dogsJulia, dogsKate) {
       : console.log(`Dog number ${index + 1} is still a puppy`);
   });
 };
-checkDogs(dogsJulia, dogsKate);
+checkDogs([9, 16, 6, 8, 3], [10, 5, 6, 1, 4]);
+// Well done, mate
+// Legit, well done
+//
+//
+//========================================
+// Data Transformations: map(), filter(), reduce()
+//========================================
+//
+//
+// map()
+//========================================
+// the map() method accepts a callback and applies that function to each element of an array, then returns a NEW array
+// The map() method is JUST LIKE the forEach method
+// map() is useful when I want to return a NEW ARRAY, unlike forEach which will mutate the OG array
+
+// const eurToUSD = 1.1;
+// const conversionUSD = movements.map(function (element) {
+//   return element * eurToUSD;
+// });
+
+// Convert it to an arrow function
+const eurToUSD = 1.1;
+const conversionUSD = movements.map(element => element * eurToUSD);
+console.log(movements);
+console.log(conversionUSD);
+
+// I pass in my callback function, square, and get a new array with all of the OG arrays squared values without having mutatd the OG array
+
+const myNum = [1, 2, 3, 4, 5];
+const squares = myNum.map(square);
+console.log(squares);
+function square(element) {
+  return Math.pow(element, 2);
+}
+
+const students = ['spongebob', 'patrick', 'squidward', 'Sandy'];
+const studentsUpper = students.map(upperCase);
+console.log(studentsUpper);
+
+function upperCase(element) {
+  return element.toUpperCase();
+}
+
+function lowerCase(element) {
+  return element.toLowerCase();
+}
+
+//
+// filter()
+//========================================
+// the filter() method will create a new array by filtering out elements
+
+// reduce()
+//========================================
+// The reduce method will reduce the elements of an array to a single value, e.g. adding all elements together
+// reduce has two arguments, the accumulator (acc) and the current index position (i)
+// Each time reduce iterates over an array, the element value is added to the accumulator, and so on, and so on, untila t the end of the loop I have the sum total of all the elements
