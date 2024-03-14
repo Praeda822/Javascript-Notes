@@ -301,5 +301,112 @@ console.log(withdrawals);
 //========================================
 // The reduce method will reduce the elements of an array to a single value, e.g. adding all elements together
 // reduce has two arguments, the accumulator (acc) and the current index position (i)
+// Don't forget we start at ZERO!!
 // Each time reduce iterates over an array, the element value is added to the accumulator, and so on, and so on, until  I have the sum total of all the elements at the end of the loop
-// Think of like a shopping cart, inclusive of prices
+// Think of like a shopping cart, with an array that holds all of the prices
+// Since it works like the forEach loop, I pass in a callback function
+//
+const myPrices = [5, 30, 10, 25, 15, 20];
+const myTotalPrices = myPrices.reduce(mySum);
+
+console.log(`$${myTotalPrices.toFixed(2)}`);
+// $105.00
+
+function mySum(accumulator, element) {
+  return accumulator + element;
+}
+//
+//
+const myGrades = [75, 50, 90, 80, 65, 95];
+const myMax = myGrades.reduce(getMax);
+const myMin = myGrades.reduce(getMin);
+
+console.log(myMax);
+console.log(myMin);
+
+function getMax(accumulator, element) {
+  return Math.max(accumulator, element);
+}
+
+function getMin(accumulator, element) {
+  return Math.min(accumulator, element);
+}
+//
+//
+// Working again with my movements array
+// Don't forget to specify to start from zero
+
+// const newBalance = movements.reduce(function (accumulator, element) {
+//   console.log(`Iteration ${accumulator}: ${element}`);
+//   return accumulator + element;
+// }, 0);
+// console.log(newBalance);
+
+//========================================
+// CHALLENGE 2
+//========================================
+//
+// Create a function, 'calcAverageHumanAge', which accepts an array of dog ages ('dogAges'), and does the follwing things in order:
+//
+// 1.
+// Calculate the dog age in human years using the following formula:
+// If the dog is <= 2 years old, then humanAge = 2 * dogAge.
+// If the dog is > 2 years old, then humanAge = 16 + dogage * 4
+//
+// 2.
+// Exclude all dogs that are less than 18 human years old
+//
+// 3.
+// Calculate the average human age of all adult dogs
+//
+
+// MY CODE:
+// Fucking GARBAGE CUNT
+// function calcHumanAge() {
+//   const humanAge = 0;
+//   let dogAges = dogsArr1.concat(dogsArr2).filter(function (element) {
+//     element < humanAge === 18;
+//   });
+//   console.log(dogAges);
+//   dogAges.forEach(function (dogAge) {
+//     dogAge <= 2 ? (humanAge = 2 * dogAge) : (humanAge = 16 + dogAge * 4);
+//     return humanAge;
+//   });
+
+//   const average = function (dogAges) {
+//     const sum = dogAges.reduce(function (acc, curr) {
+//       return acc + curr;
+//     }, 0);
+//     return sum / dogAges.length;
+//   };
+//   console.log(average());
+// }
+
+// TEST DATA:
+const dogsArr1 = [5, 2, 4, 1, 15, 8, 3];
+const dogsArr2 = [16, 6, 10, 5, 5, 1, 4];
+
+function calcHumanAge(dogAges) {
+  return dogAges
+    .map(function (dogAge) {
+      return dogAge <= 2 ? 2 * dogAge : 16 + dogAge * 4;
+    })
+    .filter(function (humanAge) {
+      return humanAge >= 18;
+    })
+    .reduce(function (accumulator, element, index, arr) {
+      return accumulator + element / arr.length;
+    }, 0);
+}
+console.log(
+  'Average human age for dogsArr1:',
+  calcHumanAge([5, 2, 4, 1, 15, 8, 3])
+);
+console.log(
+  'Average human age for dogsArr2:',
+  calcHumanAge([16, 6, 10, 5, 5, 1, 4])
+);
+console.log(
+  'Average human age for both arrays combined:',
+  calcHumanAge(dogsArr1.concat(dogsArr2))
+);

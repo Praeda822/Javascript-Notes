@@ -88,6 +88,16 @@ const displayMovements = function (movements) {
 };
 
 displayMovements(account1.movements);
+
+const calcDisplayBalance = function (movements) {
+  const balance = movements.reduce(
+    (accumulator, element) => accumulator + element,
+    0
+  );
+  labelBalance.textContent = `${balance} EUR`;
+};
+calcDisplayBalance(account1.movements);
+
 //
 //
 const user = 'Steven Thomas Williams'; //stw
@@ -109,4 +119,27 @@ const createUserNames = function (accounts) {
 };
 createUserNames(accounts);
 console.log(accounts);
+
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+// const newBalance = movements.reduce(function (accumulator, element) {
+//   console.log(`Iteration ${accumulator}: ${element}`);
+//   return accumulator + element;
+// }, 0);
+// console.log(newBalance);
+
+// Convert to arrow function
+const newBalance = movements.reduce(
+  (accumulator, element) => accumulator + element
+);
+console.log(newBalance);
+
+let newBalance2 = 0;
+for (const element of movements) newBalance2 += element;
+console.log(newBalance2);
+
+// Maximum Value
+const max = movements.reduce((accumulator, element) =>
+  Math.max(accumulator, element)
+);
+console.log(max); // 3000
