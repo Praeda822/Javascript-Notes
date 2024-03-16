@@ -62,6 +62,7 @@ const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
 //
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 //
 // First I want to display the application itself in the list
 // Then I want to display each value from the numbered account's corresponding movements array using forEach
@@ -98,6 +99,42 @@ const calcDisplayBalance = function (movements) {
 };
 calcDisplayBalance(account1.movements);
 
+const calcDisplaySummary = function (movements) {
+  const incomes = movements
+    .filter(function (element) {
+      return element > 0;
+    })
+    .reduce(function (accumulator, element) {
+      return accumulator + element;
+    }, 0);
+  labelSumIn.textContent = `${incomes}€`;
+
+  const outgoing = movements
+    .filter(function (element) {
+      return element < 0;
+    })
+    .reduce(function (accumulator, element) {
+      return accumulator + element;
+    }, 0);
+  labelSumOut.textContent = `${Math.abs(outgoing)}€`;
+
+  const interest = movements
+    .filter(function (element) {
+      return element > 0;
+    })
+    .map(function (element) {
+      return (element * 1.2) / 100;
+    })
+    .filter(function (element, index, array) {
+      console.log(array);
+      return element >= 1;
+    })
+    .reduce(function (accumulator, element) {
+      return accumulator + element;
+    }, 0);
+  labelSumInterest.textContent = `${interest}€`;
+};
+calcDisplaySummary(account1.movements);
 //
 //
 const user = 'Steven Thomas Williams'; //stw
@@ -120,8 +157,6 @@ const createUserNames = function (accounts) {
 createUserNames(accounts);
 console.log(accounts);
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
-
 // const newBalance = movements.reduce(function (accumulator, element) {
 //   console.log(`Iteration ${accumulator}: ${element}`);
 //   return accumulator + element;
@@ -143,3 +178,33 @@ const max = movements.reduce((accumulator, element) =>
   Math.max(accumulator, element)
 );
 console.log(max); // 3000
+
+const eurToUsd = 1.1;
+const totalDepositsUSD = movements
+  .filter(function (element) {
+    return element > 0;
+  })
+  .map(function (element) {
+    return element * eurToUsd;
+  })
+  .reduce(function (accumulator, element) {
+    return accumulator + element;
+  }, 0);
+console.log(totalDepositsUSD);
+
+// Loop over array to retrieve an element
+// the find() method will not return the entire array
+// Instead only the first element that satisfies the condition is returned (becomes TRUE)
+const firstWithdrawal = movements.find(function (element) {
+  return element < 0;
+});
+console.log(movements); // array
+console.log(firstWithdrawal); // -400
+
+console.log(accounts);
+
+// Creating a user account
+const account = accounts.find(function (element) {
+  return element.owner === 'Jessica Davis';
+});
+console.log(account);
