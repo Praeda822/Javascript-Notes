@@ -410,3 +410,42 @@ console.log(
   'Average human age for both arrays combined:',
   calcHumanAge(dogsArr1.concat(dogsArr2))
 );
+//
+//
+//========================================
+// some and every
+//========================================
+//
+console.log(movements);
+// Checks for EQUALITY
+console.log(movements.includes(-130));
+// SOME: Checks for CONDITION
+console.log(movements.some(mov => mov === -130));
+
+// I want to check for any positive movement (deposits) within the array
+// So any deposits greater than 0
+const anyDeposits = movements.some(mov => mov > 0);
+console.log(anyDeposits);
+
+// EVERY
+// every only returns true if ALL of the elements in the array satisfy the condition I pass in
+// if EVERY element passes the test in my callback function, then ONLY the every method will return true
+console.log(movements.every(mov => mov > 0));
+
+// Seperate callbacks
+const deposit = mov => mov > 0;
+console.log(movements.some(deposit));
+//
+//
+//========================================
+// flat and flatMap Methods
+//========================================
+//
+// I can use the flat method to basically COMBINE all the elements of a 2D array, and join them together into ONE array
+// So flat removes the nested arrays, and flattens the array overall
+const lozArr = [[1, 2, 3], [4, 5, 6], 7, 8];
+console.log(lozArr.flat());
+
+// But the flat method only goes ONE LEVEL DEEP when flattening
+const lozArrDeep = [[[1, 2, 3], [4, 5, 6], 7, 8]];
+console.log(lozArrDeep.flat());
