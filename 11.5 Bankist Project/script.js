@@ -13,14 +13,14 @@ const account1 = {
 };
 
 const account2 = {
-  owner: 'Jessica Davis',
+  owner: 'Patrick Kelly',
   movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
   interestRate: 1.5,
   pin: 2222,
 };
 
 const account3 = {
-  owner: 'Steven Thomas Williams',
+  owner: 'Lauren Marshall',
   movements: [200, -200, 340, -300, -20, 50, 400, -460],
   interestRate: 0.7,
   pin: 3333,
@@ -88,8 +88,6 @@ const displayMovements = function (movements) {
   });
 };
 
-displayMovements(account1.movements);
-
 const calcDisplayBalance = function (movements) {
   const balance = movements.reduce(
     (accumulator, element) => accumulator + element,
@@ -97,10 +95,9 @@ const calcDisplayBalance = function (movements) {
   );
   labelBalance.textContent = `${balance} EUR`;
 };
-calcDisplayBalance(account1.movements);
 
-const calcDisplaySummary = function (movements) {
-  const incomes = movements
+const calcDisplaySummary = function (acc) {
+  const incomes = acc.movements
     .filter(function (element) {
       return element > 0;
     })
@@ -109,7 +106,7 @@ const calcDisplaySummary = function (movements) {
     }, 0);
   labelSumIn.textContent = `${incomes}€`;
 
-  const outgoing = movements
+  const outgoing = acc.movements
     .filter(function (element) {
       return element < 0;
     })
@@ -118,12 +115,12 @@ const calcDisplaySummary = function (movements) {
     }, 0);
   labelSumOut.textContent = `${Math.abs(outgoing)}€`;
 
-  const interest = movements
+  const interest = acc.movements
     .filter(function (element) {
       return element > 0;
     })
     .map(function (element) {
-      return (element * 1.2) / 100;
+      return (element * acc.interestRate) / 100;
     })
     .filter(function (element, index, array) {
       console.log(array);
@@ -134,7 +131,7 @@ const calcDisplaySummary = function (movements) {
     }, 0);
   labelSumInterest.textContent = `${interest}€`;
 };
-calcDisplaySummary(account1.movements);
+
 //
 //
 const user = 'Steven Thomas Williams'; //stw
@@ -155,7 +152,37 @@ const createUserNames = function (accounts) {
   });
 };
 createUserNames(accounts);
-console.log(accounts);
+
+// Login Event Handler
+let currentAccount;
+
+btnLogin.addEventListener('click', function (e) {
+  // Prevent form submission
+  e.preventDefault();
+
+  currentAccount = accounts.find(
+    acc => acc.username === inputLoginUsername.value
+  );
+  console.log(currentAccount);
+
+  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+    // Display UI and welcome msg
+    labelWelcome.textContent = `Welcome back, ${
+      currentAccount.owner.split(' ')[0]
+    } `;
+    containerApp.style.opacity = 100;
+
+    // Clear input fields
+    inputLoginUsername.value = inputLoginPin.value = '';
+    inputLoginPin.blur();
+    // Display movements
+    displayMovements(currentAccount.movements);
+    // Display balance
+    calcDisplayBalance(currentAccount.movements);
+    // Display summary
+    calcDisplaySummary(currentAccount);
+  }
+});
 
 // const newBalance = movements.reduce(function (accumulator, element) {
 //   console.log(`Iteration ${accumulator}: ${element}`);
