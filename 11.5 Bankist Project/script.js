@@ -69,10 +69,13 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 // It's best practice to have my data work by being passed directly into a function instead of having global variables floating around
 // First, I should empty the containerMovements by using innerHTML as a setter
 
-const displayMovements = function (movements) {
+const displayMovements = function (movements, sort = false) {
   containerMovements.innerHTML = '';
 
-  movements.forEach(function (element, index) {
+  // Use slice to create a shallow copy and chain sort method onto it
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+
+  movs.forEach(function (element, index) {
     const type = element > 0 ? 'deposit' : 'withdrawal';
 
     const html = `        
@@ -243,6 +246,13 @@ btnClose.addEventListener('click', function (e) {
     containerApp.style.opacity = 0;
   }
   inputCloseUsername.value = inputClosePin.value = '';
+});
+
+let sorted = false;
+btnSort.addEventListener('click', function (e) {
+  e.preventDefault();
+  displayMovements(currentAccount.movements, !sorted);
+  sorted = !sorted;
 });
 
 // const newBalance = movements.reduce(function (accumulator, element) {
