@@ -508,3 +508,38 @@ const overallBalance2 = accounts
   .flatMap(acc => acc.movements)
   .reduce((acc, mov) => acc + mov, 0);
 console.log(overallBalance); // 17840
+//
+//
+//========================================
+// Sorting Arrays
+//========================================
+//
+// Sorting strings
+//========================================
+// sort() MUTATES THE OG ARRAY
+// Organises my strings into alphabetical order
+const owners = ['Patrick', 'Lauren', 'Julia', 'David'];
+console.log(owners.sort());
+
+// Sorting numbers
+//========================================
+//
+console.log(movements);
+// This is all disgusting here because the sort method only works properly when sorting STRINGS
+// So negative ( - ) would come first, then -1, -4, -6
+// But I can rectify this by using a compare callback function that has two arguments:
+// a = current value
+// b = next value
+// If I return < 0 then A preceeds B (keep order)
+// If I return > 0 then B preceeds A (switch order)
+// Ascending:
+movements.sort(function (a, b) {
+  a - b;
+});
+console.log(movements);
+
+// Descending:
+movements.sort(function (a, b) {
+  b - a;
+});
+console.log(movements);
