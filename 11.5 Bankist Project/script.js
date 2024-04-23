@@ -306,3 +306,20 @@ const account = accounts.find(function (element) {
   return element.owner === 'Jessica Davis';
 });
 console.log(account);
+
+// querySelectorAll() returns a NodeList, which is LIKE an array, but isn't a real array and so doesn't have moth of the array methods such as map() and reduce()
+// So, if I wanted to use array methods on the NodeList, I would need to convert my NodeList INTO an array, again, using Array.from()!
+// Then I pass the map() method to my movementsUI to apply my textContent.replace() function to each element of my newly created array that was originally the NodeList
+
+labelBalance.addEventListener('click', function () {
+  const movementsUI = Array.from(
+    document.querySelectorAll('.movements__value'),
+    el => Number(el.textContent.replace('💲', ''))
+  );
+  console.log(movementsUI);
+});
+
+// Another way of accessing my movements UI array, but it's a bit dodgy..
+movementsUI2 = [
+  ...document.querySelectorAll(document.querySelectorAll('.movements__value')),
+];

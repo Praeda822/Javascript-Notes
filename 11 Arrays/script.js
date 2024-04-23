@@ -543,3 +543,61 @@ movements.sort(function (a, b) {
   b - a;
 });
 console.log(movements);
+//
+//
+//========================================
+// More ways of Creating and Filling Arrays
+//========================================
+//
+const patArr = [1, 2, 3, 4, 5, 6, 7];
+console.log(new Array(1, 2, 3, 4, 5, 6, 7));
+//
+// Empty Arrays + fill method
+//========================================
+// Passing this array constructor function with only ONE argument means I end up with an empty array that is 7 elements long
+// I also can't do anything with this empty array, like using the map method on it
+const x = new Array(7);
+console.log(x);
+// console.log(x.map(() => 5));
+// BUT I can use the fill() method!
+// and the fill() method MUTATES THE OG ARRAY
+// x.fill(1);
+// I can also specify where I want the array to start being filled from, in this case at index 3
+// Since fill() works just like splice(), I can also define an END parameter
+// and just like with slice, it leaves the rest of the array untouched after ending at index 5
+x.fill(1, 3, 5);
+console.log(x);
+
+patArr.fill(23, 2, 6);
+console.log(patArr);
+
+// Array.from
+//========================================
+//
+// Creating arrays programmatically
+//========================================
+//
+// My array here is a constructor function (just like new Array above), and on this function I can call the from() method
+// First I can pass in an object with the length property
+// And then the second argument is a MAPPING function, which is EXACTLY like the callback function I use on the map() method
+const y = Array.from({ length: 7 }, () => 1);
+console.log(y);
+
+// Since I'm not using the element parameter here, I can remove it and denote it with an underscore
+const z = Array.from({ length: 7 }, (_, i) => i + 1);
+console.log(z);
+
+// Generate an array with 100 random dice rolls!
+const random = Array.from(
+  { length: 100 },
+  () => Math.floor(Math.random() * 6) + 1
+);
+console.log(random);
+// EZZZZZZ MATE
+
+// Generate ANOTHER array with 100 random numbers!
+const random100 = Array.from(
+  { length: 100 },
+  (_, i) => Math.floor(Math.random() * 100) + 1
+);
+console.log(random100);
