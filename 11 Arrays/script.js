@@ -707,3 +707,174 @@ console.log(random100);
 // I want to just loop over an array WITHOUT creating a new value..
 // Based on a callback: .forEach()
 // forEach() does NOT create a new array, it only loops over the specified array
+//
+//
+//========================================
+// Array Methods: Practice
+//========================================
+//
+// Exercise #1 | flatMap() and filter() use case
+//========================================
+//
+// MY OG code:
+// const bankDepositSum = accounts.flatMap(function (acc) {
+//   return acc.movements
+//     .filter(function (mov) {
+//       return mov > 0;
+//     })
+//     .reduce(function (accumulator, element) {
+//       return accumulator + element, 0;
+//     });
+// });
+// console.log(bankDepositSum);
+
+// In my .reduce() function, I used a comma , after return accumulator + element. The correct way to use .reduce() is to provide two arguments: the reducer function and an initial value
+// The initial value for the accumulator should be provided as the second argument to the .reduce() method itself, within its parentheses
+// My syntax effectively disregarded "0" because of the comma operator, which evaluates both of its operands (separated by my comma) and returns the result of the last operand
+// Whereas originally, it just returned accumulator + element and did nothing with 0
+// My intention was to sum all positive transactions into a single total
+// But I fucked up the use of .flatMap() followed by .reduce() inside the .flatMap() callback which restructured the array elements and attempted to reduce each array of positive movements independently, leaving me with 4 seperate values instead of just one
+// I expected a single number, but because the inner .reduce() was scoped to operate only within each account's movements, it wasn't set up to aggregate all accounts' movements together into one final sum
+//
+//
+// My FIXED code:
+//========================================
+//
+const bankDepositSum = accounts
+  .flatMap(acc => acc.movements)
+  .filter(mov => mov > 0)
+  .reduce((accumulator, element) => accumulator + element, 0);
+console.log(bankDepositSum);
+//
+//
+//========================================
+// Exercise #2 | reduce() method use case
+//========================================
+//
+// const numDeposits1000 = accounts
+//   .flatMap(acc => acc.movements)
+//   .filter(mov => mov >= 1000).length;
+// console.log(numDeposits1000); // 6
+//
+// I can refactor it much more neatly using the reduce() method:
+//
+const numDeposits1000 = accounts
+  .flatMap(acc => acc.movements)
+  .reduce(
+    (accumulator, element) => (element >= 1000 ? ++accumulator : accumulator),
+    0
+  );
+console.log(numDeposits1000);
+
+// My flatMap() method first applies a mapping function to each element in the original array
+// In this case, each account in the accounts array and for each account, it grabs the movements array
+// Next, I use the reduce() to reduce all the elements in the array (the flattened array of movements) into a single value by going through each element in the array one by one and applying my specified function
+// My function checks if the transaction (element) is greater than or equal to 1000 and if it is, my function then adds 1 to the accumulator effectively counting the transaction
+// accumulator is the running total or the "accumulated" result that .reduce() keeps track of as it goes through each element, so in this case, it's counting how many deposits are at least 1000
+// element refers to the current element from the array that .reduce() is processing
+// The initial value of my accumulator starts counting from 0, as I specified in the second argument to reduce()
+// Finally, numDeposits1000 becomes the total count of transactions that are 1000 or more across all accounts
+
+//========================================
+// Addendum: Prefixed '++' operators:
+//========================================
+//
+// I can't use the logical '++' operator (in place of accumulator + 1) because whilst the '++' operator DOES increment the accumulator's value, it still returns the PREVIOUS VALUE
+// HOWEVER, I can PREFIX the accumulator with ++ to achieve the same result..very sneaky sneaky
+//
+//
+//========================================
+// Exercise #3 | Creating an object with reduce()
+//========================================
+//
+// Here I want to combine all the movements arrays from each account into a single flat array
+//
+const { newDeposits, newWithdrawals } = accounts
+  .flatMap(acc => acc.movements)
+  .reduce(
+    (accumulator, element) => {
+      // element > 0;
+      // ? (accumulator.newDeposits += element)
+      // : (accumulator.newWithdrawals += element);
+      accumulator[element > 0 ? 'newDeposits' : 'newWithdrawals'] += element;
+      return accumulator;
+    },
+    { newDeposits: 0, newWithdrawals: 0 }
+  );
+
+console.log(newDeposits, newWithdrawals);
+// {deposits: 25180, withdrawals: -7340}
+
+// My reduce() method starts with an object that is used to keep a running total of all deposits and withdrawls
+// My accumulator parameter represents the current state of the object as it's being updated throughout the reduction process
+// My element parameter represents the current transaction amount being processed (from the flattened list of movements)
+// If element is greater than 0, then the transaction is considered a deposit, and so it adds this amount to accumulator.deposits
+// If element is less than, or equal to, 0, then the transaction is considered a withdrawal, and so it adds this amount (which is a negative value) to accumulator.withdrawals
+// My updated accumulator object is returned (manually) after each iteration, ensuring that the running totals are correctly updated
+// Because I've used an arrow function, the value is ONLY automatically, or implicitly, returned if I DON'T have a function body with curly braces..
+// But since I do, I have to manually, or explicitly, return my accumulator's value from my function
+// As that's how the reduce() method works: I always have to return the accumulator from each iteration, which usually happens implicitly as stated before, but alas, I have a function body
+
+//========================================
+// Addendum: Destructuring & Refactoring
+//========================================
+//
+//
+// Immediately after my reduce() method, I use a destructuring assignment to extract both newDeposits and newWithdrawals from the resulting objecty and into their respective variables
+// This makes it so that any subsequent code that may use these values much cleaner and more straightforward, since I can refer to newDeposits and newWithdrawals directly WITHOUT needing to repeatedly access them as properties of another object, previously nested within the sums variable
+
+// In my original code I also had the following DRY-breaking bs:
+// element > 0;
+// ? (accumulator.newDeposits += element)
+// : (accumulator.newWithdrawals += element);
+// BUT WITH A LIL'BIT OF DESTRUCTURING, I'm able to utilize JS' ability to access object properties using BRACKET NOTATION:
+
+// accumulator[element > 0 ? 'newDeposits' : 'newWithdrawals'] += element;
+
+// This basically allows me to dynamically determine which property of the accumulator to update based on the condition, element > 0 ?
+// The ternary operator evaluates whether the transaction is a deposit or a withdrawal and then returns the string 'newDeposits' or 'newWithdrawals', which i've ALSO used as the property name in the bracket notation
+// This property is then updated by adding the value of element
+//
+//
+//========================================
+// Exercise #4 | Capitalisation and Title-Case
+//========================================
+//
+// Here my objective is to capitalise each word in a given string by calling a function
+// Important to know that creating an array of exceptions to be used as computational data later is a common JS design pattern
+//
+const convertTitleCase = function (title) {
+  const capitalise = str => str[0].toUpperCase() + str.slice(1);
+
+  const exceptions = ['a', 'an', 'and', 'the', 'but', 'or', 'on', 'in', 'with'];
+
+  const titleCase = title
+    .toLowerCase()
+    .split(' ')
+    .map(word =>
+      // exceptions.includes(word) ? word : word[0].toUpperCase() + word.slice(1)
+      exceptions.includes(word) ? word : capitalise(word)
+    )
+    .join(' ');
+  return capitalise(titleCase);
+};
+
+console.log(convertTitleCase('this is a good looking title'));
+// "This Is a Good Looking Title"
+console.log(convertTitleCase('this is a kinda LONG title'));
+// "This Is a Kinda Long Title"
+console.log(
+  convertTitleCase('this is a kinda LONG title but with an EXAMPLE, too!')
+  // "This Is a Kinda Long Title but With an Example, Too!"
+);
+//
+// My capitalise() function takes a string and returns the string with its first character converted to uppercase: str[0].toUpperCase()
+// Next I return the remainder of the string starting from the second character: str.slice(1) and I concatenate these two string paarts together
+// My exceptions array lists words that should not be capitalised if they appear in the title, EXCEPT, if they are the FIRST WORD of the title (which my final call of capitalise(titleCase) takes care of)
+// using title.toLowerCase() converts my entire input string to lowercase to ensure all my words start off in the same lowercase state
+// Then I use the .split() method to break my strings up into an array of individual words
+// Next, I use the .map() method to iterate over each individual word in that array, and if that word is in my exceptions array it remains in lowercase, otherwise it gets passed to my capitalise() function to capitalise the first letter
+// Now I use the .join() method to merge the array of individual words back into one single string with my words seperated by defined spaces
+// FINALLY, I pass the entire resulting string once more through the capitalise() function to ensure the first word of my title is capitalised, as it's a standard practice in title case formatting even if the first word is normally an exception
+//
+//
