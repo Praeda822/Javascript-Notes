@@ -630,7 +630,8 @@ console.log(random100);
 //
 // To create a new array I can use the following methods:
 // To compute FROM the OG array:
-// .map() (loop over the array)
+// .map()
+// .map() loops over the array OG array and returns a NEW array
 //
 // To filter an OG array using conditional(s):
 // .filter()
@@ -654,6 +655,7 @@ console.log(random100);
 //
 // To index an array..
 // Based on a test condition: .findIndex()
+// The main difference between these two methods is that .findIndex() can basically search through the array absed entirely upon a specified test condition that I provide in the CALLBACK FUNCTION
 //
 //
 //========================================
@@ -662,6 +664,7 @@ console.log(random100);
 //
 // I want an array element..
 // Based on a test condition: .find()
+// The test condition is ALSO defined within the callback function
 //
 //
 //========================================
@@ -669,10 +672,14 @@ console.log(random100);
 //========================================
 //
 // I want to know if an array includes..
-// Based on a value: .includes()
+// Based on a single value: .includes()
 //
 // I want to know if an array includes..
 // Based on a test condition: .some(), .every()
+// .some() will return true if at LEAST ONE of the elements in the array satisfies the condition specified within the callback function
+// Whereas .every() ONLY returns true if ALL of the elements in the array satisfy the condition specified within the callback function
+// All 3 of these methods return BOOLEAN VALUES
+// Also typically used in if/else statements
 //
 //
 //========================================
@@ -691,12 +698,12 @@ console.log(random100);
 // Based on a/the accumulator .reduce()
 // Reduce boils down an array to a single value of any type:
 // Number, string, boolean, new array/object
-//
+// .reduce() also provides me with the following 3 parameters: (element, index, array)
 //
 //========================================
 // I want: To just loop over an Array!
 //========================================
 //
-// I want to just loop over an array..
+// I want to just loop over an array WITHOUT creating a new value..
 // Based on a callback: .forEach()
 // forEach() does NOT create a new array, it only loops over the specified array

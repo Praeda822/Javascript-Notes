@@ -296,16 +296,16 @@ console.log(totalDepositsUSD);
 const firstWithdrawal = movements.find(function (element) {
   return element < 0;
 });
-console.log(movements); // array
-console.log(firstWithdrawal); // -400
+// console.log(movements); // array
+// console.log(firstWithdrawal); // -400
 
-console.log(accounts);
+// console.log(accounts);
 
 // Creating a user account
 const account = accounts.find(function (element) {
   return element.owner === 'Jessica Davis';
 });
-console.log(account);
+// console.log(account);
 
 // querySelectorAll() returns a NodeList, which is LIKE an array, but isn't a real array and so doesn't have moth of the array methods such as map() and reduce()
 // So, if I wanted to use array methods on the NodeList, I would need to convert my NodeList INTO an array, again, using Array.from()!
@@ -320,6 +320,6 @@ labelBalance.addEventListener('click', function () {
 });
 
 // Another way of accessing my movements UI array, but it's a bit dodgy..
-movementsUI2 = [
-  ...document.querySelectorAll(document.querySelectorAll('.movements__value')),
-];
+// movementsUI2 = [
+//  ...document.querySelectorAll(document.querySelectorAll('.movements__value')),
+// ];
