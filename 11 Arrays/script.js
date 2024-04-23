@@ -570,7 +570,8 @@ console.log(x);
 
 patArr.fill(23, 2, 6);
 console.log(patArr);
-
+//
+//========================================
 // Array.from
 //========================================
 //
@@ -598,6 +599,104 @@ console.log(random);
 // Generate ANOTHER array with 100 random numbers!
 const random100 = Array.from(
   { length: 100 },
-  (_, i) => Math.floor(Math.random() * 100) + 1
+  () => Math.floor(Math.random() * 100) + 1
 );
 console.log(random100);
+// PIECE OF...cake
+//
+//
+//========================================
+// Which array method to sue?
+//========================================
+//
+//========================================
+// Mutate the OG Array
+//========================================
+//
+// To mutate an original array, I can use the following methods:
+// To add to the OG Array:
+// .push() (end), .unshift() (start)
+//
+// To remove from the OG Array:
+// .pop() (end), .shift() (start), .splice() (any)
+//
+// To organise the OG Array:
+// .reverse(), .sort(), .fill()
+//
+//
+//========================================
+// Create a new array!
+//========================================
+//
+// To create a new array I can use the following methods:
+// To compute FROM the OG array:
+// .map() (loop over the array)
+//
+// To filter an OG array using conditional(s):
+// .filter()
+//
+// To take a PORTION of the OG array:
+// .slice()
+//
+// To add the OG Array's content to (an)other:
+// .concat()
+//
+// To flatten the OG array:
+//  .flat(), .flatMap()
+//
+//
+//========================================
+// I Want: Array indexes/indexing
+//========================================
+//
+// To index an array..
+// Based on a Value: .indexOf()
+//
+// To index an array..
+// Based on a test condition: .findIndex()
+//
+//
+//========================================
+// I want: an Array Element
+//========================================
+//
+// I want an array element..
+// Based on a test condition: .find()
+//
+//
+//========================================
+// I want: Does an Array Include
+//========================================
+//
+// I want to know if an array includes..
+// Based on a value: .includes()
+//
+// I want to know if an array includes..
+// Based on a test condition: .some(), .every()
+//
+//
+//========================================
+// I want: A New String
+//========================================
+//
+// I want to know if a new string in an array includes..
+// Based on seperator string: .join()
+//
+//
+//========================================
+// I want: To transform an Array Value
+//========================================
+//
+// I want to transform to value..
+// Based on a/the accumulator .reduce()
+// Reduce boils down an array to a single value of any type:
+// Number, string, boolean, new array/object
+//
+//
+//========================================
+// I want: To just loop over an Array!
+//========================================
+//
+// I want to just loop over an array..
+// Based on a callback: .forEach()
+// forEach() does NOT create a new array, it only loops over the specified array
