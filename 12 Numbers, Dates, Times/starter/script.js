@@ -164,7 +164,7 @@ btnLogin.addEventListener('click', function (e) {
   );
   console.log(currentAccount);
 
-  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+  if (currentAccount?.pin === +inputLoginPin.value) {
     // Display UI and message
     labelWelcome.textContent = `Welcome back, ${
       currentAccount.owner.split(' ')[0]
@@ -182,7 +182,7 @@ btnLogin.addEventListener('click', function (e) {
 
 btnTransfer.addEventListener('click', function (e) {
   e.preventDefault();
-  const amount = Number(inputTransferAmount.value);
+  const amount = +inputTransferAmount.value;
   const receiverAcc = accounts.find(
     acc => acc.username === inputTransferTo.value
   );
@@ -206,7 +206,7 @@ btnTransfer.addEventListener('click', function (e) {
 btnLoan.addEventListener('click', function (e) {
   e.preventDefault();
 
-  const amount = Number(inputLoanAmount.value);
+  const amount = +inputLoanAmount.value;
 
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
     // Add movement
@@ -223,7 +223,7 @@ btnClose.addEventListener('click', function (e) {
 
   if (
     inputCloseUsername.value === currentAccount.username &&
-    Number(inputClosePin.value) === currentAccount.pin
+    +inputClosePin.value === currentAccount.pin
   ) {
     const index = accounts.findIndex(
       acc => acc.username === currentAccount.username
@@ -251,3 +251,83 @@ btnSort.addEventListener('click', function (e) {
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
+//
+console.log(23 === 23.0);
+//
+//========================================
+// Converting strings to Numbers
+//========================================
+//
+// The Number object provides a Namespace to work off of
+console.log(Number('23'));
+console.log(+'23');
+//
+//
+//========================================
+// Parsing Number Values | Parse Integers
+//========================================
+//
+// Parsing allows me to tell Javascript to automatically take the number values out of given strings, or Parse, them
+// In order for this to work, the string needs to START with a number
+
+console.log(Number.parseInt('30px'));
+// The parseInt argument also takes a second argument, the Radix, which is the base numeric system we're using
+console.log(Number.parseInt('e23', 10));
+//
+//========================================
+// Parsing Number Values | Parse Floats
+//========================================
+//
+// parseFloat is my go-to whenever I need to read a value out of a string
+// I can instead use parseFloat to only grab the floating point number, or decimal number:
+console.log(Number.parseFloat('2.5rem'));
+//
+// I can also use the Nunber object to check if any value is a number, or not, to begin with:
+
+// Checking if NaN
+console.log(Number.isNaN(20));
+console.log(Number.isNaN('20'));
+console.log(Number.isNaN(+'20X'));
+console.log(Number.isNaN(23 / 0));
+
+// Checking if value is a Number
+// This is my go-to method of checking
+console.log(Number.isFinite(20));
+console.log(Number.isFinite('20'));
+console.log(Number.isFinite(+'20X'));
+console.log(Number.isFinite(23 / 0));
+//
+//
+//========================================
+// Math and Rounding
+//========================================
+//
+console.log(Math.sqrt(25));
+console.log(25 ** (1 / 2));
+console.log(8 ** (1 / 3));
+console.log(Math.max(5, 18, 23, 11, 2));
+//
+// I can use Javascript's in-built math features to calculate, for instance, the radius of a circle with 10px:
+console.log(Math.PI * Number.parseFloat('10px') ** 2);
+//
+
+console.log(Math.trunc(Math.random() * 6) + 1);
+// But I can, and should, be using it to check whether something is a number or not
+// Or in this case, cleaning upo the code for a random number generator in order to make it more dynamic
+const randomInt = (min, max) =>
+  Math.trunc(Math.random() * (max - min) + 1) + min;
+
+console.log(randomInt(10, 20));
+//
+// Rounding Integers
+//========================================
+//
+// Rounding down
+console.log(Math.floor(23.3)); // 23
+//
+// Rounding up
+console.log(Math.ceil(23.3)); // 24
+//
+// Rounding decimals
+//========================================
+//
