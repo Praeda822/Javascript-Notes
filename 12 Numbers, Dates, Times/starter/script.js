@@ -315,7 +315,7 @@ console.log(Math.trunc(Math.random() * 6) + 1);
 // But I can, and should, be using it to check whether something is a number or not
 // Or in this case, cleaning upo the code for a random number generator in order to make it more dynamic
 const randomInt = (min, max) =>
-  Math.trunc(Math.random() * (max - min) + 1) + min;
+  Math.floor(Math.random() * (max - min) + 1) + min;
 
 console.log(randomInt(10, 20));
 //
@@ -331,3 +331,26 @@ console.log(Math.ceil(23.3)); // 24
 // Rounding decimals
 //========================================
 //
+// I call the toFixed method on my number namespace and specify that I want it "fixed to 0 decimals places (aka a whole number)"
+// toFixed always returns a STRING, not a number
+//
+console.log((2.7).toFixed(0)); // 3
+//
+// But if I specify 3 decimal places for example:
+console.log((2.7).toFixed(3)); // 2.700
+// And it can round off to the specified decimal place
+// If I want to convert my string back into a number, I can use the urnary operator, "+"
+console.log(+(2.345).toFixed(2)); // 2.35 as a NUMBER
+// It's useful to remember that using the urnary oeprator, "+", is a quick and easy easy to convert a string to a number in Javascript
+// It's particularly usful in cases where I get numeric values in string formatting methods, like "toFixed()""
+// This new approach, "+", is cleaner and often more intiuitive than using the other methods like "parseInt()"", or "passFloat()", especially when I know that the format of the string is already a valid number to begin with
+// Mainly it's handy becuse it's concise and performs the conversion in a straightforward manner without needing call additional functions resolting in overall cleaner, SHORTER, code
+//
+//========================================
+// REGARDING NUMBERS IN JAVASCRIPT
+//========================================
+//
+// It's important for me to remember that in Javascript, numbers are PRIMITIVE values
+// AND PRIMITIVES DON'T HAVE METHODS
+// So BTS, JS does "boxing" where JS transforms the number into a "number object"
+// Then when that "boxing" operation is finished, JS converts it back into a Primitive!
