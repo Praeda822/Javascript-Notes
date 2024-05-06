@@ -437,3 +437,26 @@ labelBalance.addEventListener('click', function () {
 // the % operator is also called modulo or the mod operator, so in (n % x) I say "n mod x" for short
 // "we are modulating n about x"
 // For example, with (6 % 9), I would refer to that as 6 mod 9
+//
+//
+//========================================
+// Numeric Seperators
+//========================================
+//
+// Let's say I wanted to represent a HUGE number, like the diameter of our a solar system:
+// 287, 460, 000, 000
+// I can use underscores as numeric seperators to make code much easier to read, format, and understand
+//
+const diameter = 287_460_000_000;
+console.log(diameter);
+//
+// I can even imply and/or convery meaning using the underscores to break apart dollars from cents, for instance
+const price = 345_99;
+const transferFee1 = 15_00;
+const transferFee2 = 1_500;
+console.log(price);
+// It doesn't matter where I place my seperators, so long as they are nested within numbers
+// I can also never do two underscores in a row
+const PI = 3.14_15;
+console.log(PI);
+// I should NEVER use underscores in, say, a string received from an API
