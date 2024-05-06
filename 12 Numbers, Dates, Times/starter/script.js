@@ -354,3 +354,86 @@ console.log(+(2.345).toFixed(2)); // 2.35 as a NUMBER
 // AND PRIMITIVES DON'T HAVE METHODS
 // So BTS, JS does "boxing" where JS transforms the number into a "number object"
 // Then when that "boxing" operation is finished, JS converts it back into a Primitive!
+//
+//
+//========================================
+// The Remainder Operator
+//========================================
+//
+// The remainer operator returns the remainder of any divison:
+console.log(5 % 2); // 1
+console.log(5 / 2); // 5 = 2 * 2 + 1
+console.log(8 % 3);
+console.log(8 / 3); // 8 = 2 * 3 + 2
+
+// I'll probably end up checking if a lot of numbers are even or odds in my JS career
+// A number that is even is divisible by 2
+// Which means if I divide that number by 2, the remainder is 0
+console.log(6 % 2); // 0
+console.log(6 / 2);
+// And this is where the use of the "%" remaindeer operator comes in handy as a kind of.. simple boolean checkgate
+
+const isEven = n => (n & 1) === 0;
+console.log(isEven(8));
+console.log(isEven(23));
+console.log(isEven(24));
+
+// Ok, let's say I now want to select ALL of the rows of my movements and when I click the label, it will change the background colour of EVERY SECOND ROW to red:
+
+labelBalance.addEventListener('click', function () {
+  [...document.querySelectorAll('.movements__row')].forEach(function (
+    element,
+    index
+  ) {
+    // 0, 2, 4, 6
+    if (index % 2 === 0) element.style.backgroundColor = 'orangered';
+    // 0, 3, 6, 9
+    if (index % 3 === 0) element.style.backgroundColor = 'blue';
+  });
+});
+// The remainder operator is useful when it comes to the implementation of iterating something every Nth time
+//
+//
+//========================================
+// DISCRETE MATHEMATICS CATCH UP LOL
+//========================================
+// In Discrete Mathemetics our teacher used an analogy comparing the % to an old-school clock with just an hour hand:
+// For example, take the equation (number1 % number2)
+// number1 represents how many hours will pass
+// number2 represents how many hours are displayed on a clock (base 12)
+// Since a typical clock displays 12 hours, if I was to use the " % " operator, everytime number1 lands on 12, it would reset to 0
+// So, if number1 = number2, OR number1 is divisible by number2, the result will be 0!
+// number1 = number2 || (number1 / number2) = 0 ?
+// So I imagine a huge planet that looks like a clock
+// It has a 12hr day, 3 hour day, 86hr day, etc
+// Once the "full hours" have passed it's a new day
+// So if I had a 12 hr day, then hour 12 would reset the counter to 0
+//========================================
+// So in (n % x),
+// n represents the hour hand
+// x represents how many hours are displayed on the clock
+// Next in (n % 6), would mean a 6 hour clock, OR a 6 hour day (so can NEVER RETURN MORE THAN 5 - >= 5), since 6 would be the 0 remainding hours in the day, OR hour 0
+// Again in (n % 9), this would mean a 9 hour clock OR a 9 hour day (can NEVER RETURN MORE THAN 8 - >= 8
+// The " % " operatoris only concerned with which number the hand lands on after n hours
+// So, again, since typical clocks show 12 hours:
+// Have 12 hours passed? Reset the time back to 0
+// Have 24 hours passed? There may have been 2 full rotations, but the timer still resets to 0 TWICE since we landed on 12 TWICE
+// What about 27 hours? Still, 2 full rotations, or resets, but then then the hand lands on 3, so we get the remainder of 3!
+//========================================
+// 1 hour on a 12 hour clock =  1 = (1 % 12)
+// 6 hours on a 12 hr clock = 6 = (6 % 12)
+// 18 hours on a 12 hr clock = 6 = (18 % 12)
+// And on a 3 hour clock:
+// 1 % 3 = 1
+// 2 % 3 = 2
+// 3 % 3 = 0
+// 4 % 3 = 1
+// 5 % 3 = 2
+// 6 % 3 = 0
+//========================================
+// 84,495 hour clock:
+// 4,000 % 84,495 = 4,000
+// 84,497 % 84,495 = 2
+// the % operator is also called modulo or the mod operator, so in (n % x) I say "n mod x" for short
+// "we are modulating n about x"
+// For example, with (6 % 9), I would refer to that as 6 mod 9
