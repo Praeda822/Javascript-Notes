@@ -460,3 +460,24 @@ console.log(price);
 const PI = 3.14_15;
 console.log(PI);
 // I should NEVER use underscores in, say, a string received from an API
+//
+//========================================
+// BigInt
+//========================================
+//
+// BigInt is a special type of Primitive data type introduced in 2020
+// I can use BigInt to store the value of any number I want, no matter how large
+//
+console.log(7564367235326458326547834295673239878567989n);
+// I can use a constructor function with BigInt as well, but I should use smaller numbers when using the constructor
+//
+console.log(BigInt(4824256));
+//
+// Operations
+//========================================
+console.log(10000n + 10000n);
+// but I can't use BigInts with regular numbers in Javascript
+//
+const huge = 7564367235326458326547834295673239878567989;
+const num = 23;
+console.log(huge + BigInt(num));
