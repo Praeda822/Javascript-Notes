@@ -480,4 +480,40 @@ console.log(10000n + 10000n);
 //
 const huge = 7564367235326458326547834295673239878567989;
 const num = 23;
-console.log(huge + BigInt(num));
+//
+//
+//========================================
+// Creating Dates
+//========================================
+//
+// I can use Date() to parse the current date
+const now = new Date();
+console.log(now);
+
+// I can also parse a string containing the date into the method:
+console.log(new Date('May 07 2020 22:50:55'));
+// I can even get the exact day of the week!
+console.log(new Date('December 24, 2013'));
+// But it's generally NOT a good idea to prase strings like this.. UNLESS the string was created by Javascript itself (like as an abstraction)
+console.log(new Date(account1.movementsDates[0]));
+//
+// Working with Dates
+//========================================
+//
+const future = new Date(2037, 10, 19, 15, 23);
+console.log(future);
+console.log(future.getFullYear());
+console.log(future.getMonth());
+console.log(future.getDate());
+console.log(future.getDay());
+console.log(future.getHours());
+console.log(future.getMinutes());
+console.log(future.getSeconds());
+console.log(future.toISOString());
+// I can even get the exact amount of time (in ms) that's elapsed since the specified date:
+console.log(future.getTime()); // 2142217380000
+// Now I can reverse it:
+console.log(new Date(2142217380000));
+//
+// There's also a special method I can use just for retrieving the current time-stamp:
+console.log(Date.now());
