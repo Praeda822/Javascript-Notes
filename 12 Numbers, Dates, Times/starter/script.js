@@ -530,20 +530,41 @@ console.log(new Date(account1.movementsDates[0]));
 // Working with Dates
 //========================================
 //
-const future = new Date(2037, 10, 19, 15, 23);
-console.log(future);
-console.log(future.getFullYear());
-console.log(future.getMonth());
-console.log(future.getDate());
-console.log(future.getDay());
-console.log(future.getHours());
-console.log(future.getMinutes());
-console.log(future.getSeconds());
-console.log(future.toISOString());
+// const future = new Date(2037, 10, 19, 15, 23);
+// console.log(future);
+// console.log(future.getFullYear());
+// console.log(future.getMonth());
+// console.log(future.getDate());
+// console.log(future.getDay());
+// console.log(future.getHours());
+// console.log(future.getMinutes());
+// console.log(future.getSeconds());
+// console.log(future.toISOString());
 // I can even get the exact amount of time (in ms) that's elapsed since the specified date:
-console.log(future.getTime()); // 2142217380000
+// console.log(future.getTime()); // 2142217380000
 // Now I can reverse it:
-console.log(new Date(2142217380000));
+// console.log(new Date(2142217380000));
 //
 // There's also a special method I can use just for retrieving the current time-stamp:
-console.log(Date.now());
+// console.log(Date.now());
+//
+//
+//========================================
+// Operations with Dates
+//========================================
+//
+// Let's create a function that returns two dates and then calculates the number of days that have elapsed between the two specified dates
+
+const future = new Date(2037, 10, 19, 15, 23);
+console.log(+future);
+const calcDaysPassed = (date1, date2) =>
+  // 1000ms in 1 second
+  // 60secs in 1 minute
+  // 60mins in 1 hour
+  // 24hrss in 1 day
+  Math.abs((date2 - date1) / (1000 * 60 * 60 * 24));
+
+const days1 = calcDaysPassed(new Date(2037, 3, 4), new Date(2037, 3, 14));
+console.log(days1); // 864000000ms
+
+// If I need really advanced and/or precise time differentials, like AEST/AEDT, then I should use a FREE date library, like Moment.JS
