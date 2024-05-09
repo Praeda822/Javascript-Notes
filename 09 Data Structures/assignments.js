@@ -895,7 +895,7 @@ const newEntries = newValues.entries();
 //   entries.push([index, value]);
 // }
 // console.log(entries);
-// WRONG; USELESS CUNT
+// WRONG; IDIOT
 // I need to loop over newValues.entries() instead of using Object.entries() on the array of values.
 
 for (const [i, v] of newEntries) {
@@ -1023,7 +1023,7 @@ function logBookTheme(title) {
 logBookTheme('IDK');
 
 // WRONGGGGGGGG
-// Retarded cunt
+// Dickhead
 // you fucked your operators up, shit for brains, had it right the first time....
 // CORRECT CODE:
 

@@ -191,6 +191,21 @@ const updateUI = function (acc) {
   calcDisplaySummary(acc);
 };
 
+const startLogoutTimer = function () {
+  // Set time to 5 minutes
+  let time = 100;
+  // Call the timer every second
+  setInterval(function () {
+    // In each call, print the remaining time to UI
+    labelTimer.textContent = time;
+
+    // Decrement by 1 second
+    time--;
+
+    // When timer is 0, stop timer and log user out
+  }, 1000);
+};
+
 ///////////////////////////////////////
 // Event handlers
 let currentAccount;
@@ -282,14 +297,17 @@ btnLoan.addEventListener('click', function (e) {
   const amount = Math.floor(inputLoanAmount.value);
 
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
-    // Add movement
-    currentAccount.movements.push(amount);
+    setTimeout(function () {
+      // Add movement
+      currentAccount.movements.push(amount);
 
-    // Add loan date
-    currentAccount.movementsDates.push(new Date().toISOString());
+      // Add loan date
+      currentAccount.movementsDates.push(new Date().toISOString());
 
-    // Update UI
-    updateUI(currentAccount);
+      // Update UI
+      updateUI(currentAccount);
+      // 2.5 second timer
+    }, 2500);
   }
   inputLoanAmount.value = '';
 });
@@ -606,3 +624,35 @@ console.log(+future);
 
 const testNum = 3884764.23;
 console.log(new Intl.NumberFormat('en-US').format(testNum));
+//
+//
+//========================================
+// setTimeout & setInterval
+//========================================
+//
+// Here Im going to order pizza, but I'm going to track the amount of milliseconds elapsed after the function is called
+// Kind of like how Dominos can track your pizza creation time
+// So I'm essentially "scheduling" the function call to kick off in 3 seconds
+// The third and fourth argument, respectively, become ing1, and ing2
+// Then I'm using the spread operator to iterate over an array of ingredients
+// And an if block that will clear the timer state if any of the ingredients includes ham; halal af
+
+const ingredients = ['ham', 'pineapple'];
+const pizzaTimer = setTimeout(
+  (ing1, ing2) => console.log(`here is your pizza with ${ing1} and ${ing2}`),
+  3000,
+  ...ingredients
+);
+console.log('waiting....');
+
+if (ingredients.includes('ham')) clearTimeout(pizzaTimer);
+
+// setInterval
+//========================================
+// I can use setInterval to repeatedly call the timer function
+//
+
+// setInterval(function () {
+//   const newNow = new Date();
+//   console.log(newNow);
+// }, 3000);
