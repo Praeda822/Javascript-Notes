@@ -205,3 +205,27 @@ btnScrollTo.addEventListener('click', function (e) {
 // Types of Events and Event Handlers
 //========================================
 //
+// I can do more than just listen for clicks with my event handlers
+// In this case, I'm listening for mouseenter, which works just like CSS :hover
+// So whenever the mouse cursor enters a certain area, in this case when my mouse hovers over the h1, I'll fire an alert off automatically
+//
+const h1 = document.querySelector('h1');
+
+//
+// THIS is the old-school way of doing it:
+// h1.onmouseenter = function (e) {
+//   alert('onmouseenter: Brilliant, mate, you are reading the heading!');
+// };
+// .addEventListener is much better to use as it allows me to add MULTIPLE event listeners to my object
+// But the biggest reason why .addEventListener is more useful is because I can actually REMOVE an event handler if I don't need it
+// To do that, first I need to export the event handler function to a named function:
+//
+const alertH1 = function (e) {
+  alert('addEventListener: Brilliant, mate, you are reading the heading!');
+  // Then right after it's fired ONCE, I can remove it:
+  // h1.removeEventListener('mouseenter', alertH1);
+};
+h1.addEventListener('mouseenter', alertH1);
+
+// But I can remove the event listener outside of the function if I want:
+setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000);
