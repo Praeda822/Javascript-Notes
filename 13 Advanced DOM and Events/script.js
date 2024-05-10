@@ -150,4 +150,58 @@ logo.classList.contains('c'); // NOT INCLUDES
 
 // I SHOULD NOT use this one as it will override any classes I have on the element and override them with whatever I've specified
 // That's why the bankist logo looks like hot garbage now
-logo.className = 'Patrick';
+// logo.className = 'Patrick';
+//
+//
+//========================================
+// Implementing Smooth Scrolling
+//========================================
+//
+// I can use getBoundingClientRect() to calculate the exact position (x, y | height, width) of my Learn More button from button itself to the top of the viewport
+// It's important to note, however, that if I scroll my x & y values change
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+btnScrollTo.addEventListener('click', function (e) {
+  const s1coords = section1.getBoundingClientRect();
+  console.log(s1coords);
+
+  console.log(e.target.getBoundingClientRect());
+
+  console.log('Current Scroll (X/Y)', window.scrollX, scrollY);
+
+  console.log(
+    'height/width viewport',
+    document.documentElement.clientHeight,
+    document.documentElement.clientWidth
+  );
+  //
+  // (old-school) Scrolling Implementation
+  //========================================
+  //
+  // Now I can use the coordinates I've got to tell javascript exactly where to scroll to
+  // I accomplish this by defining my s1coords variable to be equal to the rectangle size of the client's viewport by using the button click event as the center of it all
+  // window.scrollTo(
+  //   s1coords.left + window.scrollX,
+  //   s1coords.top + window.scrollY
+  // );
+  //
+  // (old-school) Smooth-Scrolling Implementation
+  //========================================
+  //
+  // window.scrollTo({
+  //   left: s1coords.left + window.scrollX,
+  //   top: s1coords.top + window.scrollY,
+  //   // American spelling.....
+  //   behavior: 'smooth',
+  // });
+
+  // But there's an even BETTER, more MODERN way of accomplishing all of the aforementioned:
+  // (I still need to pass in the object, however)
+  section1.scrollIntoView({ behavior: 'smooth' });
+});
+//
+//
+//========================================
+// Types of Events and Event Handlers
+//========================================
+//
