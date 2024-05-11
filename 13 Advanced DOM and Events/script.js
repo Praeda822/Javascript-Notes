@@ -1,12 +1,12 @@
 'use strict';
-
-///////////////////////////////////////
-// Modal window
-
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+///////////////////////////////////////
+// Modal window
 
 const openModal = function (e) {
   e.preventDefault();
@@ -27,6 +27,78 @@ overlay.addEventListener('click', closeModal);
 document.addEventListener('keydown', function (e) {
   if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
     closeModal();
+  }
+});
+//========================================
+//========================================
+// Implementing Smooth Scrolling
+//========================================
+//
+
+// Button Scrolling
+//========================================
+btnScrollTo.addEventListener('click', function (e) {
+  const s1coords = section1.getBoundingClientRect();
+  console.log(s1coords);
+
+  console.log(e.target.getBoundingClientRect());
+
+  console.log('Current Scroll (X/Y)', window.scrollX, scrollY);
+
+  console.log(
+    'height/width viewport',
+    document.documentElement.clientHeight,
+    document.documentElement.clientWidth
+  );
+  //
+  // (old-school) Scrolling Implementation
+  //========================================
+  //
+  // Now I can use the coordinates I've got to tell javascript exactly where to scroll to
+  // I accomplish this by defining my s1coords variable to be equal to the rectangle size of the client's viewport by using the button click event as the center of it all
+  // window.scrollTo(
+  //   s1coords.left + window.scrollX,
+  //   s1coords.top + window.scrollY
+  // );
+  //
+  // (old-school) Smooth-Scrolling Implementation
+  //========================================
+  //
+  // window.scrollTo({
+  //   left: s1coords.left + window.scrollX,
+  //   top: s1coords.top + window.scrollY,
+  //   // American spelling.....
+  //   behavior: 'smooth',
+  // });
+
+  // But there's an even BETTER, more MODERN way of accomplishing all of the aforementioned:
+  // (I still need to pass in the object, however)
+  section1.scrollIntoView({ behavior: 'smooth' });
+});
+
+// Page Navigation
+//========================================
+
+// document.querySelectorAll('.nav__link').forEach(function (element, index) {
+//   element.addEventListener('click', function (e) {
+//     e.preventDefault();
+//     const id = this.getAttribute('href');
+//     console.log(id);
+//     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+//   });
+// });
+
+// 1. Add the event listener to the common parent element
+// 2. Determine the element that originated the event
+
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  e.preventDefault();
+
+  // Matching strategy
+  if (e.target.classList.contains('nav__link')) {
+    const id = e.target.getAttribute('href');
+    console.log(id);
+    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
   }
 });
 //
@@ -153,52 +225,6 @@ logo.classList.contains('c'); // NOT INCLUDES
 // logo.className = 'Patrick';
 //
 //
-//========================================
-// Implementing Smooth Scrolling
-//========================================
-//
-// I can use getBoundingClientRect() to calculate the exact position (x, y | height, width) of my Learn More button from button itself to the top of the viewport
-// It's important to note, however, that if I scroll my x & y values change
-const btnScrollTo = document.querySelector('.btn--scroll-to');
-const section1 = document.querySelector('#section--1');
-btnScrollTo.addEventListener('click', function (e) {
-  const s1coords = section1.getBoundingClientRect();
-  console.log(s1coords);
-
-  console.log(e.target.getBoundingClientRect());
-
-  console.log('Current Scroll (X/Y)', window.scrollX, scrollY);
-
-  console.log(
-    'height/width viewport',
-    document.documentElement.clientHeight,
-    document.documentElement.clientWidth
-  );
-  //
-  // (old-school) Scrolling Implementation
-  //========================================
-  //
-  // Now I can use the coordinates I've got to tell javascript exactly where to scroll to
-  // I accomplish this by defining my s1coords variable to be equal to the rectangle size of the client's viewport by using the button click event as the center of it all
-  // window.scrollTo(
-  //   s1coords.left + window.scrollX,
-  //   s1coords.top + window.scrollY
-  // );
-  //
-  // (old-school) Smooth-Scrolling Implementation
-  //========================================
-  //
-  // window.scrollTo({
-  //   left: s1coords.left + window.scrollX,
-  //   top: s1coords.top + window.scrollY,
-  //   // American spelling.....
-  //   behavior: 'smooth',
-  // });
-
-  // But there's an even BETTER, more MODERN way of accomplishing all of the aforementioned:
-  // (I still need to pass in the object, however)
-  section1.scrollIntoView({ behavior: 'smooth' });
-});
 //
 //
 //========================================
@@ -209,7 +235,7 @@ btnScrollTo.addEventListener('click', function (e) {
 // In this case, I'm listening for mouseenter, which works just like CSS :hover
 // So whenever the mouse cursor enters a certain area, in this case when my mouse hovers over the h1, I'll fire an alert off automatically
 //
-const h1 = document.querySelector('h1');
+// const h1 = document.querySelector('h1');
 
 //
 // THIS is the old-school way of doing it:
@@ -220,12 +246,63 @@ const h1 = document.querySelector('h1');
 // But the biggest reason why .addEventListener is more useful is because I can actually REMOVE an event handler if I don't need it
 // To do that, first I need to export the event handler function to a named function:
 //
-const alertH1 = function (e) {
-  alert('addEventListener: Brilliant, mate, you are reading the heading!');
-  // Then right after it's fired ONCE, I can remove it:
-  // h1.removeEventListener('mouseenter', alertH1);
-};
-h1.addEventListener('mouseenter', alertH1);
+// const alertH1 = function (e) {
+//   alert('addEventListener: Brilliant, mate, you are reading the heading!');
+//   // Then right after it's fired ONCE, I can remove it:
+//   // h1.removeEventListener('mouseenter', alertH1);
+// };
+// h1.addEventListener('mouseenter', alertH1);
 
-// But I can remove the event listener outside of the function if I want:
-setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000);
+// // But I can remove the event listener outside of the function if I want:
+// setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000);
+// //
+// //
+// //========================================
+// // Event Propagation: Bubbling & Capturing
+// //========================================
+// //
+// // Event propagation is the concept used to describe how events spread through the Document Object Model (DOM) after they are triggered by an interaction, like a mouse click
+// // I can think of it like dropping a stone in a pond: the stone hits the water (the event happens), and ripples spread outwards (the event travels through the DOM)
+
+// // Event bubbling is a specific type of event propagation
+// // Event bubbling (basically) means that when an event is fired off, the event is essentially also fired off on the PARENT ELEMENT(s) as well
+// // Imagining for a second, that I've stacked several transparent bowls of differing sizes one inside the other:
+// // If I were to drop a small ball (the EVENT) into the smallest bowl (an ELEMENT on a webpage), it will not only hit the smallest bowl (ELEMENT) but also fall into and hit each of the larger bowls beneath it as it goes
+// // SO, bubbling means that when an event happens, it starts at the most specific target and flows upwards to the least specific target, eventually reaching the document object itself, unless stopped
+// // This is useful because it allows you to set up a single event listener on a parent element to catch events from its children, rather than having to set up listeners on each child individually!!
+
+// // So here I want to generate a random colour using the clever random number generator I coded out in the last section:
+// // rgb(255, 255, 255)
+// const randomInt = (min, max) =>
+//   Math.floor(Math.random() * (max - min + 1) + min);
+// const randomColor = () =>
+//   `rgb(${randomInt(0, 255)},${randomInt(0, 255)},${randomInt(0, 255)})`;
+// console.log(randomColor());
+
+// // here I'm going to use event bubbling to assign event handlers to all of my navigation links:
+// document.querySelector('.nav__link').addEventListener('click', function (e) {
+//   // In an event handler, the .this keyword ALWAYS points to the element in which the event handler is attached
+//   this.style.backgroundColor = randomColor();
+//   console.log('LINK', e.target, e.currentTarget);
+//   console.log(e.currentTarget === this);
+
+//   // I can use the stopPropagation() function to essentially "break" the bubbling chain for when I want to be extremely specific about controlling what event fires and where and on what
+
+//   e.stopPropagation();
+//   // As a result, now when I click on the features button, only the button itself changes, leaving its parent(s) untouched
+//   // In practice, this really isn't the best idea...but it's still good to know
+// });
+
+// // Since this is the parent element, ONLY the background colour of the links container changes, since bubbling only goes UP
+// document.querySelector('.nav__links').addEventListener('click', function (e) {
+//   this.style.backgroundColor = randomColor();
+//   console.log('CONTAINER', e.target, e.currentTarget);
+// });
+
+// // Same again with bubbling: it only applies to the parent(s)
+// // So even though the event, e, is literally the same event across all 3 elements, bubbling allows me to make changes without affecting the children
+// // Important to note that the .this keyword applied to currentTarget is also the same
+// document.querySelector('.nav').addEventListener('click', function (e) {
+//   this.style.backgroundColor = randomColor();
+//   console.log('NAV', e.target, e.currentTarget);
+// });
