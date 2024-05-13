@@ -390,7 +390,6 @@ tabsContainer.addEventListener('click', function (e) {
 // My function here is designed to adjust my navigation button link opacity, and the logo opacity, when the user hovers over a link
 // My handleHover function first checks if the event's target element has the 'nav__link' class so that the logic is only executed when the element is being interacted with
 const handleHover = function (e, opacity) {
-  console.log(this, e.currentTarget);
   if (e.target.classList.contains('nav__link')) {
     // link is my navigation link that triggers the event, from e.target
     const link = e.target;
@@ -416,3 +415,19 @@ const handleHover = function (e, opacity) {
 nav.addEventListener('mouseover', handleHover.bind(0.5));
 // Same again, but this function trigegrs when the mouse LEAVES any child element of '.nav' and resets the opacity to 1 when it does
 nav.addEventListener('mouseout', handleHover.bind(1));
+//
+//
+// ========================================
+// Implementing sticky navigation
+// ========================================
+//
+
+const initialCoords = section1.getBoundingClientRect();
+
+console.log(initialCoords);
+window.addEventListener('scroll', function () {
+  console.log(window.scrollY);
+
+  if (window.scrollY > initialCoords.top) nav.classList.add('sticky');
+  else nav.classList.remove('sticky');
+});
