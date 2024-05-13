@@ -330,6 +330,7 @@ h1.lastElementChild.style.color = 'orangered';
 console.log(h1.parentNode);
 console.log(h1.parentElement);
 // This one is REALLY useful
+// Like, REALLY useful
 h1.closest('.header').style.background = 'var(--gradient-secondary)';
 
 h1.closest('h1').style.background = 'var(--gradient-primary)';
@@ -343,4 +344,36 @@ console.log(h1.parentElement.children);
 // So I can create an array out of the node list of siblings, then iterate over each item inside it using a forEach loop
 [...h1.parentElement.children].forEach(function (element, index) {
   if (element !== h1) element.style.transform = 'scale(0.5)';
+});
+//
+// ========================================
+// Tabbed components
+// ========================================
+//
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
+
+tabsContainer.addEventListener('click', function (e) {
+  // No more SPAN element, since I'm only searching for the operations tab parent
+  const clicked = e.target.closest('.operations__tab');
+
+  // Guard clause
+  // The return statement breaks out of the loop if there is no 'clicked', and also ensures that my event handler's logic doesn't get assigned to my content box, so no more error, but I still get null
+  if (!clicked) return;
+
+  // Remove active classes
+  tabs.forEach(element => element.classList.remove('operations__tab--active'));
+  tabsContent.forEach(element =>
+    element.classList.remove('operations__content--active')
+  );
+
+  // Activate Tab
+  clicked.classList.add('operations__tab--active');
+
+  // Active content area
+  // I can define tab selection using dataset, since i've assigned it as a property on the element
+  document
+    .querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add('operations__content--active');
 });
