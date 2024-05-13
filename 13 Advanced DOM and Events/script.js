@@ -387,24 +387,32 @@ tabsContainer.addEventListener('click', function (e) {
 // Menu fade animation
 // ========================================
 //
+// My function here is designed to adjust my navigation button link opacity, and the logo opacity, when the user hovers over a link
+// My handleHover function first checks if the event's target element has the 'nav__link' class so that the logic is only executed when the element is being interacted with
 const handleHover = function (e, opacity) {
+  console.log(this, e.currentTarget);
   if (e.target.classList.contains('nav__link')) {
+    // link is my navigation link that triggers the event, from e.target
     const link = e.target;
+    // siblings finds all the other '.nav__link' elements within my navigation container as the triggered link by using the closest() method to go UP the DOM until it finds my elements with the '.nav' class, and then selects all of the siblings with QSA
     const siblings = link.closest('.nav').querySelectorAll('.nav__link');
+    // Same as above, only I'm looking for 'img' this time
     const logo = link.closest('.nav').querySelector('img');
 
+    // My function here iterates over all sibling links using a forEach loop and then applies my opacity to each of them, EXCEPT for the link that originally triggered the event: (element !== link)
     siblings.forEach(element => {
-      if (element !== link) element.style.opacity = opacity;
+      if (element !== link) element.style.opacity = this;
     });
-    logo.style.oapcity = opacity;
+    logo.style.opacity = this;
   }
 };
 
-// 'mouseenter' doesn't bubble up, so I'm using mouseover instead
-nav.addEventListener('mouseover', function (e) {
-  handleHover(e, 0.5);
-});
+// Passing "argument" into event handler
+// ========================================
 
-nav.addEventListener('mouseout', function (e) {
-  handleHover(e, 1);
-});
+// 'mouseenter' doesn't bubble up, so I'm using mouseover instead
+// This function is triggered when my mouse pointer enters any child element of '.nav'
+// Then I use the bind() method to create a NEW function where the first parameter (opacity) is permanently set to 0.5
+nav.addEventListener('mouseover', handleHover.bind(0.5));
+// Same again, but this function trigegrs when the mouse LEAVES any child element of '.nav' and resets the opacity to 1 when it does
+nav.addEventListener('mouseout', handleHover.bind(1));
