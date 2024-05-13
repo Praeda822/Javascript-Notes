@@ -168,18 +168,18 @@ document
 //========================================
 //
 // Styles that are set directly in the DOM are INLINE
-msg.style.backgroundColor = '#37383d';
-msg.style.width = '120%';
+// msg.style.backgroundColor = '#37383d';
+// msg.style.width = '120%';
 // Using inline styles and DOM manipulation I can rip the colors from a website using the console
 // This doesn't work for colors nested within CSS classes, only the inline styles I define
-console.log(msg.style.backgroundColor);
+// console.log(msg.style.backgroundColor);
 // I can still however get the style definitions using getComputedStyle and defining what style I want to
-console.log(getComputedStyle(msg).color);
+// console.log(getComputedStyle(msg).color);
 // I need to convert the string back into a number using Number.parseFloat()
-msg.style.height =
-  Number.parseFloat(getComputedStyle(msg).height, 10) + 30 + 'px';
+// msg.style.height =
+//   Number.parseFloat(getComputedStyle(msg).height, 10) + 30 + 'px';
 // I can easily change the stytle of my page by setting a property: the name, and the value
-document.documentElement.style.setProperty('--color-primary', 'orangered');
+// document.documentElement.style.setProperty('--color-primary', 'orangered');
 //
 //
 // Attributes
@@ -325,9 +325,9 @@ console.log(h1.querySelectorAll('.highlight'));
 console.log(h1.childNodes);
 console.log(h1.children);
 // Now only the first child has its colour set to white
-h1.firstElementChild.style.color = 'white';
+// h1.firstElementChild.style.color = 'white';
 // Same goes for the last child:
-h1.lastElementChild.style.color = 'orangered';
+// h1.lastElementChild.style.color = 'orangered';
 
 // Going upwards: parents
 // ========================================
@@ -336,9 +336,9 @@ console.log(h1.parentNode);
 console.log(h1.parentElement);
 // This one is REALLY useful
 // Like, REALLY useful
-h1.closest('.header').style.background = 'var(--gradient-secondary)';
+// h1.closest('.header').style.background = 'var(--gradient-secondary)';
 
-h1.closest('h1').style.background = 'var(--gradient-primary)';
+// h1.closest('h1').style.background = 'var(--gradient-primary)';
 //
 // Going sideways: siblings
 // ========================================
@@ -451,11 +451,10 @@ nav.addEventListener('mouseout', handleHover.bind(1));
 // observer.observe(section1);
 
 const navHeight = nav.getBoundingClientRect().height;
-console.log(navHeight);
 
 const stickyNav = function (entries) {
   const [entry] = entries;
-  console.log(entry);
+  // console.log(entry);
   if (!entry.isIntersecting) nav.classList.add('sticky');
   else nav.classList.remove('sticky');
 };
@@ -466,3 +465,25 @@ const headerObserver = new IntersectionObserver(stickyNav, {
   threshold: 0,
 });
 headerObserver.observe(header);
+//
+//
+// ========================================
+// Revealing Elements on Scroll
+// ========================================
+//
+// Revealing Sections
+// ========================================
+//
+const revealSection = function (entries, observer) {
+  const [entry] = entries;
+  console.log(entry);
+};
+const sectionObserver = new IntersectionObserver(revealSection, {
+  root: null,
+  rootMargin: '0px',
+  threshold: 0.15,
+});
+allSections.forEach(function (element) {
+  sectionObserver.observe(element);
+  section1.classList.add('section--hidden');
+});
