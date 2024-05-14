@@ -120,3 +120,45 @@ const slider1 = new Slider({
   btnRight: '.slider__btn--right', // Right button selector
   dotContainer: '.dots', // Dot container selector
 });
+
+// ========================================
+// Creating an Instance
+// ========================================
+
+// const slider1 = new Slider({ ... }) creates a new instance of the Slider class
+// My object passed to the constructor contains selectors for the different parts of the slider
+
+// ========================================
+// Parameters
+// ========================================
+
+// container: Selector for the main container of the slider.
+// slideClass: Selector for the individual slides.
+// btnLeft: Selector for the left navigation button.
+// btnRight: Selector for the right navigation button.
+// dotContainer: Selector for the container holding the dots.
+
+// ========================================
+// How The Fuck Does It Work, Though?
+// ========================================
+
+// The Constructor Method
+// ========================================
+
+// The constructor is a special method for initializing newly created objects
+// It's called automatically when an instance of the class is created
+// The arguments passed to the constructor are typically used to initialize the object's properties
+
+// Initialization
+// ========================================
+
+// When new Slider({...}) is called, the constructor initializes the properties of the slider using the provided selectors
+// this.init() is called to set up the slider
+
+// ========================================
+// Use Cases
+// ========================================
+
+// I can create multiple sliders on one page by creating multiple instances of the Slider class with different container selectors to manage different sliders on the same page
+// I can use the Slider class in different projects by simply changing my configuration options to match the HTML structure of each of my projects
+// Since my sliders are customizable, I can pass additional configuration options, such as transition speed & autoplay settings, to further customize the behavior of my slider
