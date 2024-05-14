@@ -541,9 +541,6 @@ const slider = document.querySelector('.slider');
 slider.style.transform = 'scale(0.2) translateX(-300px)';
 slider.style.overflow = 'visible';
 
-slides.forEach(
-  (element, index) => (element.style.transform = `translateX(${100 * index}%)`)
-);
 // Range: 0%, 100%, 200%, 300%
 
 const goToSlide = function (slide) {
@@ -553,9 +550,10 @@ const goToSlide = function (slide) {
     // Range: -100%, 0%, 100%, 200%
   );
 };
+goToSlide(0);
 
 // Next slide
-btnRight.addEventListener('click', function () {
+const nextSlide = function () {
   // -1 to make it ZERO based, so it doesn't go one extra slide along
   if (curSlide === maxSlide - 1) {
     curSlide = 0;
@@ -563,17 +561,21 @@ btnRight.addEventListener('click', function () {
     curSlide++;
   }
   goToSlide(curSlide);
-});
+};
+
+const prevSlide = function () {
+  if (curSlide === 0) {
+    curSlide = maxSlide - 1;
+  } else {
+    curSlide--;
+  }
+  goToSlide(curSlide);
+};
+
+btnRight.addEventListener('click', nextSlide);
 
 // Previous slide
-btnLeft.addEventListener('click', function () {
-  curSlide--;
-  slides.forEach(
-    (element, index) =>
-      (element.style.transform = `translateX(${100 * (index - curSlide)}%)`)
-    // Range: -100%, 0%, 100%, 200%
-  );
-});
+btnLeft.addEventListener('click', prevSlide);
 
 // ========================================
 // Lifecycle DOM Events
