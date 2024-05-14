@@ -534,23 +534,16 @@ imgTargets.forEach(element => imgObserver.observe(element));
 // Slider
 const slider = function () {
   // Selecting my elements
-  const slides = document.querySelectorAll('.slide');
+  const slides = document.querySelectorAll('.slide'); // ALl slides
   const btnLeft = document.querySelector('.slider__btn--left');
   const btnRight = document.querySelector('.slider__btn--right');
-  const dotContainer = document.querySelector('.dots');
+  const dotContainer = document.querySelector('.dots'); // Holds dots
 
   // Initial state
-  let curSlide = 0;
-  const maxSlide = slides.length;
+  let curSlide = 0; // Current slide index value
+  const maxSlide = slides.length; // Total number of slides
 
-  // const slider = document.querySelector('.slider');
-  // slider.style.transform = 'scale(0.2) translateX(-300px)';
-  // slider.style.overflow = 'visible';
-  // Range: 0%, 100%, 200%, 300%
-  // Don't feel bad, Im not expected to really know THIS specific part of the code like the back of my hand yet
-  // It does, however, look so much better than what I did for Julian's website lol
-
-  // Functions
+  // Function to create my navigation dots
   const createDots = function () {
     slides.forEach(function (_, index) {
       dotContainer.insertAdjacentHTML(
@@ -559,70 +552,83 @@ const slider = function () {
       );
     });
   };
-  createDots();
+  createDots(); // Calls function to create the dots
 
+  // Function to activate current dot
   const activateDot = function (slide) {
     document
       .querySelectorAll('.dots__dot')
-      .forEach(element => element.classList.remove('dots__dot--active'));
+      .forEach(element => element.classList.remove('dots__dot--active')); // Removes active from ALL dots
 
     document
       .querySelector(`.dots__dot[data-slide="${slide}"]`)
-      .classList.add('dots__dot--active');
+      .classList.add('dots__dot--active'); // +active to current dot
   };
 
+  // Function to move to a specific slide
   const goToSlide = function (curSlide) {
     slides.forEach(
       (element, index) =>
-        (element.style.transform = `translateX(${100 * (index - curSlide)}%)`)
-      // Range: -100%, 0%, 100%, 200%
+        (element.style.transform = `translateX(${100 * (index - curSlide)}%)`) // Moves each slide
     );
-    activateDot(curSlide);
+    activateDot(curSlide); // Activates corresponding dot
   };
-  goToSlide(0);
+  goToSlide(0); // Initialize the slider position
 
-  // Next slide
+  // Function to move to next slide
   const nextSlide = function () {
     // -1 to make it ZERO based, so it doesn't go one extra slide along
     if (curSlide === maxSlide - 1) {
-      curSlide = 0;
+      curSlide = 0; // Go BACK to first slide if at last slide
     } else {
-      curSlide++;
+      curSlide++; // Otherwise crack on
     }
-    goToSlide(curSlide);
-  };
-  // Previous slide
-  const prevSlide = function () {
-    if (curSlide === 0) {
-      curSlide = maxSlide - 1;
-    } else {
-      curSlide--;
-    }
-    goToSlide(curSlide);
+    goToSlide(curSlide); // Updates slider position
   };
 
-  // Event handlers
+  // Function to move to previous slide
+  const prevSlide = function () {
+    if (curSlide === 0) {
+      curSlide = maxSlide - 1; // // Go to last slide if at first slide
+    } else {
+      curSlide--; // Othewise, go to previous slide
+    }
+    goToSlide(curSlide); // Updates slider position
+  };
+
+  // Event handlers for my nav buttons
   btnRight.addEventListener('click', nextSlide);
   btnLeft.addEventListener('click', prevSlide);
 
-  // Because I refactored and exported my slider functionality into their own respective functions, I'm able to reuse the code SO easily
+  // Keybaord arrow key navigation functionality
   document.addEventListener('keydown', function (e) {
     console.log(e);
     // If/Else block is...ugly (but it works, lol)
-    if (e.key === 'ArrowLeft') prevSlide();
-    // else if (e.key === 'ArrowRight') nextSlide();
-    // Short-circuiting the logic is much more efficient and nicer to look at
+    // if (e.key === 'ArrowLeft') prevSlide();
+    // if (e.key === 'ArrowRight') nextSlide();
+    // Short-circuiting the logic is much more efficient and cleaner
     e.key === 'ArrowRight' && nextSlide();
+    e.key === 'ArrowLeft' && prevSlide();
   });
+
+  // Dot navigation
+  // OK, you deep-fried wombat
+  // I'm using destructuring here to extract the dataset value from data-slide, which has a corresponding slide number attached to it
+  // Without destructuring, my code would look like:
+  // e.target.dataset.slide;
+  // This is equivalent to const slide = e.target.dataset.slide;, and it extracts the value '2' from the data-slide attribute
 
   dotContainer.addEventListener('click', function (e) {
     if (e.target.classList.contains('dots__dot')) {
-      const { slide } = e.target.dataset;
-      goToSlide(slide);
+      const { slide } = e.target.dataset; // Destructure to get slide number
+      // Log the slide value for debugging purposes
+      // Now that I've logged which slide is which I get it...
+      console.log(`Clicked dot corresponds to slide ${slide}`);
+      goToSlide(slide); // Go to clicked dot's respective slide
     }
   });
 };
-slider();
+slider(); // Initializes my slider
 // ========================================
 // Lifecycle DOM Events
 // ========================================
