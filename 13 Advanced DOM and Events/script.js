@@ -537,11 +537,12 @@ const btnRight = document.querySelector('.slider__btn--right');
 let curSlide = 0;
 const maxSlide = slides.length;
 
-const slider = document.querySelector('.slider');
-slider.style.transform = 'scale(0.2) translateX(-300px)';
-slider.style.overflow = 'visible';
-
+// const slider = document.querySelector('.slider');
+// slider.style.transform = 'scale(0.2) translateX(-300px)';
+// slider.style.overflow = 'visible';
 // Range: 0%, 100%, 200%, 300%
+// Don't feel bad, Im not expected to really know THIS specific part of the code like the back of my hand yet
+// It does, however, look so much better than what I did for Julian's website lol
 
 const goToSlide = function (slide) {
   slides.forEach(
