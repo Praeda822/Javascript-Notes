@@ -526,13 +526,14 @@ imgTargets.forEach(element => imgObserver.observe(element));
 //
 //
 // ========================================
-// Building a Slider Component, pt. 1
+// Building a Slider Component
 // ========================================
 //
 // Important to note I can probably re-use this component for sliders in the future!!!
 const slides = document.querySelectorAll('.slide');
 const btnLeft = document.querySelector('.slider__btn--left');
 const btnRight = document.querySelector('.slider__btn--right');
+const dotContainer = document.querySelector('.dots');
 
 let curSlide = 0;
 const maxSlide = slides.length;
@@ -544,12 +545,33 @@ const maxSlide = slides.length;
 // Don't feel bad, Im not expected to really know THIS specific part of the code like the back of my hand yet
 // It does, however, look so much better than what I did for Julian's website lol
 
-const goToSlide = function (slide) {
+const createDots = function () {
+  slides.forEach(function (_, index) {
+    dotContainer.insertAdjacentHTML(
+      'beforeend',
+      `<button class="dots__dot" data-slide="${index}"></button>`
+    );
+  });
+};
+createDots();
+
+const activateDot = function (slide) {
+  document
+    .querySelectorAll('.dots__dot')
+    .forEach(element => element.classList.remove('dots__dot--active'));
+
+  document
+    .querySelector(`.dots__dot[data-slide="${slide}"]`)
+    .classList.add('dots__dot--active');
+};
+
+const goToSlide = function (curSlide) {
   slides.forEach(
     (element, index) =>
-      (element.style.transform = `translateX(${100 * (index - slide)}%)`)
+      (element.style.transform = `translateX(${100 * (index - curSlide)}%)`)
     // Range: -100%, 0%, 100%, 200%
   );
+  activateDot(curSlide);
 };
 goToSlide(0);
 
@@ -563,7 +585,7 @@ const nextSlide = function () {
   }
   goToSlide(curSlide);
 };
-
+// Previous slide
 const prevSlide = function () {
   if (curSlide === 0) {
     curSlide = maxSlide - 1;
@@ -574,9 +596,24 @@ const prevSlide = function () {
 };
 
 btnRight.addEventListener('click', nextSlide);
-
-// Previous slide
 btnLeft.addEventListener('click', prevSlide);
+
+// Because I refactored and exported my slider functionality into their own respective functions, I'm able to reuse the code SO easily
+document.addEventListener('keydown', function (e) {
+  console.log(e);
+  // If/Else block is...ugly (but it works, lol)
+  if (e.key === 'ArrowLeft') prevSlide();
+  // else if (e.key === 'ArrowRight') nextSlide();
+  // Short-circuiting the logic is much more efficient and nicer to look at
+  e.key === 'ArrowRight' && nextSlide();
+});
+
+dotContainer.addEventListener('click', function (e) {
+  if (e.target.classList.contains('dots__dot')) {
+    const { slide } = e.target.dataset;
+    goToSlide(slide);
+  }
+});
 
 // ========================================
 // Lifecycle DOM Events
