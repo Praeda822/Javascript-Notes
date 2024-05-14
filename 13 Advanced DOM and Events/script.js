@@ -640,17 +640,17 @@ slider(); // Initializes my slider
 // Lifecycle DOM Events
 // ========================================
 //
-// document.addEventListener('DOMContentLoaded', function (e) {
-//   console.log('HTML parsed and DOM tree built!', e);
-// });
+document.addEventListener('DOMContentLoaded', function (e) {
+  console.log('HTML parsed and DOM tree built!', e);
+});
 
-// window.addEventListener('load', function (e) {
-//   console.log('Page fully loaded', e);
-// });
+window.addEventListener('load', function (e) {
+  console.log('Page fully loaded', e);
+});
 
 // Causes that "do you REALLLLYYYY" want to quit this page when closing the tab
-// window.addEventListener('beforeunload', function (e) {
-//   e.preventDefault();
-//   console.log(e);
-//   e.returnValue = '';
-// });
+window.addEventListener('beforeunload', function (e) {
+  e.preventDefault();
+  console.log(e);
+  e.returnValue = '';
+});
