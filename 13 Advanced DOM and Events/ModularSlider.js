@@ -1,19 +1,28 @@
-'use strict';
+// ========================================
+// Building a Slider Component
+// ========================================
+//
+// Important to note I can probably re-use this component for sliders in the future!!!
 
 class Slider {
+  // The constructor initializes the slider
   constructor({ container, slideClass, btnLeft, btnRight, dotContainer }) {
-    this.container = document.querySelector(container);
-    this.slides = this.container.querySelectorAll(slideClass);
-    this.btnLeft = this.container.querySelector(btnLeft);
-    this.btnRight = this.container.querySelector(btnRight);
-    this.dotContainer = this.container.querySelector(dotContainer);
+    // Selecting my elements
+    this.container = document.querySelector(container); // Main container
+    this.slides = this.container.querySelectorAll(slideClass); // All slides
+    this.btnLeft = this.container.querySelector(btnLeft); // Left button
+    this.btnRight = this.container.querySelector(btnRight); // Right button
+    this.dotContainer = this.container.querySelector(dotContainer); // Holds dots
 
-    this.curSlide = 0;
-    this.maxSlide = this.slides.length;
+    // Initial state
+    this.curSlide = 0; // Current slide index value
+    this.maxSlide = this.slides.length; // Total number of slides
 
-    this.init();
+    // Initialize the slider
+    this.init(); // Call init method to set up the slider
   }
 
+  // Function to create my navigation dots
   createDots() {
     this.slides.forEach((_, index) => {
       this.dotContainer.insertAdjacentHTML(
@@ -23,69 +32,91 @@ class Slider {
     });
   }
 
+  // Function to activate current dot
   activateDot(slide) {
     this.dotContainer
       .querySelectorAll('.dots__dot')
-      .forEach(dot => dot.classList.remove('dots__dot--active'));
+      .forEach(element => element.classList.remove('dots__dot--active')); // Removes active from ALL dots
+
     this.dotContainer
       .querySelector(`.dots__dot[data-slide="${slide}"]`)
-      .classList.add('dots__dot--active');
+      .classList.add('dots__dot--active'); // +active to current dot
   }
 
-  goToSlide(slide) {
-    this.slides.forEach((s, i) => {
-      s.style.transform = `translateX(${100 * (i - slide)}%)`;
-    });
-    this.activateDot(slide);
+  // Function to move to a specific slide
+  goToSlide(curSlide) {
+    this.slides.forEach(
+      (element, index) =>
+        (element.style.transform = `translateX(${100 * (index - curSlide)}%)`) // Moves each slide
+    );
+    this.activateDot(curSlide); // Activates corresponding dot
   }
 
+  // Function to move to next slide
   nextSlide() {
+    // -1 to make it ZERO based, so it doesn't go one extra slide along
     if (this.curSlide === this.maxSlide - 1) {
-      this.curSlide = 0;
+      this.curSlide = 0; // Go BACK to first slide if at last slide
     } else {
-      this.curSlide++;
+      this.curSlide++; // Otherwise crack on
     }
-    this.goToSlide(this.curSlide);
+    this.goToSlide(this.curSlide); // Updates slider position
   }
 
+  // Function to move to previous slide
   prevSlide() {
     if (this.curSlide === 0) {
-      this.curSlide = this.maxSlide - 1;
+      this.curSlide = this.maxSlide - 1; // Go to last slide if at first slide
     } else {
-      this.curSlide--;
+      this.curSlide--; // Otherwise, go to previous slide
     }
-    this.goToSlide(this.curSlide);
+    this.goToSlide(this.curSlide); // Updates slider position
   }
 
+  // Method to add all event listeners
   addEventListeners() {
+    // Event handlers for my nav buttons
     this.btnRight.addEventListener('click', () => this.nextSlide());
     this.btnLeft.addEventListener('click', () => this.prevSlide());
 
+    // Keybaord arrow key navigation functionality
     document.addEventListener('keydown', e => {
-      if (e.key === 'ArrowRight') this.nextSlide();
-      if (e.key === 'ArrowLeft') this.prevSlide();
+      console.log(e);
+      // If/Else block is...ugly (but it works, lol)
+      // if (e.key === 'ArrowLeft') prevSlide();
+      // if (e.key === 'ArrowRight') nextSlide();
+      // Short-circuiting the logic is much more efficient and cleaner
+      e.key === 'ArrowRight' && this.nextSlide();
+      e.key === 'ArrowLeft' && this.prevSlide();
     });
 
+    // Dot navigation
     this.dotContainer.addEventListener('click', e => {
       if (e.target.classList.contains('dots__dot')) {
-        const { slide } = e.target.dataset;
-        this.goToSlide(slide);
+        const { slide } = e.target.dataset; // Destructure to get slide number
+        // Log the slide value for debugging purposes
+        // Now that I've logged which slide is which I get it...
+        console.log(`Clicked dot corresponds to slide ${slide}`);
+        this.goToSlide(slide); // Go to clicked dot's respective slide
       }
     });
   }
 
+  // Initialize the slider
   init() {
-    this.createDots();
-    this.goToSlide(0);
-    this.addEventListeners();
+    // DOTS. MUST. BE. CREATED. FIRST. DICKHEAD.
+    this.createDots(); // Calls function to create the dots
+    this.goToSlide(0); // Initialize the slider position
+    this.activateDot(0); // Activate the first dot
+    this.addEventListeners(); // Add all event listeners
   }
 }
 
 // Usage example
 const slider1 = new Slider({
-  container: '.slider',
-  slideClass: '.slide',
-  btnLeft: '.slider__btn--left',
-  btnRight: '.slider__btn--right',
-  dotContainer: '.dots',
+  container: '.slider', // Main container selector
+  slideClass: '.slide', // Slide selector
+  btnLeft: '.slider__btn--left', // Left button selector
+  btnRight: '.slider__btn--right', // Right button selector
+  dotContainer: '.dots', // Dot container selector
 });
