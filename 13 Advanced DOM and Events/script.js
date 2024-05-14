@@ -552,7 +552,6 @@ const slider = function () {
       );
     });
   };
-  createDots(); // Calls function to create the dots
 
   // Function to activate current dot
   const activateDot = function (slide) {
@@ -573,7 +572,6 @@ const slider = function () {
     );
     activateDot(curSlide); // Activates corresponding dot
   };
-  goToSlide(0); // Initialize the slider position
 
   // Function to move to next slide
   const nextSlide = function () {
@@ -594,6 +592,13 @@ const slider = function () {
       curSlide--; // Othewise, go to previous slide
     }
     goToSlide(curSlide); // Updates slider position
+  };
+
+  const init = function () {
+    // DOTS. MUST. BE. CREATED. FIRST. DICKHEAD.
+    createDots(); // Calls function to create the dots
+    goToSlide(0); // Initialize the slider position
+    activateDot(0); // Activate the first dot
   };
 
   // Event handlers for my nav buttons
@@ -627,6 +632,8 @@ const slider = function () {
       goToSlide(slide); // Go to clicked dot's respective slide
     }
   });
+
+  init();
 };
 slider(); // Initializes my slider
 // ========================================
