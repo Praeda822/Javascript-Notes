@@ -488,7 +488,7 @@ const sectionObserver = new IntersectionObserver(revealSection, {
 });
 allSections.forEach(function (element) {
   sectionObserver.observe(element);
-  section1.classList.add('section--hidden');
+  // section1.classList.add('section--hidden');
 });
 //
 //
@@ -522,3 +522,74 @@ const imgObserver = new IntersectionObserver(loadImg, {
 });
 
 imgTargets.forEach(element => imgObserver.observe(element));
+//
+//
+//
+// ========================================
+// Building a Slider Component, pt. 1
+// ========================================
+//
+// Important to note I can probably re-use this component for sliders in the future!!!
+const slides = document.querySelectorAll('.slide');
+const btnLeft = document.querySelector('.slider__btn--left');
+const btnRight = document.querySelector('.slider__btn--right');
+
+let curSlide = 0;
+const maxSlide = slides.length;
+
+const slider = document.querySelector('.slider');
+slider.style.transform = 'scale(0.2) translateX(-300px)';
+slider.style.overflow = 'visible';
+
+slides.forEach(
+  (element, index) => (element.style.transform = `translateX(${100 * index}%)`)
+);
+// Range: 0%, 100%, 200%, 300%
+
+const goToSlide = function (slide) {
+  slides.forEach(
+    (element, index) =>
+      (element.style.transform = `translateX(${100 * (index - slide)}%)`)
+    // Range: -100%, 0%, 100%, 200%
+  );
+};
+
+// Next slide
+btnRight.addEventListener('click', function () {
+  // -1 to make it ZERO based, so it doesn't go one extra slide along
+  if (curSlide === maxSlide - 1) {
+    curSlide = 0;
+  } else {
+    curSlide++;
+  }
+  goToSlide(curSlide);
+});
+
+// Previous slide
+btnLeft.addEventListener('click', function () {
+  curSlide--;
+  slides.forEach(
+    (element, index) =>
+      (element.style.transform = `translateX(${100 * (index - curSlide)}%)`)
+    // Range: -100%, 0%, 100%, 200%
+  );
+});
+
+// ========================================
+// Lifecycle DOM Events
+// ========================================
+//
+// document.addEventListener('DOMContentLoaded', function (e) {
+//   console.log('HTML parsed and DOM tree built!', e);
+// });
+
+// window.addEventListener('load', function (e) {
+//   console.log('Page fully loaded', e);
+// });
+
+// Causes that "do you REALLLLYYYY" want to quit this page when closing the tab
+// window.addEventListener('beforeunload', function (e) {
+//   e.preventDefault();
+//   console.log(e);
+//   e.returnValue = '';
+// });
