@@ -636,6 +636,8 @@ const slider = function () {
   init();
 };
 slider(); // Initializes my slider
+//
+//
 // ========================================
 // Lifecycle DOM Events
 // ========================================
@@ -649,8 +651,16 @@ window.addEventListener('load', function (e) {
 });
 
 // Causes that "do you REALLLLYYYY" want to quit this page when closing the tab
-window.addEventListener('beforeunload', function (e) {
-  e.preventDefault();
-  console.log(e);
-  e.returnValue = '';
-});
+// I should really only use this on a page where user input data could be lost, like a big form for example
+// window.addEventListener('beforeunload', function (e) {
+//   e.preventDefault();
+//   console.log(e);
+//   e.returnValue = '';
+// });
+//
+//
+// ========================================
+// Defer & Async Loading
+// ========================================
+//
+// We NEVER put the scsript tag at the end of the body so all the HTML is already parsed when it finally reaches the script tag

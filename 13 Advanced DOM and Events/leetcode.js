@@ -175,6 +175,19 @@ function onlyContains(letterStrArr) {
 //========================================
 // Write a function that takes an array of objects and returns a new array with only the objects that have a "name" property.
 //========================================
+function filterByNameProperty(array) {
+  return array.filter(item => item.hasOwnProperty('name'));
+}
+
+const objectsArray = [
+  { name: 'Patrick', age: 30 },
+  { sex: 'yes please' },
+  { name: 'Steve', occupation: 'Engineer' },
+  { height: 180 },
+];
+
+const filteredArray = filterByNameProperty(objectsArray);
+console.log(filteredArray);
 
 //========================================
 // Write a function that takes a string and a number as arguments and returns a new string that repeats the original string the specified number of times.
