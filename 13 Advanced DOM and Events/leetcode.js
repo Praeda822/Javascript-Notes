@@ -226,3 +226,18 @@ console.log(repeatedString);
 //========================================
 // Write a function that takes a number as an argument and returns a new array with all the numbers from 1 to the specified number.
 //========================================
+
+// First I check if the input is a possitive integer
+// If it's not, it returns an error message to user
+const generateNumberArray = num => {
+  if (typeof num !== 'number' || num <= 0 || !Number.isInteger(num)) {
+    return 'Error: Argument must be a positive integer';
+  }
+  // I use the from() method to create a new array of the specified length equal to the input number
+  // Then I use an anonymous callback function, skipping over the element and only accessing the second index argument which fills my new array with numbers 1 to the value of the num input
+  return Array.from({ length: num }, (_, index) => index + 1);
+};
+
+const specifiedNumber = 5;
+const numberArray = generateNumberArray(specifiedNumber);
+console.log(numberArray);
