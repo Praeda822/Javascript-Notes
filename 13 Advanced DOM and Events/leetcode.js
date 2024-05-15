@@ -155,22 +155,30 @@ const letterStrArr = [
 ];
 
 //Empty array to be filled with full strings containing the letter "a", and ONLY those full strings
-let letterNewArr = [];
+// let letterNewArr = [];
 
 //Function containing my logic, pass it the populated array as an argument
-function onlyContains(letterStrArr) {
-  //Loop over the array
-  for (let i = 0; i < letterStrArr.length; i++) {
-    //If the populated array, letterStrArr, INCLUDES (static method includes() ) the string value of "a"
-    if (letterStrArr[i].includes('a')) {
-      //Then push, to the empty array letterNewArr, the full string value that contains the aforementioned parameter, checking throughout the entirety of the original populated array
-      //So it should ignore the shit about vowels & mom
-      letterNewArr.push(letterStrArr[i]);
-    }
-  }
-  //Return (legally), the value of the now populated array
-  return letterNewArr;
-}
+// function onlyContains(letterStrArr) {
+//Loop over the array
+// for (let i = 0; i < letterStrArr.length; i++) {
+//If the populated array, letterStrArr, INCLUDES (static method includes() ) the string value of "a"
+// if (letterStrArr[i].includes('a')) {
+//Then push, to the empty array letterNewArr, the full string value that contains the aforementioned parameter, checking throughout the entirety of the original populated array
+//So it should ignore the shit about vowels & mom
+//     letterNewArr.push(letterStrArr[i]);
+//   }
+// }
+//Return (legally), the value of the now populated array
+//   return letterNewArr;
+// }
+
+// Refactored code using filter(), arrow functions, implemented single responsibility principle, and cleaned global namespace
+
+// Function to filter strings containing the letter "a"
+const onlyContains = arr => arr.filter(str => str.includes('a'));
+
+const letterNewArr = onlyContains(letterStrArr);
+console.log(letterNewArr);
 
 //========================================
 // Write a function that takes an array of objects and returns a new array with only the objects that have a "name" property.
