@@ -201,9 +201,21 @@ console.log(filteredArray);
 
 // repeat() is a method that constructs and returns a new string which contains the specified number of copies of the string on which it was called, concatenated together
 // Another good use-case for something new
-function repeatString(str, num) {
+
+// function repeatString(str, num) {
+//   return str.repeat(num);
+// }
+
+// Refactor for input validation and error checking:
+const repeatString = (str, num) => {
+  if (typeof str !== 'string') {
+    return 'Error: First argument must be a string';
+  }
+  if (typeof num !== 'number' || num < 0 || !Number.isInteger(num)) {
+    return 'Error: Second argument must be a non-negative integer';
+  }
   return str.repeat(num);
-}
+};
 
 const originalString = 'Hello ';
 const repeatCount = 3;
