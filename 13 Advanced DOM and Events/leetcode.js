@@ -175,9 +175,15 @@ function onlyContains(letterStrArr) {
 //========================================
 // Write a function that takes an array of objects and returns a new array with only the objects that have a "name" property.
 //========================================
-function filterByNameProperty(array) {
-  return array.filter(item => item.hasOwnProperty('name'));
-}
+// function filterByNameProperty(array) {
+//   return array.filter(item => item.hasOwnProperty('name'));
+// }
+
+// Refactored function for a more robust solution:
+// 'in' operator works just like hasOwnProperty, but 'in' checks UP the prototype chain
+// Since my objects array is a pretty basic object, it's a perfect use-case
+
+const filterByNameProperty = array => array.filter(item => 'name' in item);
 
 const objectsArray = [
   { name: 'Patrick', age: 30 },
