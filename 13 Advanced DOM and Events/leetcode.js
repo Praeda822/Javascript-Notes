@@ -229,13 +229,32 @@ console.log(repeatedString);
 
 // First I check if the input is a possitive integer
 // If it's not, it returns an error message to user
+// I use the from() method to create a new array of the specified length equal to the input number
+// Then I use an anonymous callback function, skipping over the element and only accessing the second index argument which fills my new array with numbers 1 to the value of the num input
+
+// const generateNumberArray = num => {
+//   if (typeof num !== 'number' || num <= 0 || !Number.isInteger(num)) {
+//     return 'Error: Argument must be a positive integer';
+//   }
+
+//   return Array.from({ length: num }, (_, index) => index + 1);
+// };
+
+// Refactor for input validation, and extracted validation & array creation logic into their own respective functions:
+
 const generateNumberArray = num => {
-  if (typeof num !== 'number' || num <= 0 || !Number.isInteger(num)) {
+  // Validate input to ensure it is a positive integer
+  const isValidInput = input =>
+    typeof input === 'number' && input > 0 && Number.isInteger(input);
+
+  if (!isValidInput(num)) {
     return 'Error: Argument must be a positive integer';
   }
-  // I use the from() method to create a new array of the specified length equal to the input number
-  // Then I use an anonymous callback function, skipping over the element and only accessing the second index argument which fills my new array with numbers 1 to the value of the num input
-  return Array.from({ length: num }, (_, index) => index + 1);
+
+  // Create an array from 1 to num using Array.from
+  const createArray = length => Array.from({ length }, (_, index) => index + 1);
+
+  return createArray(num);
 };
 
 const specifiedNumber = 5;
