@@ -104,6 +104,11 @@ const Person = function (firstName, birthYear) {
   // Instance properties
   this.firstName = firstName;
   this.birthYear = birthYear;
+
+  // NEVER DO THIS
+  //   this.CalcAge = function () {
+  //     console.log(2037 - this.birthYear);
+  //   };
 };
 
 // and I can create as many objects as I want, with as many different names as I want, so long as they abide by my defined parameters:
