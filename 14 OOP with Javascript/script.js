@@ -97,6 +97,22 @@ console.log(myNum);
 //
 // This is a programming tecnique where I can create objects from a function!
 // This is also how built-in objects like Arrays, Maps, and/or Sets are actually implemented in Javascript
+// In JS, my constructor functions ALWAYS start with a capital, and I can only use function declarations and function expressions for my constructors as well
+// I need to remember that an arrow function here will NOT WORK as it doesn't have it's own .this keyword and I'd need that for my arrow functions to wrok
+
+const Person = function (firstName, birthYear) {
+  this.firstName = firstName;
+  this.birthYear = birthYear;
+};
+const patrick = new Person('Patrick', 1994);
+console.log(patrick);
+
+// What's the "new" operator, you ask?
+// Well, that's how I call my constructor functions:
+// So, first an empty object is created
+// Next, the function is called, the .this keyword now points to my new empty object
+// Third, this new object is now linked to a prototype
+// Finally, this object is now automatically returned from my constructor function
 //
 //
 // 2. ES6 Classes
@@ -114,3 +130,5 @@ console.log(myNum);
 // ========================================
 //
 // This is the easiest and most straightforward way of linking an object to a prototype object
+//
+//
