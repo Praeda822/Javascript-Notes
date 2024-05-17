@@ -101,18 +101,26 @@ console.log(myNum);
 // I need to remember that an arrow function here will NOT WORK as it doesn't have it's own .this keyword and I'd need that for my arrow functions to wrok
 
 const Person = function (firstName, birthYear) {
+  // Instance properties
   this.firstName = firstName;
   this.birthYear = birthYear;
 };
-const patrick = new Person('Patrick', 1994);
-console.log(patrick);
 
+// and I can create as many objects as I want, with as many different names as I want, so long as they abide by my defined parameters:
+const jack = new Person('Jack', 1980);
+const jess = new Person('Jess', 1945);
+
+const patrick = new Person('Patrick', 1994);
+console.log(patrick, jack, jess);
 // What's the "new" operator, you ask?
 // Well, that's how I call my constructor functions:
 // So, first an empty object is created
 // Next, the function is called, the .this keyword now points to my new empty object
 // Third, this new object is now linked to a prototype
 // Finally, this object is now automatically returned from my constructor function
+// With all that considered, now I can define the .this keyword in my constructor function
+// So I can ultimately create a variable with my name, that will automatically assign other values alongside of it, like hypothetical birthyear, hair colour, eye colour, etc.
+// I'm only limited by how many parameters or properties I want and/or need
 //
 //
 // 2. ES6 Classes
