@@ -145,3 +145,17 @@ console.log(patrick, jack, jess);
 // This is the easiest and most straightforward way of linking an object to a prototype object
 //
 //
+
+// ========================================
+// Prototypes
+// ========================================
+//
+console.log(Person.prototype);
+// Each and every one of my functions in Javascript all automatically have a prototype, which is essentially like the site plans, and it's that prototype that contains all the methods - constructor functions work the same!
+// So every object that is created by a certain constructor function, will get access to all of the methods and properties that we define on the constructor's prototype property:
+Person.prototype.calcAge = function () {
+  console.log(2037 - this.birthYear);
+};
+
+patrick.calcAge(); // 43
+jack.calcAge(); // 57
