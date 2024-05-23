@@ -1,17 +1,19 @@
 'use strict';
 
 // Selecting state elements
-const player0El = document.querySelector('.player--0');
-const player1El = document.querySelector('.player--1');
-const score0El = document.querySelector('#score--0');
-const score1El = document.getElementById('score--1');
-const current0El = document.getElementById('current--0');
-const current1El = document.getElementById('current--1');
+const select = selector => document.querySelector(selector);
 
-const diceEl = document.querySelector('.dice');
-const btnNew = document.querySelector('.btn--new');
-const btnRoll = document.querySelector('.btn--roll');
-const btnHold = document.querySelector('.btn--hold');
+const player0El = select('.player--0');
+const player1El = select('.player--1');
+const score0El = select('#score--0');
+const score1El = select('#score--1');
+const current0El = select('#current--0');
+const current1El = select('#current--1');
+
+const diceEl = select('.dice');
+const btnNew = select('.btn--new');
+const btnRoll = select('.btn--roll');
+const btnHold = select('.btn--hold');
 
 // Define the variables as globally scoped
 // Then redefine them within the init function
