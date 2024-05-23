@@ -40,6 +40,7 @@ btnsOpenModal.forEach(btn => btn.addEventListener('click', openModal));
 // Closing the modal
 btnCloseModal.addEventListener('click', closeModal);
 overlay.addEventListener('click', closeModal);
+
 //=========================================
 // Handling keypress events
 //=========================================
@@ -47,7 +48,7 @@ overlay.addEventListener('click', closeModal);
 // Listening for events EVERYWHERE on the page
 // calls function to log specific key to console
 // I define explicitly for key type
-document.addEventListener('keydown', function (e) {
+document.addEventListener('keydown', e => {
   console.log(e.key);
 
   // If pressed key is Escape
