@@ -31,18 +31,15 @@ const closeModal = function () {
   overlay.classList.add('hidden');
 };
 
-// For loop through the btnsOpenModal node list (which works like an array)
-for (let i = 0; i < btnsOpenModal.length; i++)
-  // I select btnsOpenModal starting from the first index value
-  // I assign an event handler to listen for a click
-  // ONLY when the click is registered call openModal
-  btnsOpenModal[i].addEventListener('click', openModal);
+// Event listeners for the buttons
+//=========================================
 
-// I'm NOT calling the function
-// I want the closeModal function to call ONLY when the click event happens for the modal and overlay, respectively
+// Opening the modal
+btnsOpenModal.forEach(btn => btn.addEventListener('click', openModal));
+
+// Closing the modal
 btnCloseModal.addEventListener('click', closeModal);
 overlay.addEventListener('click', closeModal);
-
 //=========================================
 // Handling keypress events
 //=========================================
