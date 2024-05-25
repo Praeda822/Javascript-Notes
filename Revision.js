@@ -46,7 +46,7 @@ console.log(yearsUntilRetirement(1958, "Dad"));
 //========================================
 
 function cutFruitPieces(fruit) {
-  return fruit * 4;
+  return fruit;
 }
 
 function fruitProcessor(apples, oranges) {
@@ -131,22 +131,6 @@ console.log(friends.indexOf("Bob"));
 // .includes returns a boolean value (true/false) if the element is in the array
 console.log(friends.includes("Steven"));
 console.log(friends.includes("Bob"));
-
-// Write a function calcTip that takes any bill value as an input and returns the corresponding tip, calculated based on the rules above (you can check out the code from the first tip calculator challenge if you need to). Use the function type you like the most. Test the function using a bill value of 100.
-
-// Next, create an array called bills containing the test data below.
-// TEST DATA: 125, 555, 44
-
-// Create an array called tips containing the tip value for each bill, calculated from the calcTip function.
-//MY SOLUTION:
-const calcTip = (bill) =>
-  bill >= 50 && bill <= 300 ? bill * 0.15 : bill * 0.2;
-console.log(calcTip(125));
-
-const bills = [125, 555, 44];
-const tips = [calcTip(bills[0]), calcTip(bills[1]), calcTip(bills[2])];
-const totals = [bills[0] + tips[0], bills[1] + tips[1], bills[2] + tips[2]];
-console.log(tips, totals);
 
 //========================================
 //Objects
@@ -262,8 +246,8 @@ console.log(
 // const massJohn = 92;
 // const heightJohn = 1.95;
 
-// const BMIMark = massMark / (heightMark * heightMark);
-// const BMIJohn = massJohn / (heightJohn * heightJohn);
+// const BMIMark = massMark / (heightMark  heightMark);
+// const BMIJohn = massJohn / (heightJohn  heightJohn);
 // console.log(BMIMark, BMIJohn);
 
 // if (BMIMark >= BMIJohn) {
@@ -272,175 +256,102 @@ console.log(
 //   console.log(`John's BMI (${BMIJohn}) is higher than Mark's (${BMIMark})!`);
 // }
 
-const mark = {
-  fullName: "Mark Miller",
-  mass: 78,
-  height: 1.69,
+//========================================
+// Regular Functions vs Arrow Functions
+//========================================
 
-  calcBMI: function () {
-    this.bmi = this.mass / this.height ** 2;
-    return this.bmi;
+// var birthName = 'Pattyboi';
+
+const pkNew = {
+  birthName: "Patrick",
+  year: 1994,
+  calcAge: function () {
+    console.log(2037 - this.year);
+
+    // Solution 1:
+    //========================================
+    // const self = this; // can also be self, that, or debt
+    // const isMillenial = function () {
+    //   console.log(self);
+    //   console.log(self.year >= 1981 && self.year <= 1996);
+    // };
+    // isMillenial();
+    //========================================
+    //
+    // Solution 2:
+    //========================================
+    const isMillenial = () => {
+      console.log(this);
+      console.log(this.year >= 1981 && this.year <= 1996);
+    };
+    isMillenial();
+    //========================================
+  },
+
+  // greet: () => console.log(`Hey ${this.birthName}`),
+  greet: function () {
+    console.log(this);
+    console.log(`Hey ${this.birthName}`);
   },
 };
 
-const john = {
-  fullName: "John Smith",
-  mass: 92,
-  height: 1.95,
-
-  calcBMI: function () {
-    this.bmi = this.mass / this.height ** 2;
-    return this.bmi;
-  },
+pkNew.greet();
+pkNew.calcAge();
+//
+//========================================
+// The code above returns undefined because arrow functions do not get their own this keyword
+// I get undefined because the parent scope of the  arrow function is the Global Scope
+// Since we're accessing the Global Scope, if we're not running strict mode, then the this keyword is accessing the window object (uh oh..)
+// If I wanted my global object to have properties, then I would use a globally scoped variable like var
+// NEVER EVER USE AN ARROW FUNCTION AS A METHOD
+// And in the code above, and also in future projects, the entire shitshow can be avoided by adhering to the rule above of never ever use an arrow function as a method
+//
+// With the isMillenial function call inside of a method, since it is a regular function call, the this keyword must be undefined
+// Which means I end up with an error saying undefined, when in theory it should otherwise work
+// BUT RULEZ R RULEZ, BRO
+// TRY NOT TO GET CAUGHT OUT BY THIS FUCKERY
+// There are TWO solutions to the isMillenial  = undefined problem:
+//
+// Solution 1. | The self variable
+//========================================
+//
+// The Solution to this problem, is to use an extra variable, usually called self and assign it the value of this
+// So I define self outside of the function, as this, and since I'm now outside of the isMillenial() function, the this keyword is still set to pkNew, or the pkNew Object
+// Finally, I can change the this keyword inside of my isMillenial() function to self to reflect the change and output true since the boolean condition is met
+// So, self is referenced within the isMillenial() function, but since self is not within the function's scope, Javascript goes up the scope chain and into the parent scope, which is calcAge(), which is also the scope where self is defined
+//
+//
+// Solution 2. | The Arrow Function
+//========================================
+// The second solution to this problem is to use an Arrow Function, since Arrow Functions do not have their own this keyword
+// Which means, since I don't have a this keyword, and I'm using an arrow function, I inherit the this keyword from my parent scope, which is still pkNew, or the pkNew Object!!! | how fucken clever is that
+// This is an extremely useful usecase for arrow functions
+//
+//
+//
+//========================================
+// The arguments Keyword
+//========================================
+//
+// Regular Functions also get access to an arguments keyword
+// ONLY REGULAR FUNCTIONS GET THE ARGUMENTS KEYWORD
+// This can be useful when I need a function to accept more parameters than I've actually specified
+//
+//========================================
+const addExpr = function (a, b) {
+  console.log(arguments);
+  return a + b;
 };
+addExpr(2, 5);
+addExpr(2, 5, 8, 12);
 
-mark.calcBMI();
-john.calcBMI();
+// var addArrow = (a, b) => {
+//   console.log(arguments);
+//   return a + b;
+// };
 
-if (mark.bmi > john.bmi) {
-  console.log(
-    `${mark.fullName}'s BMI (${mark.bmi}) is higher than ${john.fullName}'s (${john.bmi})!`
-  );
-} else john.bmi > mark.bmi;
-console.log(
-  `${john.fullName}'s BMI (${john.bmi}) is higher than ${mark.fullName}'s (${mark.bmi})!`
-);
-
-// I used .this to store the caluclated values of john and mark
-// in a NEW variable called "bmi", so after I've called the calcBMI method on each of the objects,
-// I can then ACCESS that NEW STORED VARIABLE I USED .this FOR and OUTPUT it in as a string in a TEMPLATE literal!!
-
+// addArrow(2, 5, 8);
 //========================================
-// Loops!
-//========================================
-console.log("Lifting weights repetition 1");
-console.log("Lifting weights repetition 2");
-console.log("Lifting weights repetition 3");
-console.log("Lifting weights repetition 4");
-console.log("Lifting weights repetition 4");
-
-//for loop will keep running whilst the condition is true
-for (let rep = 1; rep <= 10; rep++) {
-  console.log(`Lifting weights repetition ${rep}`);
-}
-
-//========================================
-// Looping through Arrays
-//========================================
-const pat = [
-  "Pat",
-  "Kelly",
-  2024 - 1994,
-  "Plumber",
-  ["Michael", "Steven", "Peter"],
-];
-const types = [];
-
-// I can use the for loop to loop through the array
-// [i] is the first index value of the array (position 0)
-// i < pat.length is the condition that the loop will keep running whilst i is less than the length of the array
-// i++ is the incrementor that will increase the value of i by 1 each time the loop runs
-// I can then use the console.log function to output the value of the array at each index position
-// I can also use the typeof operator to output the data type of the value at each index position
-for (let i = 0; i < pat.length; i++) {
-  console.log(pat[i], typeof pat[i]);
-
-  // Filling a types array with the data types of the values in the pat array
-  // types[i] = typeof pat[i];
-  types.push(typeof pat[i]);
-}
-console.log(types);
-
-//========================================
-// Declare my years array and fill it with random years
-// Declare an empty array called agesArray
-const years = [1991, 2007, 1969, 2020];
-const agesArray = [];
-
-// Loop through the years array and calculate the age of each year starting from 2037
-for (let i = 0; i < years.length; i++) {
-  agesArray.push(2037 - years[i]);
-}
-console.log(agesArray);
-
-//========================================
-// Looping backwards and nested loops
-//========================================
-
-// I loop through the full length of my pat array
-// I start at the last index of the array (pat.length - 1)
-// I keep looping whilst i is greater than or equal to 0
-for (let i = pat.length - 1; i >= 0; i--) {
-  // logging both the index and the value at the index
-  console.log(i, pat[i]);
-}
-
-for (let exercise = 1; exercise < 4; exercise++) {
-  console.log(`----Starting exercise ${exercise}`);
-
-  for (let rep = 1; rep < 6; rep++) {
-    console.log(`Lifting weights repetition ${rep}`);
-  }
-}
-
-//========================================
-// While Loop
-//========================================
-let rep = 1;
-while (rep <= 10) {
-  console.log(`Lifting weights repetition ${rep}`);
-  rep++;
-}
-
-let dice = Math.trunc(Math.random() * 6) + 1;
-
-// Is the die different from 6?
-// This while loop will roll for a random number ad infinitum until we roll a 6
-// Once we roll a 6, the loop will end
-while (dice !== 6) {
-  console.log(`You rolled a ${dice}`);
-  dice = Math.trunc(Math.random() * 6) + 1;
-  if (dice === 6) console.log("Snake eyes! Loop is about to end...");
-}
-
-//========================================
-// CHALLENGE 4
-//========================================
-const billsArray = [22, 295, 176, 440, 37, 105, 10, 1100, 86, 52];
-const tipsArray = [];
-const totalsArray = [];
-
-// now iterate through the entire billsArray with a for loop
-for (let i = 0; i < billsArray.length; i++) {
-  // calculate the tip for each bill item in the bills array
-  // store value in new variable, tip
-  const tip = calcTip(billsArray[i]);
-  // push each calculated value to the empty tips array
-  tipsArray.push(tip);
-  // now fill the empty totals array
-  // so I push each of the bills index items from the start of the array
-  // and sum it with the tip
-  totalsArray.push(billsArray[i] + tip);
-}
-
-console.log(billsArray, tipsArray, totalsArray);
-
-//========================================
-// BONUS CHALLENGE
-//========================================
-const arr = [22, 295, 176, 440, 37, 105, 10, 1100, 86, 52];
-
-function calcAvg(arr) {
-  // init sum variable within function for scope
-  let sum = 0;
-  // loop over the entire numbers array, arr
-  for (let i = 0; i < arr.length; i++) {
-    // add each array element to the sum variable
-    sum += arr[i];
-  }
-  //Return mean calc after full loop iteration and OUTSIDE of function
-  return sum / arr.length;
-}
-// now call the function with the totals array
-// so "use" the function on the totals array to calculate the total
-console.log(calcAvg(totalsArray));
+// So the arguments keyword returns all the parameters, or arguments, passed to the function, as an array
+// For example, I could use a loop and then loop over the array to add all of the numbers together
+// Since arrow functions, again, do not get their own this keyword, the same applies for arguments as well
