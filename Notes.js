@@ -71,3 +71,36 @@
 // This in, in a nutshell, Javascript's **Non-blocking Concurrency Model with a Single Thread**.
 // JavaScript also uses the event loop to handle **asynchronous operations**, allowing **non-blocking I/O operations**
 // Keep in mind this *is* a **HUGE** over-simplification
+
+//========================================
+// **The Javascript Engine**
+//========================================
+
+// Every Javascript engine always contains a **Callstack** and a **Heap**.
+// The **callstack is where our code is executed** using something called **Execution Context**
+// Then, the **Heap** is an **Unstructured Memory Pool** that **stores all of the objects our application needs in the memory**.
+// So when a piece of Javascript code enters the engine, the first step we take is to **PARSE** the code, which means *to read* the code.
+// During the *parsing* process, the code is parsed into a *data structure* called the **Abstract Syntax Tree**, or *AST*
+// This works by first splitting up each line of code into pieces that ae *meaningful* to the language, **such as the *const* or *function* keywords**, and **then *saving* all of these pieces to the tree in a structured way**.
+// This step *also* checks for any syntax errors, **with the resulting tree consequently being used to generate the machine code**.
+// Next is **Compilation**. This where we take the *AST* and **compile it into machine code**
+// Then, this code is **Executed** in the **Call Stack** right away, as Javascript is a *Just-in-time* compiled language
+// During this entire process, our code is being **optimized & recompiled** in the background during the already running programming execution
+// This can be done multiple times, and every time the code is *optimized*, the *unoptimized code* is *swept up*, or **Garbage Collected**, without every stopping execution of the application
+// All of this *parsing*, *compiling*, *executing*, and *optimizing*, happens in *special threads* that we can't access from the codebase, with different engines implementing this process in different ways.
+
+//========================================
+// **The Javascript Runtime**
+//========================================
+
+// Imagine a big box, this is the **Runtime**, that contains smaller boxes, denoted with the following:
+
+// **The Javascript engine, the *Heart***.
+//========================================
+// The *Javascript Engine* contains the **heap** (*an **Unstructured Memory Pool** where my application's objects are stored in memory*) and the **call stack** (*where my code is **executed***).
+
+// **WEB APIs**
+//========================================
+// **WEB APIs** are **functionalities provided to the engine that are *not* actually part of the Javascript language itself**.
+// Javascript has *access* to these APIs through the **global window object**.
+// **WEB APIs** contain everything related to the **DOM**, **Timers**, **FetchAPI**, **Console.log()**, **etc.**
