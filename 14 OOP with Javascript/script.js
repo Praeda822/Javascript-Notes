@@ -181,3 +181,50 @@ console.log(patrick.hasOwnProperty('species'));
 // This is also how the process works with both function constructors AND ES6 classes, but NOT the Object.Create() method
 // So instead of having a shitload of objects all carrying around different functions and bogging down overall application performance, they can ALL call their function(s) from the object's prototype
 // The whole process of looking up methods and properties in a Prototype is called a PROTOTYPE CHAIN
+//
+//
+// ========================================
+// Prototypal Inheritance on Built-in Objects
+// ========================================
+//
+// Object.prototype is (usually) the top of my scope-chain/prototype chain:
+
+// First prototype-chain (the inner scope)
+console.log(patrick.__proto__);
+// Second prototype-chain (the inner scope's outer scope & also my constructor)
+console.log(patrick.__proto__.__proto__);
+// Final prototype-chain (the inner scope's outer scope's outer scope, which is NULL)
+console.log(patrick.__proto__.__proto__.__proto__);
+
+// Points back to person
+console.dir(Person.prototype.constructor);
+
+// THis is actually SICK
+// I can essentially look up all the prototypal methods available to arrays in javascript:
+const arr = [3, 6, 6, 5, 9, 9, 8]; // new Array === []
+// The above shorthand weay is the same as using Javascript's in-built constructors to create an array
+console.log(arr.__proto__);
+console.log(arr.__proto__) === Array.prototype;
+// And by going further UP the prototype chain, now I can see all the prototype methods of the array constructor:
+// Important to remember that my methods live INSIDE of the prototypes (blueprints), and the prototypes DELEGATE those methods out to their respective linked objects
+console.log(arr.__proto__.__proto__);
+
+// So since, in Javascript, an Array is TECHNICALLY an object, then that means any array will inherit all of its methods from its respective prototype
+// Therefore I can use that knoweldge to extend the functionality of my arrays
+// In this case, I'll make a new method that returns all of the unique elements of an array to my prototype to be inherited by ALL arrays:
+Array.prototype.unique = function () {
+  return [...new Set(this)];
+};
+console.log(arr.unique()); // [3, 6, 5, 9, 8]
+// To reiterate: I've added a NEW mthod to the array prototype constructor, and now all arrays will inherit this method, and I can call this method on any array I want
+// HOWEVER, first, this is generally NOT a good idea as the next version of Javascript may add a new method that is identical to my "new" method, and as a result, it will break my code(base)
+// And secondly, if I'm working on a team of developers, this will be a shit idea as not only would my cohorts not know what my method does, but if we were to implement the SAME idea, then we end up with conflicting code and SO many bugs that it's really not worth doing - great in theory, shit in practice
+
+// So, here I'm mainly interested in the prototype of my h1 element: HTMLHeadingElement(), which means the constructor prototype for h1 elements is HTMLHeadingElement
+// And HTMLHeadingElement is a child of HTMLElement, and HTMLElement is a child of Element, and Element is a child of Node, so the prototype ultimately is Node
+// So clearly the prototype chain here is very, very long
+const h1 = document.querySelector('h1');
+console.dir(h1);
+// So my function is, again technically, an Object, which means it is linked to its own prototype, and thus the prototype then contains all the methods I've been using previously on my functions up until now: apply(), bind(), and call()
+// THis is, again, the reason why I can call methods on functtions: because they are OBJECTS, and OBJECTS HAVE PROTOTYPES, in this case, the function prototype
+console.dir(x => x + 1);
