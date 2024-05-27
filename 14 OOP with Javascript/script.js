@@ -308,7 +308,7 @@ console.dir(x => x + 1);
 //
 //
 // ========================================
-// CHALLENGE
+// CHALLENGE #1
 // ========================================
 //
 // DATA SETS:
@@ -468,3 +468,59 @@ console.log(Number.parseFloat(12));
 
 // I would typically use these static methods as "helpers" that should be related to a certain constructor
 Man.hey();
+//
+//
+// ========================================
+// CHALLENGE #2
+// ========================================
+//
+// 1. Re-create challenge #1 but this time using an ES6 class
+
+class Truck {
+  constructor(make, speed) {
+    this.make = make;
+    this.speed = speed;
+  }
+  // Getter for speed in mp/h
+  get speedUS() {
+    return this.speed / 1.6;
+  }
+  // Setter for speed in mp/h
+  set speedUS(speed) {
+    return (this.speed = speed * 1.6);
+  }
+  // Accelerate
+  accelerate() {
+    this.speed += 10;
+    console.log(`The ${this.make} accelerates to ${this.speed} km/h.`);
+  }
+
+  // Brake
+  brake() {
+    this.speed -= 5;
+    console.log(`The ${this.make} decelerates to ${this.speed} km/h.`);
+  }
+}
+
+const truck1 = new Truck('Ford', 100);
+const truck2 = new Truck('Holden', 80);
+
+console.log(truck1, truck2);
+truck1.accelerate(); // ..accelrates to 110 km/h
+truck2.brake(); // ..decelerates to 75 km/h
+
+// Use getter to convert the speed to freedoms per assault rifle
+console.log(`The ${truck1.make} is travelling at ${truck1.speedUS} mp/h.`); // 68.75 mp/h
+console.log(`The ${truck2.make} is travelling at ${truck2.speedUS} mp/h.`); // 46.87 mp/h
+
+// Use the setter to set a new speed
+truck1.speedUS = 120; // Converts from mp/h to km/h
+truck2.speedUS = 100; // Converts from mp/h to km/h
+
+// The truck objects still retain their original km/h speed properties, but now converted from mp/h
+console.log(truck1, truck2); // 192km/h & 160km/h
+
+// Display my new speed in mp/h
+console.log('====NEW SPEEDS====');
+console.log(`The ${truck1.make} is now travelling at ${truck1.speedUS} mp/h.`); // 120 mp/h
+console.log(`The ${truck2.make} is now travelling at ${truck2.speedUS} mp/h.`); // 100 mp/h
