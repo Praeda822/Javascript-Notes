@@ -169,3 +169,15 @@ console.log(patrick.hasOwnProperty('species'));
 // ========================================
 // Prototypal Inheritance / Delegation
 // ========================================
+//
+//
+// The new Operator
+// ========================================
+//
+// First, an empty object is created
+// Next, the .this keyword in the constructor function call is set to the new object
+// Then, the new object is linked (__proto__property) to the constructor function's prototype property
+// Finally, the new object is automatically returned from the constructor function call
+// This is also how the process works with both function constructors AND ES6 classes, but NOT the Object.Create() method
+// So instead of having a shitload of objects all carrying around different functions and bogging down overall application performance, they can ALL call their function(s) from the object's prototype
+// The whole process of looking up methods and properties in a Prototype is called a PROTOTYPE CHAIN
