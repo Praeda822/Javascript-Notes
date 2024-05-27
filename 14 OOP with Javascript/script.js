@@ -377,6 +377,8 @@ class Man {
     this.fullName = fullName;
     this.birthYear = birthYear;
   }
+  // Methods to be added to the .prototype property
+  // These are also known as Instance Methods
   calcAge() {
     console.log(2037 - this.birthYear);
   }
@@ -401,6 +403,13 @@ class Man {
   // Getter to return the computed full name stored in the new _fullName variable
   get fullName() {
     return this._fullName;
+  }
+  // Add a static method
+  static hey() {
+    console.log('Gday, mate💪');
+    // Whatever object is calling the method, will be the .this keyword inside of that function
+    // Therefore here the .this keyword points to the entire constructor
+    console.log(this);
   }
 }
 
@@ -427,11 +436,4 @@ console.log(Array.from(document.querySelectorAll('h1')));
 console.log(Number.parseFloat(12));
 
 // I would typically use these static methods as "helpers" that should be related to a certain constructor
-
-Man.hey = function () {
-  console.log('Gday, mate💪');
-  // Whatever object is calling the method, will be the .this keyword inside of that function
-  // Therefore here the .this keyword points to the entire constructor
-  console.log(this);
-};
 Man.hey();
