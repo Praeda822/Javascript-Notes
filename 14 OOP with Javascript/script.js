@@ -226,5 +226,63 @@ console.log(arr.unique()); // [3, 6, 5, 9, 8]
 const h1 = document.querySelector('h1');
 console.dir(h1);
 // So my function is, again technically, an Object, which means it is linked to its own prototype, and thus the prototype then contains all the methods I've been using previously on my functions up until now: apply(), bind(), and call()
-// THis is, again, the reason why I can call methods on functtions: because they are OBJECTS, and OBJECTS HAVE PROTOTYPES, in this case, the function prototype
+// This is, again, the reason why I can call methods on functtions: because they are OBJECTS, and OBJECTS HAVE PROTOTYPES, in this case, the function prototype
 console.dir(x => x + 1);
+//
+//
+// ========================================
+// CHALLENGE
+// ========================================
+//
+// DATA SETS:
+// Car 1: 'BMW' going at 120km/h
+// Car 2: 'Mercedces' going at 95km/h
+// 1. Create a constructor function to implement a Car. The car has a make, as well as a speed, property. The speed property is the curent speed of the car in km/h
+
+const Car = function (make, speed) {
+  this.make = make;
+  this.speed = speed;
+};
+// I need to store my speed as a NUMBER, not a string
+const car1 = new Car('BMW', 120);
+const car2 = new Car('Mercedes', 95);
+
+console.log(car1, car2);
+
+// 2. Implement an 'accelerate' method that will increase the car's speed by 10, and log the new speed to the console
+
+// Instead of using +, I need to use +=
+// += means take the current value of this variable and add something to it, then store that result back in the same variable
+Car.prototype.accelerate = function () {
+  this.speed += 10;
+  // Instead of RETURNING the value, or using a dodgy console.log, I should use a template literal to add the km/h string value to the end
+  console.log(
+    `The ${this.make} accelerates, and is now travelling at ${this.speed} km/h`
+  );
+};
+
+car1.accelerate();
+car2.accelerate();
+
+// 3. Implement a 'brake' method that will decrease the car's speed by 5km/h, and log the new speed to the console
+
+Car.prototype.brake = function () {
+  this.speed -= 5;
+  // And instead of RETURNING, or a shitty console.log, I should use a template literal to add the km/h string value to the end
+  console.log(
+    `The ${this.make} decelerates, and is now travelling at ${this.speed} km/h`
+  );
+};
+
+car1.brake(); // 125 km/h
+car2.brake(); // 100 km/h
+
+// 4. Create 2 car objects and experiment with calling 'accelerate' and 'brake' multiple times on each of them
+
+const car3 = new Car('Toyota', 80);
+const car4 = new Car('Hyundai', 50);
+
+car3.accelerate(); // 90 km/h
+car4.brake(); // 45 km/h
+
+// OOP really is like using objects as building blocks..
