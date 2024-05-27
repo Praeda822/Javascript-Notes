@@ -188,10 +188,41 @@ jessica.greet();
 // 3. Object.create()
 // ========================================
 //
-// This is the easiest and most straightforward way of linking an object to a prototype object
-//
-//
+// There are NO prototype properties, no constructor functions, and no new operator available/involved when using Object.create()
+// Instead I can use Object.create() to manually set the prototype of an object to any other object that I want
+// This is the easiest and most straightforward way of linking an object to its prototype properties
+// So here I'm going to set the prototype of ALL the person objects:
+const PersonProto = {
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  },
+  // This LOOKS like a constructor, but it isn't, since I'm NOT using the new operator
+  init(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  },
+};
 
+// Now all I need to do is to create a new person object with the above object as its prototype:
+const steven = Object.create(PersonProto);
+console.log(steven);
+steven.name = 'Steven';
+steven.birthYear = 2002;
+steven.calcAge(); // 35
+
+// This is just to represent prototypes and their respective prototype chain(s), as ideally I would want to implement a programmatic way of creating objects and assigning their properties
+// In the real world, though, this is the LEAST used way of implementing prototypal inehritance
+// But it's STILL extremely important to know how it works, such as implementing inheritance between my classes, for instance
+
+// I can double-check this by logging the first link in the inheritance chain to the console:
+console.log(steven.__proto__); // THIS is PersonProto
+
+const sarah = Object.create(PersonProto);
+// So now I'm able to programmatically create a new person object, assign it's prototype, declare the inheritance chain, and I'm able to point the .this keyword to sarah by explicitly calling init() on sarah
+// This is, ultimately, just a manual way of initializing my objects, and is essentially how Object.create() works:
+// Object.create() creates a NEW object with the prototype of that object being the object that I pass in
+sarah.init('Sarah', 1979);
+sarah.calcAge(); // 58
 // ========================================
 // Prototypes
 // ========================================
