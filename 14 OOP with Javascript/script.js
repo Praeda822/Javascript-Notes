@@ -578,6 +578,9 @@ console.dir(Student.prototype.constructor);
 // CHALLENGE #3
 // ========================================
 //
+// DATA SET
+// 'Tesla' going at 120km/h, with a charge of 23%
+
 // 1. Use a constructor function to implement an Electric Car (called EV) as a CHILD "class" of Car. Besides a make and current speed, the EV also has the current battery charge in % ('charge' property)
 
 const EV = function (make, speed, charge) {
@@ -586,7 +589,7 @@ const EV = function (make, speed, charge) {
   this.charge = charge;
 };
 
-// Link EV prototype as child of Car just like b4 or I'll get errors...
+// Link EV prototype as child of Car just like before or I'll get errors...
 EV.prototype = Object.create(Car.prototype);
 
 // 2. Implement a 'chargeBattery' method which takes an argument 'chargeTo' and sets the battery charge to 'chargeTo'
@@ -597,14 +600,20 @@ EV.prototype.chargeBattery = function (chargeTo) {
 
 // 3. Implement an 'accelerate' method that will increase the car's speed by 20, and decrease the charge by 1. Then, log a message like this: 'Tesla going at 140km/h, with a charge of 22%'
 
-// OK so this overwrites my original accelerate method
+// OK so this overwrites my original accelerate method's template literal
 EV.prototype.accelerate = function () {
   this.speed += 20;
   this.charge--;
   console.log(
-    `${this.make} is travelling at ${this.speed}, with a charge of ${this.charge}`
+    `The ${this.make} is travelling at ${this.speed} km/h, with a charge of ${this.charge}%`
   );
 };
+
+// Point my EV object's constructor to EV (like we did with Student)
+EV.prototype.constructor = EV;
+// Check to see if my constructor reference points to the correct constructor..
+console.dir(EV.prototype.constructor);
+// EV(make, speed, charge) || yay..
 
 // 4. Create an electric car object and experiment with calling 'accelerate', 'brake', and 'chargeBattery' (charge to 90%). Notice what happens when you 'accelerate'
 
@@ -612,12 +621,9 @@ const tesla = new EV('Tesla', 120, 23);
 console.log(tesla);
 tesla.accelerate();
 tesla.brake();
-tesla.chargeBattery(50);
-console.log(`${tesla.make} has been charged to ${tesla.charge}% capacity`);
+tesla.chargeBattery(90);
+console.log(`The ${tesla.make} has been charged to ${tesla.charge}% capacity`);
 // Everytime I accelerate my charge goes down
-tesla.accelerate();
-tesla.accelerate();
-console.log(tesla.constructor); // Chceck constructor..
-
-// DATA SET
-// 'Tesla' going at 120km/h, with a charge of 23%
+tesla.accelerate(); // 155 km/h, 89%
+tesla.accelerate(); // 175 km/h, 88%
+tesla.brake(); // ..decelerates to 170 km/h
