@@ -565,3 +565,10 @@ mike.introduce();
 // In other words, I want to set the .__proto__ property of Student.prototype to Person.prototype, and I'll need to link this connection manually
 // Which is a great use-case for Object.create()!!
 mike.calcAge(); //17
+// So logging next prototype up the inheritance chain, which is the Person prototype
+console.log(mike.__proto__);
+// Next up in the chain is the calcAge() function
+console.log(mike.__proto__.__proto__);
+
+Student.prototype.constructor = Student;
+console.dir(Student.prototype.constructor);
