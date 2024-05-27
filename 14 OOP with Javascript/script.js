@@ -524,3 +524,44 @@ console.log(truck1, truck2); // 192km/h & 160km/h
 console.log('====NEW SPEEDS====');
 console.log(`The ${truck1.make} is now travelling at ${truck1.speedUS} mp/h.`); // 120 mp/h
 console.log(`The ${truck2.make} is now travelling at ${truck2.speedUS} mp/h.`); // 100 mp/h
+//
+//
+// ========================================
+// Inheritance Between "Classes":
+//      Constructor Functions
+// ========================================
+//
+const Student = function (firstName, birthYear, course) {
+  // DRY RULE!!!
+  // If the person changes, then that change will NOT be reflected in the student
+  // So instead of having the duplicate code, I can pass in the Person constructor, but also provide the call() function to it in order to manually allocate the .this keyword TO THAT FUNCTION
+  // this.firstName = firstName;
+  // this.birthYear = birthYear;
+  Person.call(this, firstName, birthYear);
+  this.course = course;
+};
+
+// Using object.create() to link student to person
+// IMPORTANT THAT THE CODE GOES EXACTLY HERE
+// The reason Object.create() needs to go here is because if I had palced it after the introduce method I made, it would overwrite the method I added to the Prototype object
+
+Student.prototype = Object.create(Person.prototype);
+// Now the student object INHERITS FROM PERSON
+// But I still need to link them together, because as it stands, Object.create() will create an empty object
+
+Student.prototype.introduce = function () {
+  console.log(`My name is ${this.firstName} and I am studying ${this.course}`);
+};
+
+const mike = new Student('Mike', 2020, 'Computer Science');
+mike.introduce();
+
+// So far I've created the student constructor function and it's prototype property
+// The mike object is LINKED to its prototype, and that prototype is the constructor function's prototype property
+// I created this link between the instance and prototype automatically by creating the mike object with the new operator
+// But the Student is also a Person, so I want my student & person to be CONNECTED, with the student becoming a/the child class, inheriting its properties from the person class, with the person class functioning as the parent class
+// This way, the Student class gets access to to the person class' methods, like calcAge(), through the prototypal inheritance chain
+// So ultimately I want to make Person.prototype the prototype of Student.prototype
+// In other words, I want to set the .__proto__ property of Student.prototype to Person.prototype, and I'll need to link this connection manually
+// Which is a great use-case for Object.create()!!
+mike.calcAge(); //17
