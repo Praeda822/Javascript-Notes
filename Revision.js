@@ -326,32 +326,3 @@ pkNew.calcAge();
 // The second solution to this problem is to use an Arrow Function, since Arrow Functions do not have their own this keyword
 // Which means, since I don't have a this keyword, and I'm using an arrow function, I inherit the this keyword from my parent scope, which is still pkNew, or the pkNew Object!!! | how fucken clever is that
 // This is an extremely useful usecase for arrow functions
-//
-//
-//
-//========================================
-// The arguments Keyword
-//========================================
-//
-// Regular Functions also get access to an arguments keyword
-// ONLY REGULAR FUNCTIONS GET THE ARGUMENTS KEYWORD
-// This can be useful when I need a function to accept more parameters than I've actually specified
-//
-//========================================
-const addExpr = function (a, b) {
-  console.log(arguments);
-  return a + b;
-};
-addExpr(2, 5);
-addExpr(2, 5, 8, 12);
-
-// var addArrow = (a, b) => {
-//   console.log(arguments);
-//   return a + b;
-// };
-
-// addArrow(2, 5, 8);
-//========================================
-// So the arguments keyword returns all the parameters, or arguments, passed to the function, as an array
-// For example, I could use a loop and then loop over the array to add all of the numbers together
-// Since arrow functions, again, do not get their own this keyword, the same applies for arguments as well

@@ -159,3 +159,13 @@ Person.prototype.calcAge = function () {
 
 patrick.calcAge(); // 43
 jack.calcAge(); // 57
+
+Person.prototype.species = 'Homo Sapiens';
+console.log(patrick.species, jack.species);
+
+console.log(patrick.hasOwnProperty('firstName'));
+console.log(patrick.hasOwnProperty('species'));
+
+// ========================================
+// Prototypal Inheritance / Delegation
+// ========================================
