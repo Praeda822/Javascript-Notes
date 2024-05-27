@@ -410,4 +410,28 @@ jake.calcAge();
 jake.greet();
 
 // This triggers my alert
-const walter = new Man('Walter', 1965);
+// const walter = new Man('Walter', 1965);
+//
+//
+// ========================================
+// Static Methods
+// ========================================
+//
+// the from method is a static, built-in Javascript method that is attached to an array constructor
+// THis means, I CAN'T use the from method on an array itself, since the from method is attached to the entire array constructor, and NOT the prototype property of that constructor
+// This means, all the arrays do NOT inherit this method as from is not assigned to their prototype
+console.log(Array.from(document.querySelectorAll('h1')));
+// [1, 2, 3].from();
+
+// The same applies to the parseFloat method for instance, as parseFloat is assigned to the Number constructor, and not the prototype property of numbers themselves
+console.log(Number.parseFloat(12));
+
+// I would typically use these static methods as "helpers" that should be related to a certain constructor
+
+Man.hey = function () {
+  console.log('Gday, mate💪');
+  // Whatever object is calling the method, will be the .this keyword inside of that function
+  // Therefore here the .this keyword points to the entire constructor
+  console.log(this);
+};
+Man.hey();
