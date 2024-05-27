@@ -137,6 +137,52 @@ console.log(patrick, jack, jess);
 // yes, good for you, your dick is huge,and then everybody clapped, etc.
 // In reality, though, we all know that ES6 classes don't behave like classes in traditional OOP: they're subject to the prototypal inheritance system
 // Where it's a prototype that contains all the methods, and that then delegates those methods out to the LINKED objects
+
+// Classes are, in truth, just a special kind of function and they can be programmed one of two ways:
+// As a Class Expression, or as a Class Declaration
+
+// Class expression
+// const PersonClExp = class {};
+
+// Class declaration
+// I need to use the constructor method!!!
+// Then I need to declare what my PROPERTIES are
+class PersonClDec {
+  constructor(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  }
+  // Next I need to define my methods
+  // Ic an confirm this by looking at the object and inspecting the prototype
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  }
+  // No commas are needed to seperate my methods
+  greet() {
+    console.log(`Hey, ${this.firstName}!`);
+  }
+}
+
+const jessica = new PersonClDec('Jessica', 1994);
+console.log(jessica);
+jessica.calcAge(); // 43
+
+// And a final confirmation:
+console.log(jessica.__proto__ === PersonClDec.prototype); // true
+
+// I can also just add the below method into the constructor itself
+// PersonClDec.prototype.greet = function () {
+//   console.log(`Hey, ${this.firstName}!`);
+// };
+jessica.greet();
+
+// So with this syntax, I don't have to manually muck around with the prototype property, only write my methods inside my class but OUTSIDE my constructor
+// And then they (the methods) will automatically be added to the .prototype property
+
+// Some important things to remember:
+// 1. Classes are NOT hoisted, so it cannot be used before it is declared (unlike function declarations)
+// 2. Classes are first-class citizens, which means I can both pass them INTO functions and return them FROM functions
+// 3. Classes are always executed in strict mode!!
 //
 //
 // 3. Object.create()
