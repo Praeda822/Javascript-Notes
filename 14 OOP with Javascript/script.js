@@ -332,3 +332,82 @@ car3.accelerate(); // 90 km/h
 car4.brake(); // 45 km/h
 
 // OOP really is like using objects as building blocks..
+//
+//
+// ========================================
+// Setters and Getters
+// ========================================
+//
+const account = {
+  owner: 'Patrick',
+  transactions: [200, 530, 120, 300],
+
+  // New method to get the latest transaction
+  get latest() {
+    return this.transactions.slice(-1).pop();
+  },
+  // It is NOT mandatory to use a setter if I use a getter
+  set latest(transaction) {
+    this.transactions.push(transaction);
+  },
+};
+//
+// Using the getter
+// ========================================
+//
+// Now I can use the method as if it was just a property
+// This is really useful if I just want to read a property, but only after doing some calculations beforehand
+console.log(account.latest); // 300
+//
+// Using the setter
+// ========================================
+//
+// Same as before, I'm still using latest as a property and not as a method
+// And so my original transactions array is returned with '50' appended to it
+account.latest = 50;
+console.log(account.transactions);
+//
+// Using Getters and Setters with Classes
+// ========================================
+//
+// MAXIMUM CALL STACK EXCEEDED - INFINITE RECURSION:
+// I need to denote fullName with an underscore since both my constructor function AND my setter are trying to fight over who gets to set the fullName property
+class Man {
+  constructor(fullName, birthYear) {
+    this.fullName = fullName;
+    this.birthYear = birthYear;
+  }
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  }
+
+  greet() {
+    console.log(`Hey, ${this.fullName}!`);
+  }
+  // This returns the same as the calc age function: 1994
+  get age() {
+    return 2024 - this.birthYear;
+  }
+
+  // And some input validation that will check if the name has a space, to see if it's a full name
+  set fullName(name) {
+    console.log(name);
+    if (name.includes(' ')) {
+      this._fullName = name;
+    } else {
+      alert(`${name} is not a full name`);
+    }
+  }
+  // Getter to return the computed full name stored in the new _fullName variable
+  get fullName() {
+    return this._fullName;
+  }
+}
+
+const jake = new Man('Jake Smith', 1994);
+console.log(jake);
+jake.calcAge();
+jake.greet();
+
+// This triggers my alert
+const walter = new Man('Walter', 1965);
