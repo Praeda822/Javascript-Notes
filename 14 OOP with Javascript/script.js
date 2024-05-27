@@ -543,7 +543,7 @@ const Student = function (firstName, birthYear, course) {
 
 // Using object.create() to link student to person
 // IMPORTANT THAT THE CODE GOES EXACTLY HERE
-// The reason Object.create() needs to go here is because if I had palced it after the introduce method I made, it would overwrite the method I added to the Prototype object
+// The reason Object.create() needs to go here is because if I had placed it after the introduce method I made, it would overwrite the method I added to the Prototype object
 
 Student.prototype = Object.create(Person.prototype);
 // Now the student object INHERITS FROM PERSON
@@ -581,13 +581,43 @@ console.dir(Student.prototype.constructor);
 // 1. Use a constructor function to implement an Electric Car (called EV) as a CHILD "class" of Car. Besides a make and current speed, the EV also has the current battery charge in % ('charge' property)
 
 const EV = function (make, speed, charge) {
+  // Calls constructor and assigns .this keyword
   Car.call(this, make, speed);
   this.charge = charge;
 };
 
+// Link EV prototype as child of Car just like b4 or I'll get errors...
+EV.prototype = Object.create(Car.prototype);
+
 // 2. Implement a 'chargeBattery' method which takes an argument 'chargeTo' and sets the battery charge to 'chargeTo'
+
+EV.prototype.chargeBattery = function (chargeTo) {
+  this.charge = chargeTo;
+};
+
 // 3. Implement an 'accelerate' method that will increase the car's speed by 20, and decrease the charge by 1. Then, log a message like this: 'Tesla going at 140km/h, with a charge of 22%'
-// 4. Create an eelctric car object and experiment with calling 'accelerate', 'brake', and 'cahrgeBattery' (charge to 90%). Notice what happens when you 'accelerate'
+
+// OK so this overwrites my original accelerate method
+EV.prototype.accelerate = function () {
+  this.speed += 20;
+  this.charge--;
+  console.log(
+    `${this.make} is travelling at ${this.speed}, with a charge of ${this.charge}`
+  );
+};
+
+// 4. Create an electric car object and experiment with calling 'accelerate', 'brake', and 'chargeBattery' (charge to 90%). Notice what happens when you 'accelerate'
+
+const tesla = new EV('Tesla', 120, 23);
+console.log(tesla);
+tesla.accelerate();
+tesla.brake();
+tesla.chargeBattery(50);
+console.log(`${tesla.make} has been charged to ${tesla.charge}% capacity`);
+// Everytime I accelerate my charge goes down
+tesla.accelerate();
+tesla.accelerate();
+console.log(tesla.constructor); // Chceck constructor..
 
 // DATA SET
 // 'Tesla' going at 120km/h, with a charge of 23%
