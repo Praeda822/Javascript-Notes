@@ -936,4 +936,57 @@ console.log(acc1.getTransactions());
 
 acc1.deposit(300).deposit(500).withdraw(35).requestLoan(25000).withdraw(4000);
 console.log(acc1.getBalance()); // 22915
-// AND IT WORKS HAHAHA NO FUCKIN WAY
+//
+//
+// ========================================
+// ES6 Classes Summary
+// ========================================
+//
+// When making child classes, the extends keyword automatically sets inheritance between its classes (parent>child), but also automatically sets the prototype
+
+class Corpo extends People {
+  // Public Field
+  company = 'Globohomo';
+  // Private fields
+  #branch;
+  #hoursWorked = 0;
+  static numColleagues = 10;
+
+  // My constructor to kick it off
+  constructor(fullName, birthYear, startYear, branch) {
+    // Super always comes first
+    // Add parent args, assign this for new
+    super(fullName, birthYear);
+    this.startYear = startYear;
+    this.#branch = branch;
+  }
+
+  introduce() {
+    console.log(`Hello, I am ${this.fullName}, and I work at ${this.company}.`);
+  }
+
+  work(h) {
+    this.#bludge();
+    this.#hoursWorked += h;
+  }
+
+  #bludge() {
+    return 'Yeah I could not be fucked, honestly, mate.';
+  }
+
+  get randomSpreadsheet() {
+    return this._testResult;
+  }
+
+  set spreadsheetResult(outcome) {
+    this._spreadsheetResult = outcome >= 50 ? outcome : 'YOU ARE FIRED';
+  }
+
+  static printOHSBooklet() {
+    console.log(
+      `Please ensure full compliance and obediance whilst internned at ${this.company}. Please assume the position.`
+    );
+  }
+}
+
+const terry = new Corpo('Terrence', 1989, 2037, 'Globohomo Pty Ltd.');
