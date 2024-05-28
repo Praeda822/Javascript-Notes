@@ -944,6 +944,23 @@ console.log(acc1.getBalance()); // 22915
 //
 // When making child classes, the extends keyword automatically sets inheritance between its classes (parent>child), but also automatically sets the prototype
 
+// When making a regular class, I MUST use a constructor method to be called by my new operator when using extend, but I can (possibly) ommit this in a child class
+
+// The super keyword ALWAYS COMES AFTER THE CONSTRUCTOR, and takes the parent prototype's arguments followed by defining the .this keyword for the new arguments
+
+// Private methods can be denoted by prepending the property with a hash, but "since this kind of encapsulation isn't available on (most) browsers, I can "fake" it with an underscore
+
+// A getter method is basically a tool I can use to extract an object's value by simply providing a property instead of writing a method
+
+// A setter method is basically a tool I can use to simply define a value by setting it to whatever value I desire instead of calling a method
+// I need to keep in mind that if I have a setter for a property that is ALREADY defined in my constructor, then I need to create, essentially, a new property prepended with an underscore, as per modern convention
+// Then in the getter with the same name, I also need to RETURN that new property!!
+
+// Static methods are methods that are only available on the CLASS, and not the prototype, which means the static method CAN NOT access instance properties or methods, only static ones
+
+// ES6 Classes are, really just syntatic sugar over constructor functions (they make them look nicer)
+// ES6 Classes are also NOT hoisted, since they are first-class citizens, and the class body is ALWAYS executed in strict mode.
+
 class Corpo extends People {
   // Public Field
   company = 'Globohomo';
@@ -952,41 +969,55 @@ class Corpo extends People {
   #hoursWorked = 0;
   static numColleagues = 10;
 
-  // My constructor to kick it off
+  // Mandatory constructor
   constructor(fullName, birthYear, startYear, branch) {
     // Super always comes first
     // Add parent args, assign this for new
     super(fullName, birthYear);
+    // Instance properties on OBJECT
     this.startYear = startYear;
     this.#branch = branch;
   }
 
+  // Public Method
   introduce() {
     console.log(`Hello, I am ${this.fullName}, and I work at ${this.company}.`);
   }
 
+  // References to private field(s)
   work(h) {
     this.#bludge();
     this.#hoursWorked += h;
   }
 
+  // Private method
   #bludge() {
     return 'Yeah I could not be fucked, honestly, mate.';
   }
 
-  get randomSpreadsheet() {
-    return this._testResult;
+  // Getter method
+  get randomTestResult() {
+    // Return the new property per name valid.
+    return this._randomTestResult;
   }
 
-  set spreadsheetResult(outcome) {
-    this._spreadsheetResult = outcome >= 50 ? outcome : 'YOU ARE FIRED';
+  // Setter Method
+
+  set randomTestResult(outcome) {
+    // Using _ to set property with same name as the method, and also add getter
+    this._randomTestResult = outcome >= 50 ? outcome : 'YOU ARE FIRED';
   }
 
   static printOHSBooklet() {
     console.log(
-      `Please ensure full compliance and obediance whilst internned at ${this.company}. Please assume the position.`
+      `Please ensure full compliance and obedience whilst internned at Globohomo. Please assume the position.`
     );
   }
 }
 
-const terry = new Corpo('Terrence', 1989, 2037, 'Globohomo Pty Ltd.');
+const terry = new Corpo('Terrence Jones', 1989, 2037, 'Globohomo Pty Ltd.');
+terry.introduce();
+terry.work(8);
+terry.spreadsheetResult = 45;
+console.log(terry.randomTestResult); // YOU ARE FIRED
+Corpo.printOHSBooklet();
