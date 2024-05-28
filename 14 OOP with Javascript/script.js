@@ -634,6 +634,7 @@ tesla.brake(); // ..decelerates to 170 km/h
 // ========================================
 //
 // Classes are, essentially, just a layer of abstracion over Constructor Functions since they hide a lot of what's going on behind the scenes
+// Keep in mind that implementing inheritance like this is a reallyyyyy dodgy way of working with classes
 
 class People {
   constructor(fullname, birthYear) {
@@ -705,3 +706,9 @@ plumber.calcAge(); // 44
 // }; // 44, but can clean it up
 
 plumber.calcAge(); // originally 57
+
+//
+//
+// ========================================
+// Inheritance between "Classes": Object.create()
+// ========================================
