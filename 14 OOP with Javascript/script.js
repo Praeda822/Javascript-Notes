@@ -760,3 +760,82 @@ chippy.calcAge(); // 65
 // It's really important I get this shit right because in reality, and as much as I love doing it this way...
 // ES6 classes and constructor functions are how it's done in the real world and especially modern javascript (FUCK)
 // Nothing worth understanding would ever be easy
+//
+//
+// ========================================
+// More Class Examples
+// ========================================
+//
+// WHYYYY have I been writing these FUCKING LOOOOONG OBJECTS
+class Account {
+  constructor(owner, currency, pin) {
+    this.owner = owner;
+    this.currency = currency;
+    this.pin = pin;
+    // How about the transactions?
+    // I could pass the empty array but that's shit since EVERY account would have that empty array
+    // But I can set this TO the empty array!
+    this.transactions = [];
+    // And getting the locale from the navigator?
+    this.locale = navigator.language;
+    // And a non-policy violating greeting whenever a user makes a new account (lol)
+    console.log(`Thanks for opening an account, ${owner}`);
+  }
+
+  // Public Interface
+  // These methods are basically the INTERFACE to my objects, AKA: API's
+  deposit(val) {
+    this.transactions.push(val);
+  }
+  // I can also call other methods from within another method, but I stil need to specify the .this keyword
+  withdraw(val) {
+    this.deposit(-val);
+  }
+  // And to get the balance
+  // I can use an arrow function here because of the lexical scoping of the .this keyword (I don't need it)
+  // 0 is my initial accumulator starting value
+  getBalance() {
+    return this.transactions.reduce(
+      (accumulator, element) => accumulator + element,
+      0
+    );
+  }
+
+  approveLoan(val) {
+    return true;
+  }
+
+  requestLoan(val) {
+    if (this.approveLoan(val)) {
+      this.deposit(val);
+      console.log(`Loan Approved`);
+    }
+  }
+}
+
+const acc1 = new Account('Patrick', 'AUD', 111);
+
+// To add to my transactions I can just (almighty)push
+// acc1.transactions.push(250);
+// To sub from my transactions I can just push a neggy value
+// acc1.transactions.push(-250);
+
+// But this is a BAD IDEA and BAD PRACTICE
+// It's MUCH better to create METHODS that interact with the properties themselves
+// ESPECIALLY for important properties
+// ESPECIALLY to avoid lots of bugs whens scaling
+acc1.deposit(250);
+acc1.withdraw(100);
+console.log(acc1);
+// Get total balance
+console.log(
+  `Hello, ${acc1.owner}, your current balance is: ${acc1.getBalance()} ${
+    acc1.currency
+  }`
+);
+// How about the PIN being accessible from outside???'
+// How about the loan logic, mate....
+console.log(acc1.pin);
+acc1.requestLoan(1000);
+acc1.approveLoan(1000);
+// This is why DATA ENCAPSULATION is so important!!!
