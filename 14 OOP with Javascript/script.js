@@ -679,17 +679,17 @@ class People {
 class Tradie extends People {
   // I still need a constructor, though
   // I'll also have the same arguments as the parent class, plus some additional (extending)
-  constructor(fullName, birthYear, hourly) {
+  constructor(fullName, birthYear, start) {
     // Don't need to call my People function & assign the .this keyword
     // But I still need to pass in the same paramaters as the parent class
     // super ALWAYS HAPPENS FIRST!!!
     super(fullName, birthYear);
-    this.hourly = hourly;
+    this.start = start;
   }
 
   introduce() {
     console.log(
-      `Gday, I'm ${this.fullName}, and in my trade we average around ${this.hourly} on wages. `
+      `Gday, I'm ${this.fullName}, and in my trade we start ${this.start} in the morning. `
     );
   }
   calcAge() {
@@ -697,7 +697,7 @@ class Tradie extends People {
   }
 }
 
-const plumber = new Tradie('Pat Smith', 1980, 55);
+const plumber = new Tradie('Pat Kelly', 1980, 'real fuckin early');
 plumber.introduce();
 plumber.calcAge(); // 44
 
@@ -712,3 +712,51 @@ plumber.calcAge(); // originally 57
 // ========================================
 // Inheritance between "Classes": Object.create()
 // ========================================
+//
+// Finally, I'll use Object.create() to implement a complex prototypal chain
+
+const PeopleProto = {
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  },
+
+  init(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  },
+};
+
+// Inner sanctum
+const davo = Object.create(PeopleProto);
+
+// Now I want to implement another prototype in my chain, between PeopleProto and my linked object
+// So I'm making Tradie inherit from People
+// Keeping in mind that Object.create() always creates empty objects
+const TradieProto = Object.create(PeopleProto);
+
+// And I'll add an init method to PeopleProto so it's tradie children can inherit it
+TradieProto.init = function (firstName, birthYear, start) {
+  // In Object.create() I need to remember to use the call() method on my dad object, assigning the .this keyword and passing the SAME arguments
+  PeopleProto.init.call(this, firstName, birthYear);
+  // And I need to assign the unique argument
+  this.start = start;
+};
+
+// AND i'll add the introduce method
+TradieProto.introduce = function () {
+  console.log(
+    `Gday, I'm ${this.firstName}, and in my trade we start ${this.start} in the morning. `
+  );
+};
+
+// And now I'll use the TradieProto to create my tradies
+// Fuck me that's an easy way to do it
+const chippy = Object.create(TradieProto);
+chippy.init('Jacko', 1972, 'whenever we fuckin want to');
+chippy.introduce();
+chippy.calcAge(); // 65
+
+// Object.create() is rad because I'm not just faking classes, all I'm doing is linking my objects together where some of those objects serve as the prototype(s) of OTHER objects
+// It's really important I get this shit right because in reality, and as much as I love doing it this way...
+// ES6 classes and constructor functions are how it's done in the real world and especially modern javascript (FUCK)
+// Nothing worth understanding would ever be easy
