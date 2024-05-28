@@ -768,30 +768,39 @@ chippy.calcAge(); // 65
 //
 // WHYYYY have I been writing these FUCKING LOOOOONG OBJECTS
 class Account {
+  // 1. Adding public fields (instances)
+  locale = navigator.language;
+  // _transactions = [];
+
+  // 2. Adding private fields (instances)
+  #transactions = [];
+  #pin;
+
   constructor(owner, currency, pin) {
     this.owner = owner;
     this.currency = currency;
     // Protected Property
-    this._pin = pin;
-    // How about the transactions?
+    this.#pin = pin;
     // I could pass the empty array but that's shit since EVERY account would have that empty array
     // But I can set this TO the empty array!
-    this._transactions = [];
+    // this._transactions = [];
     // And getting the locale from the navigator?
-    this.locale = navigator.language;
+    // this.locale = navigator.language;
     // And a non-policy violating greeting whenever a user makes a new account (lol)
     console.log(`Thanks for opening an account, ${owner}`);
   }
+
+  // 3. Public Methods
 
   // Public Interface
   // These methods are basically the INTERFACE to my objects, AKA: API's
 
   getTransactions() {
-    return this._transactions;
+    return this.#transactions;
   }
 
   deposit(val) {
-    this._transactions.push(val);
+    this.#transactions.push(val);
   }
   // I can also call other methods from within another method, but I stil need to specify the .this keyword
   withdraw(val) {
@@ -801,21 +810,23 @@ class Account {
   // I can use an arrow function here because of the lexical scoping of the .this keyword (I don't need it)
   // 0 is my initial accumulator starting value
   getBalance() {
-    return this._transactions.reduce(
+    return this.#transactions.reduce(
       (accumulator, element) => accumulator + element,
       0
     );
   }
   // Protect this for internal use (da b4nk)
-  _approveLoan(val) {
-    return true;
-  }
 
   requestLoan(val) {
     if (this._approveLoan(val)) {
       this.deposit(val);
       console.log(`Loan Approved`);
     }
+  }
+
+  // 4. Private Methods
+  _approveLoan(val) {
+    return true;
   }
 }
 
@@ -839,9 +850,7 @@ console.log(
     acc1.currency
   }`
 );
-// How about the PIN being accessible from outside???'
-// How about the loan logic, mate....
-console.log(acc1.pin);
+// console.log(acc1.#pin);
 acc1.requestLoan(1000);
 acc1._approveLoan(1000);
 // This is why DATA ENCAPSULATION is so important!!!
@@ -864,4 +873,47 @@ acc1._approveLoan(1000);
 
 // I can denote my propeties with underscores to (kind of) make it private
 // But TRUE privacy means I can assign the protected property, similar to how CSS has !important
+
+//
+//
+// ========================================
+// Encapsulation: Private Class Fields & Methods
+// ========================================
+//
+// Now I'll implement TRULY private class fields and methods, keeping in mind these are for a future(?) proposal for the language, known as Class Fields
+// They're known as "Class Fields" as in traditional OOP languages, class properties are known as "fields"
+// I can think of a "field" as a property that is on all instances
+// In this proposal there are (technically 8) FOUR of the follwing methods:
+
+// 1. Public Fields
+// ========================================
+// I can, again, think of a field as a property taht will be  on all instances, hence the name Public Instance Field
+// In my Account constructor, my two Public Instance Fields would be both the transactions and locale, as they will be on ALL the account objects I create with this class
+// And that's because I DON'T pass any of the values into the constructor, so the array and navigator will always be set for all the instances
+// So by essentially defining them, I'm ensuring that they will be present on the CLASS, but NOT the PROTOTYPE, unlike my METHODS
+// Another key feature of public instances is that they are referencable by the .this keyword
+
+// 2. Private Fields
+// ========================================
+// Using Private Fields, I can ensure that my object properties are truly NOT accessible from the outside
+// I accomplish this by, literally, removing the underscore and replacing it with a hash
+// console.log(acc1.#transactions); // BIG ERROR
+// Of course, I can still access my transactions via the public API, getTransactions()
 console.log(acc1.getTransactions());
+// These are also only available on the instances themselves, and NOT on the prototype(s)
+
+// 3. Public Methods
+// ========================================
+// All the methods I've been using so far have been public methods
+// Which means public methods are essentially the public interactable interface of my class(es)
+
+// 4. Private Methods
+// ========================================
+// Private methods are extremely useful to hide my implementation details of my web app(s) from external code
+// I already made my approve loan method protected by prepending it with an underscore
+// The synatx for private methods is exactly the same as with prviate fields, so with a hash
+// The biggest issue with private methods however is...no browser supports it lol. Lmao, even.
+
+// Besides the aforementioned four, there are an additional four methods as well (so 8 total)
+// And these other 4 are basically exactly the same, but denoted with the static keyword
+// Usually, I'd use these for my helper functions, as by defining a static method I am ripping the method from it's prototype and reassigning it to the class instance
