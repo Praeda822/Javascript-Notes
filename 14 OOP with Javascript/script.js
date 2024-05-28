@@ -801,10 +801,12 @@ class Account {
 
   deposit(val) {
     this.#transactions.push(val);
+    return this;
   }
   // I can also call other methods from within another method, but I stil need to specify the .this keyword
   withdraw(val) {
     this.deposit(-val);
+    return this;
   }
   // And to get the balance
   // I can use an arrow function here because of the lexical scoping of the .this keyword (I don't need it)
@@ -821,6 +823,7 @@ class Account {
     if (this._approveLoan(val)) {
       this.deposit(val);
       console.log(`Loan Approved`);
+      return this;
     }
   }
 
@@ -917,3 +920,20 @@ console.log(acc1.getTransactions());
 // Besides the aforementioned four, there are an additional four methods as well (so 8 total)
 // And these other 4 are basically exactly the same, but denoted with the static keyword
 // Usually, I'd use these for my helper functions, as by defining a static method I am ripping the method from it's prototype and reassigning it to the class instance
+//
+//
+//
+// ========================================
+// Chaining Methods
+// ========================================
+//
+// Remember using filter, map, and reduce and manipulating an array with one entire line of code?
+// I can do the same thing with chaining methods in the methods of my class(es)
+// To accomplish this all I need to do is return the object itself at the END of the method I want to chainable
+// The code below returns undefined because I'm not explicitly returning anything in ym deposit method
+// And then I immediately try to call deposit on undefined right after
+// So literally all I need to is add the return keyword to my methods!!!
+
+acc1.deposit(300).deposit(500).withdraw(35).requestLoan(25000).withdraw(4000);
+console.log(acc1.getBalance()); // 22915
+// AND IT WORKS HAHAHA NO FUCKIN WAY
