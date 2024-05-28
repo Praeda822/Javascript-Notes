@@ -771,11 +771,12 @@ class Account {
   constructor(owner, currency, pin) {
     this.owner = owner;
     this.currency = currency;
-    this.pin = pin;
+    // Protected Property
+    this._pin = pin;
     // How about the transactions?
     // I could pass the empty array but that's shit since EVERY account would have that empty array
     // But I can set this TO the empty array!
-    this.transactions = [];
+    this._transactions = [];
     // And getting the locale from the navigator?
     this.locale = navigator.language;
     // And a non-policy violating greeting whenever a user makes a new account (lol)
@@ -784,8 +785,13 @@ class Account {
 
   // Public Interface
   // These methods are basically the INTERFACE to my objects, AKA: API's
+
+  getTransactions() {
+    return this._transactions;
+  }
+
   deposit(val) {
-    this.transactions.push(val);
+    this._transactions.push(val);
   }
   // I can also call other methods from within another method, but I stil need to specify the .this keyword
   withdraw(val) {
@@ -795,18 +801,18 @@ class Account {
   // I can use an arrow function here because of the lexical scoping of the .this keyword (I don't need it)
   // 0 is my initial accumulator starting value
   getBalance() {
-    return this.transactions.reduce(
+    return this._transactions.reduce(
       (accumulator, element) => accumulator + element,
       0
     );
   }
-
-  approveLoan(val) {
+  // Protect this for internal use (da b4nk)
+  _approveLoan(val) {
     return true;
   }
 
   requestLoan(val) {
-    if (this.approveLoan(val)) {
+    if (this._approveLoan(val)) {
       this.deposit(val);
       console.log(`Loan Approved`);
     }
@@ -816,9 +822,9 @@ class Account {
 const acc1 = new Account('Patrick', 'AUD', 111);
 
 // To add to my transactions I can just (almighty)push
-// acc1.transactions.push(250);
+// acc1._transactions.push(250);
 // To sub from my transactions I can just push a neggy value
-// acc1.transactions.push(-250);
+// acc1._transactions.push(-250);
 
 // But this is a BAD IDEA and BAD PRACTICE
 // It's MUCH better to create METHODS that interact with the properties themselves
@@ -837,5 +843,25 @@ console.log(
 // How about the loan logic, mate....
 console.log(acc1.pin);
 acc1.requestLoan(1000);
-acc1.approveLoan(1000);
+acc1._approveLoan(1000);
 // This is why DATA ENCAPSULATION is so important!!!
+//
+//
+// ========================================
+// Encapsulation: Protected Properties & Methods
+// ========================================
+//
+// Sadly, modern javascript doesn't really have any built-in data encapsulation shit for us to work with...
+// And so, there are two big reasons why I need both data encapsulation and data privacy:
+
+// 1.
+// It is to prevent code from outside of a class from (accidentally) manipulating my data
+// This is why I implement technologies like a public interface with methods to interact with my data's properties
+
+// 2.
+// When I expose only a small interface (a small public API consisting of only a few methods), then I can change all the other INTERRNAL methods with more confidence
+// In that, I mean external code does not reply on my built-in private methods, so (ideally) my code won't shit the bed when I make internal changes
+
+// I can denote my propeties with underscores to (kind of) make it private
+// But TRUE privacy means I can assign the protected property, similar to how CSS has !important
+console.log(acc1.getTransactions());
