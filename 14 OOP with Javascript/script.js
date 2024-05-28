@@ -627,3 +627,81 @@ console.log(`The ${tesla.make} has been charged to ${tesla.charge}% capacity`);
 tesla.accelerate(); // 155 km/h, 89%
 tesla.accelerate(); // 175 km/h, 88%
 tesla.brake(); // ..decelerates to 170 km/h
+//
+//
+// ========================================
+// Inheritance between "Classes": ES6 Classes
+// ========================================
+//
+// Classes are, essentially, just a layer of abstracion over Constructor Functions since they hide a lot of what's going on behind the scenes
+
+class People {
+  constructor(fullname, birthYear) {
+    this.fullName = fullname;
+    this.birthYear = birthYear;
+  }
+
+  // Instance methods
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  }
+
+  greet() {
+    console.log(`hey, ${this.fullName}!!`);
+  }
+
+  get age() {
+    return 2037 - this.birthYear;
+  }
+
+  set fullName(name) {
+    if (name.includes(' ')) {
+      this._fullName = name;
+    } else {
+      alert(`${name} is NOT a full name, bro!`);
+    }
+  }
+
+  get fullName() {
+    return this._fullName;
+  }
+
+  // Static Method
+  static hey() {
+    console.log('hey there maaaan');
+  }
+}
+
+// To implement inheritance between two ES6 classes I need two ingredients:
+// The 'extend' keyword & the 'super' function
+// So, to make the Plumber class inherit from my People class, and link the Prototypes all I need to do is:
+class Tradie extends People {
+  // I still need a constructor, though
+  // I'll also have the same arguments as the parent class, plus some additional (extending)
+  constructor(fullName, birthYear, hourly) {
+    // Don't need to call my People function & assign the .this keyword
+    // But I still need to pass in the same paramaters as the parent class
+    // super ALWAYS HAPPENS FIRST!!!
+    super(fullName, birthYear);
+    this.hourly = hourly;
+  }
+
+  introduce() {
+    console.log(
+      `Gday, I'm ${this.fullName}, and in my trade we average around ${this.hourly} on wages. `
+    );
+  }
+  calcAge() {
+    console.log(2024 - this.birthYear);
+  }
+}
+
+const plumber = new Tradie('Pat Smith', 1980, 55);
+plumber.introduce();
+plumber.calcAge(); // 44
+
+//   Tradie.prototype.calcAge = function () {
+//   console.log(2024 - this.birthYear);
+// }; // 44, but can clean it up
+
+plumber.calcAge(); // originally 57
