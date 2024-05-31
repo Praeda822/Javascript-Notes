@@ -388,34 +388,21 @@ arr.last(); // 3
 
 const createHelloWorld = () => () => "Hello World";
 
-// Given an integer array arr and a filtering function fn, return a filtered array filteredArr.
+// Given a function fn, return a new function that is identical to the original function except that it ensures fn is called at most once.
 
-// The fn function takes one or two arguments:
+// The first time the returned function is called, it should return the same result as fn.
+// Every subsequent time it is called, it should return undefined.
 
-// arr[i] - number from the arr
-// i - index of arr[i]
-// filteredArr should only contain the elements from the arr for which the expression fn(arr[i], i) evaluates to a truthy value. A truthy value is a value where Boolean(value) returns true.
+function once(fn) {
+  let called = false;
+  let result;
 
-// Please solve it without the built-in Array.filter method.
-
-// Example 1:
-
-// Input: arr = [-2,-1,0,1,2], fn = function plusOne(n) { return n + 1 }
-// Output: [-2,0,1,2]
-// Explanation:
-// Falsey values such as 0 should be filtered out
-
-// Constraints:
-
-// 0 <= arr.length <= 1000
-// -109 <= arr[i] <= 109
-
-function filterArray(arr, fn) {
-  const filteredArr = [];
-  for (let i = 0; i < arr.length; i++) {
-    if (fn(arr[i], i)) {
-      filteredArr.push(arr[i]);
+  return function (...args) {
+    if (!called) {
+      called = true;
+      result = fn(...args);
+      return result;
     }
-  }
-  return filteredArr;
+    return undefined;
+  };
 }
