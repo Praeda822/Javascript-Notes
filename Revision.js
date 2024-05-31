@@ -326,3 +326,13 @@ pkNew.calcAge();
 // The second solution to this problem is to use an Arrow Function, since Arrow Functions do not have their own this keyword
 // Which means, since I don't have a this keyword, and I'm using an arrow function, I inherit the this keyword from my parent scope, which is still pkNew, or the pkNew Object!!! | how fucken clever is that
 // This is an extremely useful usecase for arrow functions
+
+//========================================
+//========================================
+//========================================
+
+// LEETCODE
+
+//========================================
+//========================================
+//========================================
