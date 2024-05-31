@@ -386,8 +386,4 @@ arr.last(); // 3
 
 // 0 <= args.length <= 10
 
-function createHelloWorld() {
-  return function () {
-    return "Hello World";
-  };
-}
+const createHelloWorld = () => () => "Hello World";
