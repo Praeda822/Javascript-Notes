@@ -395,14 +395,10 @@ const createHelloWorld = () => () => "Hello World";
 
 function once(fn) {
   let called = false;
-  let result;
 
   return function (...args) {
-    if (!called) {
-      called = true;
-      result = fn(...args);
-      return result;
-    }
-    return undefined;
+    if (called) return undefined;
+    called = true;
+    return fn(...args);
   };
 }
