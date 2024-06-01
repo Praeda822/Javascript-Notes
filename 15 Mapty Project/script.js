@@ -122,6 +122,22 @@ class App {
 
   _newWorkout(e) {
     e.preventDefault();
+
+    // Get data from my form
+
+    // Check if data is valid
+
+    // If workout is running, create a new running object
+
+    // If workout is cycling, create a new cycling object
+
+    // Add new object to workout array
+
+    // Render my workout on map as a marker
+
+    // Render workout on a list
+
+    // Hide form + clear input fields
     console.log(this);
 
     // Clear input fields
