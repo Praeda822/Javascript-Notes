@@ -20,6 +20,53 @@ const inputElevation = document.querySelector('.form__input--elevation');
 // I'll call this function with one argument: the position parameter
 // 2. Error callback function, so the one that I'll define when an error occurs
 
+// ALL OBJECTS SHOULD HAVE SOME KIND OF UNIQUE IDENTIFIER (for referencing purposes..)
+// Irl, I'll typically be using some kind of library/framework/system to create unique ID's and I most certainly shouldn't be doing it myself
+
+// The Workout Class is assigned the current date and time, and I convert it to a string by concatenating with an empty string (+ '')
+// Then I call the slice method on the resulting string, slice(-10)m which extracts only the last 10 characters of that string
+// This is a surprisingly simple way to generate a unique identifier for each of my Workout objects
+
+class Workout {
+  date = new Date();
+  id = Date.now() + ''.slice(-10);
+  constructor(coords, distance, duration) {
+    this.coords = coords;
+    this.distance = distance; // in km
+    this.duration = duration; // in min
+  }
+}
+
+class Running extends Workout {
+  constructor(coords, distance, duration, cadence) {
+    super(coords, distance, duration);
+    this.cadence = cadence;
+    this.calcPace();
+  }
+
+  calcPace() {
+    // mins/km
+    this.pace = this.duration / this.distance;
+    return this.pace;
+  }
+}
+
+class Cycling extends Workout {
+  constructor(coords, distance, duration, elevationGain) {
+    super(coords, distance, duration);
+    this.elevationGain = elevationGain;
+  }
+
+  calcSpeed() {
+    // km/h
+    this.speed = this.distance / this.duration;
+  }
+}
+
+const run1 = new Running([39, -12], 5.2, 24, 178);
+const cycling1 = new Cycling([39, -12], 27, 95, 523);
+
+console.log(run1, cycling1);
 class App {
   // Private Instance Properties
   #map;
