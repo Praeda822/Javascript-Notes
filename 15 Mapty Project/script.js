@@ -52,13 +52,21 @@ if (navigator.geolocation)
     }
   );
 
-form.addEventListener('submit', function () {
+form.addEventListener('submit', function (e) {
+  // For debugging
+  e.preventDefault();
+
+  // Clear input fields
+  inputDistance.value =
+    inputDuration.value =
+    inputCadence.value =
+    inputElevation.value =
+      '';
+
   // Display my marker
   console.log(mapEvent);
   const { lat, lng } = mapEvent.latlng;
-  L.marker([lat, lng])
-    .addTo(map)
-    .bindPopup('A pretty CSS popup.<br> Easily customizable.');
+  L.marker([lat, lng]).addTo(map).bindPopup('HELL YEAH, BROTHER');
   L.popup({
     maxWidth: 250,
     minWidth: 100,
