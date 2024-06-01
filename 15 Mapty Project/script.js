@@ -176,21 +176,22 @@ class App {
     console.log(workout);
 
     // Render my workout on map as a marker
-    console.log('Map Debugger', this.#mapEvent);
+    console.log('Map Marker Debugger', this.#mapEvent);
     // Check to ensure this keyword defined
     if (this.#mapEvent) {
-      L.marker([lat, lng]).addTo(this.#map).bindPopup('HELL YEAH, BROTHER');
+      L.marker([lat, lng])
+        .addTo(this.#map)
+        .bindPopup('HELL YEAH, WORKOUT, BROTHER');
       L.popup({
         maxWidth: 250,
         minWidth: 100,
         autoClose: false,
         closeOnClick: false,
-        className: 'running-popup',
+        className: `${type}--popup`,
       })
         .setPopupContent('Workout, bruvva')
         .openPopup();
-      // Render workout on a list
-
+      // Render workout on a lis
       // Hide form + clear input fields
 
       // Clear input fields
@@ -204,6 +205,7 @@ class App {
       console.log(this);
     }
   }
+  renderWorkoutMarker(workout) {}
 }
 // Creating my objects
 const app = new App();
