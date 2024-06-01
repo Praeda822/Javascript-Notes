@@ -69,9 +69,11 @@ class App {
 
 // Creating my objects
 const app = new App();
+// Getting user's position loads my map
+app._getPosition();
 
-// Form submit event listener
 form.addEventListener('submit', function (e) {
+  // For debugging
   e.preventDefault();
 
   // Clear input fields
@@ -82,23 +84,21 @@ form.addEventListener('submit', function (e) {
       '';
 
   // Display my marker
-  if (mapEvent) {
-    const { lat, lng } = mapEvent.latlng;
-    L.marker([lat, lng]).addTo(map).bindPopup('HELL YEAH, BROTHER');
-    L.popup({
-      maxWidth: 250,
-      minWidth: 100,
-      autoClose: false,
-      closeOnClick: false,
-      className: 'running-popup',
-    })
-      .setPopupContent('Workout, bruvva')
-      .openPopup();
-  }
+  console.log(mapEvent);
+  const { lat, lng } = mapEvent.latlng;
+  L.marker([lat, lng]).addTo(map).bindPopup('HELL YEAH, BROTHER');
+  L.popup({
+    maxWidth: 250,
+    minWidth: 100,
+    autoClose: false,
+    closeOnClick: false,
+    className: 'running-popup',
+  })
+    .setPopupContent('Workout, bruvva')
+    .openPopup();
 });
 
-// Input type change event listener
-inputType.addEventListener('change', function () {
+inputType.addEventListener('change', function (e) {
   inputElevation.closest('.form__row').classList.toggle('form__row--hidden');
   inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
 });
