@@ -20,8 +20,6 @@ const inputElevation = document.querySelector('.form__input--elevation');
 // I'll call this function with one argument: the position parameter
 // 2. Error callback function, so the one that I'll define when an error occurs
 
-let map, mapEvent;
-
 class App {
   // Private Instance Properties
   #map;
