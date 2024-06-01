@@ -22,6 +22,20 @@ const inputElevation = document.querySelector('.form__input--elevation');
 
 let map, mapEvent;
 
+class App {
+  constructor() {}
+
+  _getPosition() {}
+
+  _loadMap() {}
+
+  _showForm() {}
+
+  _toggleElevationField() {}
+
+  _newWorkout() {}
+}
+
 if (navigator.geolocation)
   navigator.geolocation.getCurrentPosition(
     function (position) {
@@ -112,3 +126,9 @@ inputType.addEventListener('change', function (e) {
 // The App class will also contain its own constructor, and this constructor will be responsible for loading the page, receive position cloak on map, change layout, and submit form, and so will have the following properties :
 // _getPosition(), )loadMap(position), _showForm(), _toggleElevationField()
 // It will also contain the Method for creating new workouts to be passed to the workout class constructors, _newWorkout()
+
+// ========================================
+// Refactoring for Project Architecture
+// ========================================
+//
+//
