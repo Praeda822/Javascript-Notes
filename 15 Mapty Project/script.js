@@ -72,6 +72,8 @@ class App {
   // Private Instance Properties
   #map;
   #mapEvent;
+  #workouts = [];
+
   constructor() {
     this._getPosition();
     form.addEventListener('submit', this._newWorkout.bind(this));
@@ -122,41 +124,61 @@ class App {
   }
 
   _newWorkout(e) {
+    // Helper function
+    // My validInputs helper function will loop over an entire array, inputs, containing an arbitrary amount of expected values, and in each of them it will check whther the number is finite or not
+    const validInputs = (...inputs) =>
+      // My every method will ONLY return true if the value is true for ALL elements in the array
+      // So if even one of the finite checks is false,then every will return false | unlucky g
+      inputs.every(input => Number.isFinite(input));
+    const allPositive = (...inputs) => inputs.every(input => input > 0);
     e.preventDefault();
 
     // Get data from my form
     const type = inputType.value;
     const distance = +inputDistance.value;
     const duration = +inputDuration.value;
+    const { lat, lng } = this.#mapEvent.latlng;
+    let workout;
+
     // Check if data is valid
     // Use a GUARD Clause (kinda cool tho)
-    if (
-      !Number.isFinite(distance) ||
-      !Number.isFinite(duration) ||
-      !Number.isFinite(cadence)
-    )
-      return alert('Inputs need to be positive numbers, cmon, man..');
-
-    // If workout is running, create a new running object
-
-    // If workout is running/cycling, create a new running/cycling object
+    // In regards to my helper functions, notice how I'm always inverting the returned values of a method as the conditional for my logic checks??
+    // If workout is running, create running object
     if (type === 'running') {
       const cadence = +inputCadence.value;
+
+      if (
+        !validInputs(distance, duration, cadence) ||
+        allPositive(distance, duration, cadence)
+      ) {
+        return alert('Inputs need to be positive numbers, cmon, man..');
+      }
+
+      workout = new Running([lat, lng], distance, duration, cadence);
     }
 
+    // If workout is cycling, create cycling object
     if (type === 'cycling') {
       const elevation = +inputElevation.value;
+
+      // Validate my running data
+      if (
+        !validInputs(distance, duration, elevation) ||
+        allPositive(distance, duration)
+      ) {
+        return alert('Inputs need to be positive numbers, cmon, man..');
+      }
+      workout = new Cycling([lat, lng], distance, duration, elevation);
     }
 
     // Add new object to workout array
+    this.#workouts.push(workout);
+    console.log(workout);
 
     // Render my workout on map as a marker
-
-    // Display my marker
-    console.log(this.#mapEvent);
+    console.log('Map Debugger', this.#mapEvent);
     // Check to ensure this keyword defined
     if (this.#mapEvent) {
-      const { lat, lng } = this.#mapEvent.latlng;
       L.marker([lat, lng]).addTo(this.#map).bindPopup('HELL YEAH, BROTHER');
       L.popup({
         maxWidth: 250,
