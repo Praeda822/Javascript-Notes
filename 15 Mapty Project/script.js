@@ -28,6 +28,38 @@ class App {
   #mapEvent;
   constructor() {
     this._getPosition();
+    form.addEventListener('submit', function (e) {
+      // For debugging
+      e.preventDefault();
+
+      // Clear input fields
+      inputDistance.value =
+        inputDuration.value =
+        inputCadence.value =
+        inputElevation.value =
+          '';
+
+      // Display my marker
+      console.log(mapEvent);
+      const { lat, lng } = mapEvent.latlng;
+      L.marker([lat, lng]).addTo(map).bindPopup('HELL YEAH, BROTHER');
+      L.popup({
+        maxWidth: 250,
+        minWidth: 100,
+        autoClose: false,
+        closeOnClick: false,
+        className: 'running-popup',
+      })
+        .setPopupContent('Workout, bruvva')
+        .openPopup();
+    });
+
+    inputType.addEventListener('change', function (e) {
+      inputElevation
+        .closest('.form__row')
+        .classList.toggle('form__row--hidden');
+      inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
+    });
   }
 
   _getPosition() {
@@ -76,37 +108,6 @@ class App {
 const app = new App();
 // Getting user's position loads my map
 app._getPosition();
-
-form.addEventListener('submit', function (e) {
-  // For debugging
-  e.preventDefault();
-
-  // Clear input fields
-  inputDistance.value =
-    inputDuration.value =
-    inputCadence.value =
-    inputElevation.value =
-      '';
-
-  // Display my marker
-  console.log(mapEvent);
-  const { lat, lng } = mapEvent.latlng;
-  L.marker([lat, lng]).addTo(map).bindPopup('HELL YEAH, BROTHER');
-  L.popup({
-    maxWidth: 250,
-    minWidth: 100,
-    autoClose: false,
-    closeOnClick: false,
-    className: 'running-popup',
-  })
-    .setPopupContent('Workout, bruvva')
-    .openPopup();
-});
-
-inputType.addEventListener('change', function (e) {
-  inputElevation.closest('.form__row').classList.toggle('form__row--hidden');
-  inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
-});
 
 // ========================================
 // Project Architecture
