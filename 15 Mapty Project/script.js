@@ -20,6 +20,8 @@ const inputElevation = document.querySelector('.form__input--elevation');
 // I'll call this function with one argument: the position parameter
 // 2. Error callback function, so the one that I'll define when an error occurs
 
+let map, mapEvent;
+
 if (navigator.geolocation)
   navigator.geolocation.getCurrentPosition(
     function (position) {
@@ -30,50 +32,40 @@ if (navigator.geolocation)
 
       const coords = [latitude, longitude];
 
-      const map = L.map('map').setView(coords, 13);
+      map = L.map('map').setView(coords, 13);
 
       L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution:
           '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       }).addTo(map);
 
+      // Handling clicks on the map
       // Leaflet on API
-      map.on('click', function (mapEvent) {
-        console.log(mapEvent);
-
-        const { lat, lng } = mapEvent.latlng;
-
-        L.marker([lat, lng])
-          .addTo(map)
-          .bindPopup('A pretty CSS popup.<br> Easily customizable.');
-        L.popup({
-          maxWidth: 250,
-          minWidth: 100,
-          autoClose: false,
-          closeOnClick: false,
-          className: 'running-popup',
-        })
-          .setPopupContent('Workout, bruvva')
-          .openPopup();
+      map.on('click', function (mapE) {
+        mapEvent = mapE;
+        form.classList.remove('hidden');
+        inputDistance.focus();
       });
-
-      console.log(map);
-
-      L.marker(coords)
-        .addTo(map)
-        .bindPopup(
-          L.popup({
-            maxWidth: 250,
-            minWidth: 100,
-            autoClose: false,
-            closeOnClick: false,
-            className: 'running-popup',
-          })
-        )
-        .setPopupContent('Workout, bruvva')
-        .openPopup();
     },
     function () {
       alert('Could not get your current location, bruv');
     }
   );
+
+form.addEventListener('submit', function () {
+  // Display my marker
+  console.log(mapEvent);
+  const { lat, lng } = mapEvent.latlng;
+  L.marker([lat, lng])
+    .addTo(map)
+    .bindPopup('A pretty CSS popup.<br> Easily customizable.');
+  L.popup({
+    maxWidth: 250,
+    minWidth: 100,
+    autoClose: false,
+    closeOnClick: false,
+    className: 'running-popup',
+  })
+    .setPopupContent('Workout, bruvva')
+    .openPopup();
+});
