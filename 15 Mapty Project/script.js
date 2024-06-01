@@ -23,13 +23,18 @@ const inputElevation = document.querySelector('.form__input--elevation');
 let map, mapEvent;
 
 class App {
-  constructor() {}
+  constructor() {
+    this._getPosition();
+  }
 
   _getPosition() {
     if (navigator.geolocation)
-      navigator.geolocation.getCurrentPosition(this._loadMap, function () {
-        alert('Could not get your current location, bruv');
-      });
+      navigator.geolocation.getCurrentPosition(
+        this._loadMap.bind(this),
+        function () {
+          alert('Could not get your current location, bruv');
+        }
+      );
   }
 
   _loadMap(position) {
@@ -62,8 +67,11 @@ class App {
   _newWorkout() {}
 }
 
+// Creating my objects
+const app = new App();
+
+// Form submit event listener
 form.addEventListener('submit', function (e) {
-  // For debugging
   e.preventDefault();
 
   // Clear input fields
@@ -74,21 +82,23 @@ form.addEventListener('submit', function (e) {
       '';
 
   // Display my marker
-  console.log(mapEvent);
-  const { lat, lng } = mapEvent.latlng;
-  L.marker([lat, lng]).addTo(map).bindPopup('HELL YEAH, BROTHER');
-  L.popup({
-    maxWidth: 250,
-    minWidth: 100,
-    autoClose: false,
-    closeOnClick: false,
-    className: 'running-popup',
-  })
-    .setPopupContent('Workout, bruvva')
-    .openPopup();
+  if (mapEvent) {
+    const { lat, lng } = mapEvent.latlng;
+    L.marker([lat, lng]).addTo(map).bindPopup('HELL YEAH, BROTHER');
+    L.popup({
+      maxWidth: 250,
+      minWidth: 100,
+      autoClose: false,
+      closeOnClick: false,
+      className: 'running-popup',
+    })
+      .setPopupContent('Workout, bruvva')
+      .openPopup();
+  }
 });
 
-inputType.addEventListener('change', function (e) {
+// Input type change event listener
+inputType.addEventListener('change', function () {
   inputElevation.closest('.form__row').classList.toggle('form__row--hidden');
   inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
 });
