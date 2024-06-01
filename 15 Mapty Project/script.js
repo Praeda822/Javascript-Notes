@@ -77,3 +77,8 @@ form.addEventListener('submit', function (e) {
     .setPopupContent('Workout, bruvva')
     .openPopup();
 });
+
+inputType.addEventListener('change', function (e) {
+  inputElevation.closest('.form__row').classList.toggle('form__row--hidden');
+  inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
+});
