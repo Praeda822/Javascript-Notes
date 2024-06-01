@@ -3,14 +3,6 @@
 // prettier-ignore
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-const form = document.querySelector('.form');
-const containerWorkouts = document.querySelector('.workouts');
-const inputType = document.querySelector('.form__input--type');
-const inputDistance = document.querySelector('.form__input--distance');
-const inputDuration = document.querySelector('.form__input--duration');
-const inputCadence = document.querySelector('.form__input--cadence');
-const inputElevation = document.querySelector('.form__input--elevation');
-
 // ========================================
 // Using the Geo-location API
 // ========================================
@@ -67,6 +59,15 @@ const run1 = new Running([39, -12], 5.2, 24, 178);
 const cycling1 = new Cycling([39, -12], 27, 95, 523);
 
 console.log(run1, cycling1);
+
+const form = document.querySelector('.form');
+const containerWorkouts = document.querySelector('.workouts');
+const inputType = document.querySelector('.form__input--type');
+const inputDistance = document.querySelector('.form__input--distance');
+const inputDuration = document.querySelector('.form__input--duration');
+const inputCadence = document.querySelector('.form__input--cadence');
+const inputElevation = document.querySelector('.form__input--elevation');
+
 class App {
   // Private Instance Properties
   #map;
@@ -124,28 +125,32 @@ class App {
     e.preventDefault();
 
     // Get data from my form
-
+    const type = inputType.value;
+    const distance = +inputDistance.value;
+    const duration = +inputDuration.value;
     // Check if data is valid
+    // Use a GUARD Clause (kinda cool tho)
+    if (
+      !Number.isFinite(distance) ||
+      !Number.isFinite(duration) ||
+      !Number.isFinite(cadence)
+    )
+      return alert('Inputs need to be positive numbers, cmon, man..');
 
     // If workout is running, create a new running object
 
-    // If workout is cycling, create a new cycling object
+    // If workout is running/cycling, create a new running/cycling object
+    if (type === 'running') {
+      const cadence = +inputCadence.value;
+    }
+
+    if (type === 'cycling') {
+      const elevation = +inputElevation.value;
+    }
 
     // Add new object to workout array
 
     // Render my workout on map as a marker
-
-    // Render workout on a list
-
-    // Hide form + clear input fields
-    console.log(this);
-
-    // Clear input fields
-    inputDistance.value =
-      inputDuration.value =
-      inputCadence.value =
-      inputElevation.value =
-        '';
 
     // Display my marker
     console.log(this.#mapEvent);
@@ -162,6 +167,19 @@ class App {
       })
         .setPopupContent('Workout, bruvva')
         .openPopup();
+      // Render workout on a list
+
+      // Hide form + clear input fields
+
+      // Clear input fields
+      inputDistance.value =
+        inputDuration.value =
+        inputCadence.value =
+        inputElevation.value =
+          '';
+
+      // For debugging
+      console.log(this);
     }
   }
 }
