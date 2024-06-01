@@ -82,3 +82,33 @@ inputType.addEventListener('change', function (e) {
   inputElevation.closest('.form__row').classList.toggle('form__row--hidden');
   inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
 });
+
+// ========================================
+// Project Architecture
+// ========================================
+//
+// User Stories
+// ========================================
+// 1. Log my running workouts with location, distance, time, pace and steps/minute (cadence)
+
+// 2. Log my cycling workouts with location, distance, time, speed, and elevation gain
+
+// So I'll have a Workout Class that will have the following properties (in brackets mean it's a property unique to the class):
+//(id), distance, duration, coords, (date)
+// Inside of the Workout class I will have a constructor that will be the parent of its two child classes, Running & Cycling,
+// My children classes will each have their own constructor, respectively,
+
+// Class Running has the following properties:
+// (name), cadence, pace
+// And it will inherit the distance, duration, and coords properties from its parent
+
+// Class Cycling has the following properties:
+// (name), elevationGain, speed
+// And it will inherit the distance, duration, and coords properties from its parent
+
+// Class App has the following properties:
+// (workouts), an array for holding all Running or Cycling objects and (map)
+//
+// The App class will also contain its own constructor, and this constructor will be responsible for loading the page, receive position cloak on map, change layout, and submit form, and so will have the following properties :
+// _getPosition(), )loadMap(position), _showForm(), _toggleElevationField()
+// It will also contain the Method for creating new workouts to be passed to the workout class constructors, _newWorkout()
