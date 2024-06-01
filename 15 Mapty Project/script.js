@@ -77,7 +77,6 @@ class App {
   constructor() {
     this._getPosition();
     form.addEventListener('submit', this._newWorkout.bind(this));
-
     inputType.addEventListener('change', this._toggleElevationField);
   }
 
@@ -177,36 +176,41 @@ class App {
 
     // Render my workout on map as a marker
     console.log('Map Marker Debugger', this.#mapEvent);
-    // Check to ensure this keyword defined
+
+    // Call the new method renderWorkoutMarker with workout object
+    this.renderWorkoutMarker(workout);
+
+    // Hide form + clear input fields
+    inputDistance.value =
+      inputDuration.value =
+      inputCadence.value =
+      inputElevation.value =
+        '';
+
+    // For debugging
+    console.log(this);
+  }
+
+  renderWorkoutMarker(workout) {
     if (this.#mapEvent) {
+      // Use workout.coords instead of lat, lng
       L.marker([lat, lng])
         .addTo(this.#map)
-        .bindPopup('HELL YEAH, WORKOUT, BROTHER');
-      L.popup({
-        maxWidth: 250,
-        minWidth: 100,
-        autoClose: false,
-        closeOnClick: false,
-        className: `${type}--popup`,
-      })
-        .setPopupContent('Workout, bruvva')
+        .bindPopup(
+          L.popup({
+            maxWidth: 250,
+            minWidth: 100,
+            autoClose: false,
+            closeOnClick: false,
+            className: `${inputType.value}-popup`,
+          })
+        )
+        .setPopupContent(`Workout: ${workout.distance} km`)
         .openPopup();
-      // Render workout on a lis
-      // Hide form + clear input fields
-
-      // Clear input fields
-      inputDistance.value =
-        inputDuration.value =
-        inputCadence.value =
-        inputElevation.value =
-          '';
-
-      // For debugging
-      console.log(this);
     }
   }
-  renderWorkoutMarker(workout) {}
 }
+
 // Creating my objects
 const app = new App();
 // Getting user's position loads my map
@@ -239,8 +243,8 @@ app._getPosition();
 // (workouts), an array for holding all Running or Cycling objects and (map)
 //
 // The App class will also contain its own constructor, and this constructor will be responsible for loading the page, receive position cloak on map, change layout, and submit form, and so will have the following properties :
-// _getPosition(), )loadMap(position), _showForm(), _toggleElevationField()
-// It will also contain the Method for creating new workouts to be passed to the workout class constructors, _newWorkout()
+// _getPosition(), _loadMap(position), _showForm(), _toggleElevationField()
+// It will also contain the Method for creating new workouts to be passed to the workout class constructors, _newWorkout(), renderWorkoutMarker()
 
 // ========================================
 // Refactoring for Project Architecture
