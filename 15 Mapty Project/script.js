@@ -149,7 +149,7 @@ class App {
 
       if (
         !validInputs(distance, duration, cadence) ||
-        allPositive(distance, duration, cadence)
+        !allPositive(distance, duration, cadence)
       ) {
         return alert('Inputs need to be positive numbers, cmon, man..');
       }
@@ -164,7 +164,7 @@ class App {
       // Validate my running data
       if (
         !validInputs(distance, duration, elevation) ||
-        allPositive(distance, duration)
+        !allPositive(distance, duration)
       ) {
         return alert('Inputs need to be positive numbers, cmon, man..');
       }
