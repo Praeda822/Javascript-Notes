@@ -21,21 +21,14 @@ let scores, currentScore, activePlayer, playing;
 
 class Game {
   constructor() {
-    // Variable for current score increments
-    currentScore = 0;
-    // Variable for active player
-    activePlayer = 0;
+    this.scores = [0, 0];
+    this.currentScore = 0;
+    this.activePlayer = 0;
+    this.playing = true;
+    this.init();
   }
-}
 
-// Starting conditions
-const init = function () {
-  // Array to hold total scores for each player
-  scores = [0, 0];
-
-  // Variable to hold game state
-  playing = true;
-  // Reset scores
+init(){
   score0El.textContent = 0;
   score1El.textContent = 0;
   current0El.textContent = 0;
@@ -46,47 +39,37 @@ const init = function () {
   player1El.classList.remove('player--winner');
   player0El.classList.add('player--active');
   player1El.classList.remove('player--active');
-};
-init();
+}
 
-// Function to switch to next player
-const switchPlayer = function () {
+switchPlayer(){
   document.getElementById(`current--${activePlayer}`).textContent = 0;
-  currentScore = 0;
-
-  // If activePlayer is equal to 0, (Player 1), then change activePlayer's value to 1, (Player 2)
-  // Otherwise, stay as 0, (Player 1)
-  activePlayer = activePlayer === 0 ? 1 : 0;
-
-  // Toggles the .player--active class to visually update the change in player
+  this.currentScore = 0;
+  this.activePlayer = this.activePlayer === 0 ? 1 : 0;
   player0El.classList.toggle('player--active');
   player1El.classList.toggle('player--active');
 };
 
-// Rolling dice functionality
-btnRoll.addEventListener('click', function () {
+rollDice() {
   // Only executes if playing = true
-  if (playing) {
+  if (thisplaying) {
     // 1. Generate Random Number
     const dice = Math.trunc(Math.random() * 6) + 1;
-
     // 2. Display dice
     diceEl.classList.remove('hidden');
     diceEl.src = `dice-${dice}.png`;
 
-    // 3. Check for rolled 1: if true, switch to next player
-    // When dice roll is NOT a 1, add to current score
+    
     if (dice !== 1) {
-      currentScore += dice;
+      this.currentScore += dice;
       // Updates score dynamically based on activePlayer state
-      document.getElementById(`current--${activePlayer}`).textContent =
-        currentScore;
+      document.getElementById(`current--${this.activePlayer}`).textContent =
+        this.currentScore;
     } else {
       // Switch tp next player
-      switchPlayer();
+      this.switchPlayer();
     }
   }
-});
+};
 
 btnHold.addEventListener('click', function () {
   if (playing) {
@@ -114,7 +97,5 @@ btnHold.addEventListener('click', function () {
       switchPlayer();
     }
   }
-});
-
-// Reset game
-btnNew.addEventListener('click', init);
+};
+}
