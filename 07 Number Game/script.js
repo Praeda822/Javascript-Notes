@@ -19,6 +19,10 @@ const btnHold = select('.btn--hold');
 // Then redefine them within the init function
 let scores, currentScore, activePlayer, playing;
 
+class Game {
+  constructor() {}
+}
+
 // Starting conditions
 const init = function () {
   // Array to hold total scores for each player
