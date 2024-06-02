@@ -21,19 +21,32 @@ let scores, currentScore, activePlayer, playing;
 
 class Game {
   constructor() {
-    this.scores = [0, 0];
-    this.currentScore = 0;
-    this.activePlayer = 0;
-    this.playing = true;
     this.init();
   }
 
   init() {
-    score0El.textContent = 0;
-    score1El.textContent = 0;
-    current0El.textContent = 0;
-    current1El.textContent = 0;
-    // Reset player state
+    this.scores = [0, 0];
+    this.currentScore = 0;
+    this.activePlayer = 0;
+    this.playing = true;
+    this.updateUI();
+  }
+
+  // Event handler bundle
+  bindEventListeners() {
+    btnRoll.addEventListener('click', () => this.rollDice());
+    btnHold.addEventListener('click', () => this.hold());
+    btnNew.addEventListener('click', () => this.reset());
+  }
+
+  // Refactored DOM manipulation into method
+  updateUI() {
+    score0El.textContent = this.scores[0];
+    score1El.textContent = this.scores[1];
+
+    current0El.textContent = this.activePlayer === 0 ? this.currentScore : 0;
+    current1El.textContent = this.activePlayer === 1 ? this.currentScore : 0;
+
     diceEl.classList.add('hidden');
     player0El.classList.remove('player--winner');
     player1El.classList.remove('player--winner');
@@ -42,11 +55,9 @@ class Game {
   }
 
   switchPlayer() {
-    document.getElementById(`current--${activePlayer}`).textContent = 0;
     this.currentScore = 0;
     this.activePlayer = this.activePlayer === 0 ? 1 : 0;
-    player0El.classList.toggle('player--active');
-    player1El.classList.toggle('player--active');
+    this.updateUI();
   }
 
   rollDice() {
@@ -75,24 +86,15 @@ class Game {
     if (this.playing) {
       // For Debugging
       console.log('Hold button Debugger');
-      // Adds current score to active player's score
+      // Adds current score to active player's score if true
       this.scores[this.activePlayer] += this.currentScore;
-      document.getElementById(`score--${this.activePlayer}`).textContent =
-        this.scores[this.activePlayer];
 
-      //      Check if player's score is >= 100
+      //Check if player's score is >= 100
       if (this.scores[this.activePlayer] >= 20) {
         this.playing = false;
-        diceEl.classList.add('hidden');
-        document
-          .querySelector(`.player--${activePlayer}`)
-          .classList.add('player--winner');
-        // Ensure that player--winner and player--active are never together at the same time
-        document
-          .querySelector(`.player--${activePlayer}`)
-          .classList.remove('player--active');
-      } else {
-        // Change player
+      }
+      this.updateUI();
+      if (this.playing) {
         this.switchPlayer();
       }
     }
@@ -103,8 +105,4 @@ class Game {
   }
 }
 
-const game = new Game();
-
-btnRoll.addEventListener('click', () => game.rollDice());
-btnHold.addEventListener('click', () => game.hold());
-btnNew.addEventListener('click', () => game.reset());
+new Game();
