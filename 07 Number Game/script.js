@@ -51,7 +51,7 @@ class Game {
 
   rollDice() {
     // Only executes if playing = true
-    if (thisplaying) {
+    if (this.playing) {
       // 1. Generate Random Number
       const dice = Math.trunc(Math.random() * 6) + 1;
       // 2. Display dice
@@ -98,5 +98,13 @@ class Game {
     }
   }
 
-  reset() {}
+  reset() {
+    this.init();
+  }
 }
+
+const game = new Game();
+
+btnRoll.addEventListener('click', () => game.rollDice());
+btnHold.addEventListener('click', () => game.hold());
+btnNew.addEventListener('click', () => game.reset());
