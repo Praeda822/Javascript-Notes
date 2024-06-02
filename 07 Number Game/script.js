@@ -22,6 +22,8 @@ let scores, currentScore, activePlayer, playing;
 class Game {
   constructor() {
     this.init();
+    // Probably help if you remember to call it..
+    this.bindEventListeners();
   }
 
   init() {
@@ -43,21 +45,24 @@ class Game {
   updateUI() {
     score0El.textContent = this.scores[0];
     score1El.textContent = this.scores[1];
-
     current0El.textContent = this.activePlayer === 0 ? this.currentScore : 0;
     current1El.textContent = this.activePlayer === 1 ? this.currentScore : 0;
 
     diceEl.classList.add('hidden');
+    player0El.classList.toggle('player--active', this.activePlayer === 0);
+    player1El.classList.toggle('player--active', this.activePlayer === 1);
+
     player0El.classList.remove('player--winner');
     player1El.classList.remove('player--winner');
-    player0El.classList.add('player--active');
-    player1El.classList.remove('player--active');
+
+    if (this.scores[0] >= 20) player0El.classList.add('player--winner');
+    if (this.scores[1] >= 20) player1El.classList.add('player--winner');
   }
 
   switchPlayer() {
     this.currentScore = 0;
     this.activePlayer = this.activePlayer === 0 ? 1 : 0;
-    this.updateUI();
+    this.updateUI(); // Issue: Ensure UI updates after switching player
   }
 
   rollDice() {
@@ -75,8 +80,8 @@ class Game {
         document.getElementById(`current--${this.activePlayer}`).textContent =
           this.currentScore;
       } else {
-        // Switch tp next player
-        this.switchPlayer();
+        // Switch to next player
+        this.switchPlayer(); // Issue: Ensure switchPlayer is called correctly
       }
     }
   }
@@ -89,7 +94,7 @@ class Game {
       // Adds current score to active player's score if true
       this.scores[this.activePlayer] += this.currentScore;
 
-      //Check if player's score is >= 100
+      // Check if player's score is >= 20 (changed from 100 to 20 for quicker testing)
       if (this.scores[this.activePlayer] >= 20) {
         this.playing = false;
       }
@@ -101,8 +106,9 @@ class Game {
   }
 
   reset() {
-    this.init();
+    this.init(); // Make sure init is called on reset
   }
 }
 
+// Instantiate the game object to start the game
 new Game();
