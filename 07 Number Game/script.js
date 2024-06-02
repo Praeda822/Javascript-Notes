@@ -28,74 +28,75 @@ class Game {
     this.init();
   }
 
-init(){
-  score0El.textContent = 0;
-  score1El.textContent = 0;
-  current0El.textContent = 0;
-  current1El.textContent = 0;
-  // Reset player state
-  diceEl.classList.add('hidden');
-  player0El.classList.remove('player--winner');
-  player1El.classList.remove('player--winner');
-  player0El.classList.add('player--active');
-  player1El.classList.remove('player--active');
-}
+  init() {
+    score0El.textContent = 0;
+    score1El.textContent = 0;
+    current0El.textContent = 0;
+    current1El.textContent = 0;
+    // Reset player state
+    diceEl.classList.add('hidden');
+    player0El.classList.remove('player--winner');
+    player1El.classList.remove('player--winner');
+    player0El.classList.add('player--active');
+    player1El.classList.remove('player--active');
+  }
 
-switchPlayer(){
-  document.getElementById(`current--${activePlayer}`).textContent = 0;
-  this.currentScore = 0;
-  this.activePlayer = this.activePlayer === 0 ? 1 : 0;
-  player0El.classList.toggle('player--active');
-  player1El.classList.toggle('player--active');
-};
+  switchPlayer() {
+    document.getElementById(`current--${activePlayer}`).textContent = 0;
+    this.currentScore = 0;
+    this.activePlayer = this.activePlayer === 0 ? 1 : 0;
+    player0El.classList.toggle('player--active');
+    player1El.classList.toggle('player--active');
+  }
 
-rollDice() {
-  // Only executes if playing = true
-  if (thisplaying) {
-    // 1. Generate Random Number
-    const dice = Math.trunc(Math.random() * 6) + 1;
-    // 2. Display dice
-    diceEl.classList.remove('hidden');
-    diceEl.src = `dice-${dice}.png`;
+  rollDice() {
+    // Only executes if playing = true
+    if (thisplaying) {
+      // 1. Generate Random Number
+      const dice = Math.trunc(Math.random() * 6) + 1;
+      // 2. Display dice
+      diceEl.classList.remove('hidden');
+      diceEl.src = `dice-${dice}.png`;
 
-    
-    if (dice !== 1) {
-      this.currentScore += dice;
-      // Updates score dynamically based on activePlayer state
-      document.getElementById(`current--${this.activePlayer}`).textContent =
-        this.currentScore;
-    } else {
-      // Switch tp next player
-      this.switchPlayer();
+      if (dice !== 1) {
+        this.currentScore += dice;
+        // Updates score dynamically based on activePlayer state
+        document.getElementById(`current--${this.activePlayer}`).textContent =
+          this.currentScore;
+      } else {
+        // Switch tp next player
+        this.switchPlayer();
+      }
     }
   }
-};
 
-btnHold.addEventListener('click', function () {
-  if (playing) {
-    console.log('Hold button');
-    // 1. Add current score to active player's score
-    scores[activePlayer] += currentScore;
-    // scores[1] = scores[1] + currentScore
-    document.getElementById(`score--${activePlayer}`).textContent =
-      scores[activePlayer];
+  // Hold Button
+  hold() {
+    if (this.playing) {
+      // For Debugging
+      console.log('Hold button Debugger');
+      // Adds current score to active player's score
+      this.scores[this.activePlayer] += this.currentScore;
+      document.getElementById(`score--${this.activePlayer}`).textContent =
+        this.scores[this.activePlayer];
 
-    // 2. Check if player's score is >= 100
-    if (scores[activePlayer] >= 20) {
-      // Finish the game
-      playing = false;
-      diceEl.classList.add('hidden');
-      document
-        .querySelector(`.player--${activePlayer}`)
-        .classList.add('player--winner');
-      // Ensure that player--winner and player--active are never together at the same time
-      document
-        .querySelector(`.player--${activePlayer}`)
-        .classList.remove('player--active');
-    } else {
-      // Switch to next player
-      switchPlayer();
+      //      Check if player's score is >= 100
+      if (this.scores[this.activePlayer] >= 20) {
+        this.playing = false;
+        diceEl.classList.add('hidden');
+        document
+          .querySelector(`.player--${activePlayer}`)
+          .classList.add('player--winner');
+        // Ensure that player--winner and player--active are never together at the same time
+        document
+          .querySelector(`.player--${activePlayer}`)
+          .classList.remove('player--active');
+      } else {
+        // Change player
+        this.switchPlayer();
+      }
     }
   }
-};
+
+  reset() {}
 }
