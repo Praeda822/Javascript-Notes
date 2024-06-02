@@ -20,17 +20,19 @@ const btnHold = select('.btn--hold');
 let scores, currentScore, activePlayer, playing;
 
 class Game {
-  constructor() {}
+  constructor() {
+    // Variable for current score increments
+    currentScore = 0;
+    // Variable for active player
+    activePlayer = 0;
+  }
 }
 
 // Starting conditions
 const init = function () {
   // Array to hold total scores for each player
   scores = [0, 0];
-  // Variable for current score increments
-  currentScore = 0;
-  // Variable for active player
-  activePlayer = 0;
+
   // Variable to hold game state
   playing = true;
   // Reset scores
