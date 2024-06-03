@@ -131,6 +131,8 @@ class App {
       this.#map.on('click', this._showForm.bind(this));
     }
 
+    // Render markers for all workouts on the map
+    //
     this.#workouts.forEach(work => {
       this._renderWorkoutMarker(work);
     });
@@ -227,24 +229,22 @@ class App {
   }
 
   _renderWorkoutMarker(workout) {
-    if (this.#mapEvent) {
-      // Use workout.coords instead of lat, lng
-      L.marker(workout.coords)
-        .addTo(this.#map)
-        .bindPopup(
-          L.popup({
-            maxWidth: 250,
-            minWidth: 100,
-            autoClose: false,
-            closeOnClick: false,
-            className: `${workout.type}-popup`,
-          })
-        )
-        .setPopupContent(
-          `${workout.type === 'running' ? '🏃' : '🚴‍♂️'} ${workout.description}`
-        )
-        .openPopup();
-    }
+    // Use workout.coords instead of lat, lng
+    L.marker(workout.coords)
+      .addTo(this.#map)
+      .bindPopup(
+        L.popup({
+          maxWidth: 250,
+          minWidth: 100,
+          autoClose: false,
+          closeOnClick: false,
+          className: `${workout.type}-popup`,
+        })
+      )
+      .setPopupContent(
+        `${workout.type === 'running' ? '🏃' : '🚴‍♂️'} ${workout.description}`
+      )
+      .openPopup();
   }
 
   _renderWorkout(workout) {
@@ -322,7 +322,7 @@ class App {
     });
 
     // Using the Public Interface
-    workout.click();
+    // workout.click();
   }
 
   // Stringify to convert any object in Javscript to a string
@@ -339,7 +339,14 @@ class App {
       return;
     }
 
-    this.#workouts = data;
+    this.#workouts = data.map(workout => {
+      if (workout.type === 'running') {
+        return Object.assign(new Running(), workout);
+      } else if (workout.type === 'cycling') {
+        return Object.assign(new Cycling(), workout);
+      }
+      return workout;
+    });
 
     this.#workouts.forEach(work => {
       this._renderWorkout(work);
