@@ -91,7 +91,7 @@ class App {
     this._getPosition();
     form.addEventListener('submit', this._newWorkout.bind(this));
     inputType.addEventListener('change', this._toggleElevationField);
-    containerWorkouts.addEventListener('click', this._moveToPopup);
+    containerWorkouts.addEventListener('click', this._moveToPopup.bind(this));
   }
 
   _getPosition() {
@@ -286,6 +286,7 @@ class App {
   }
 
   _moveToPopup(e) {
+    if (!this.#map) return;
     const workoutEl = e.target.closest('.workout');
     // Find MY closest workout element
     console.log('Found Workout Element:', workoutEl); // STILL FUCKING NULL FUCK YOU
