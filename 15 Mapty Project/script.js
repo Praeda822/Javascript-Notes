@@ -90,6 +90,12 @@ class App {
 
   constructor() {
     this._getPosition();
+    this._bindEventListeners();
+    this._getLocalStorage();
+  }
+
+  // Bundle and attach event handlers
+  _bindEventListeners() {
     form.addEventListener('submit', this._newWorkout.bind(this));
     inputType.addEventListener('change', this._toggleElevationField);
     containerWorkouts.addEventListener('click', this._moveToPopup.bind(this));
@@ -211,6 +217,9 @@ class App {
 
     // Hide form + clear input fields
     this._hideForm();
+
+    // Set local storage to all workouts
+    this._setLocalStorage();
   }
 
   _renderWorkoutMarker(workout) {
@@ -310,6 +319,29 @@ class App {
 
     // Using the Public Interface
     workout.click();
+  }
+
+  // Stringify to convert any object in Javscript to a string
+  // Only use localstorage for small amounts of data, since localstorage uses "blocking" which will slow down my apps
+  _setLocalStorage() {
+    localStorage.setItem('workouts', JSON.stringify(this.#workouts));
+  }
+
+  _getLocalStorage() {
+    const data = JSON.parse(localStorage.getItem('workouts'));
+
+    if (!data) return;
+
+    this.#workouts = data;
+
+    this.#workouts.forEach(work => {
+      this._renderWorkout(work);
+    });
+  }
+
+  reset() {
+    localStorage.removeItem('workouts');
+    location.reload();
   }
 }
 
