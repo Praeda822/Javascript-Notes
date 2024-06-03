@@ -19,7 +19,7 @@
 class Workout {
   date = new Date();
   id = (Date.now() + '').slice(-10);
-  clicks = 0;
+  clicks = 0; // Added clicks to Workout
   constructor(coords, distance, duration) {
     this.coords = coords;
     this.distance = distance; // in km
@@ -130,6 +130,10 @@ class App {
       // Leaflet on API
       this.#map.on('click', this._showForm.bind(this));
     }
+
+    this.#workouts.forEach(work => {
+      this._renderWorkoutMarker(work);
+    });
   }
 
   _showForm(mapE) {
@@ -327,10 +331,13 @@ class App {
     localStorage.setItem('workouts', JSON.stringify(this.#workouts));
   }
 
+  // Convert my local storage's plain data objects back into instances of workouts
   _getLocalStorage() {
     const data = JSON.parse(localStorage.getItem('workouts'));
 
-    if (!data) return;
+    if (!data) {
+      return;
+    }
 
     this.#workouts = data;
 
@@ -339,6 +346,7 @@ class App {
     });
   }
 
+  // Delete items from localstorage
   reset() {
     localStorage.removeItem('workouts');
     location.reload();
