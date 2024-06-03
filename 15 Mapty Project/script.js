@@ -91,6 +91,7 @@ class App {
     this._getPosition();
     form.addEventListener('submit', this._newWorkout.bind(this));
     inputType.addEventListener('change', this._toggleElevationField);
+    containerWorkouts.addEventListener('click', this._moveToPopup.bind(this));
   }
 
   _getPosition() {
@@ -139,7 +140,8 @@ class App {
         '';
     form.style.display = 'none';
     form.classList.add('hidden');
-    setTimeout(() => (form.style.display = 'grid'), 1000);
+    // Debugging this fucking piece of shit
+    // setTimeout(() => (form.style.display = 'grid'), 1000);
   }
 
   _toggleElevationField() {
@@ -206,6 +208,7 @@ class App {
 
     // Render workout on the list
     this._renderWorkout(workout);
+
     // Hide form + clear input fields
     this._hideForm();
 
@@ -259,7 +262,7 @@ class App {
         <span class="workout__unit">min/km</span>
       </div>
       <div class="workout__details">
-        <span class="workout__icon">🦶</span>
+        <span class="workout__icon">🗻</span>
         <span class="workout__value">${workout.cadence}</span>
         <span class="workout__unit">spm</span>
       </div>`;
@@ -273,15 +276,19 @@ class App {
         <span class="workout__unit">km/h</span>
       </div>
       <div class="workout__details">
-        <span class="workout__icon">⛰</span>
+        <span class="workout__icon">🗻</span>
         <span class="workout__value">${workout.elevationGain}</span>
         <span class="workout__unit">m</span>
       </div>`;
     }
 
     html += '</li>';
-
     form.insertAdjacentHTML('afterend', html);
+  }
+
+  _moveToPopup(e) {
+    const workoutEl = e.target.closest('.workout');
+    console.log('POPUP DEBUGGER', workoutEl);
   }
 }
 
