@@ -62,7 +62,7 @@ class Game {
   switchPlayer() {
     this.currentScore = 0;
     this.activePlayer = this.activePlayer === 0 ? 1 : 0;
-    this.updateUI(); // Issue: Ensure UI updates after switching player
+    this.updateUI();
   }
 
   rollDice() {
@@ -81,7 +81,7 @@ class Game {
           this.currentScore;
       } else {
         // Switch to next player
-        this.switchPlayer(); // Issue: Ensure switchPlayer is called correctly
+        this.switchPlayer();
       }
     }
   }
@@ -106,7 +106,7 @@ class Game {
   }
 
   reset() {
-    this.init(); // Make sure init is called on reset
+    this.init();
   }
 }
 
