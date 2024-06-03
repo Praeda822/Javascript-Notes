@@ -19,6 +19,7 @@
 class Workout {
   date = new Date();
   id = (Date.now() + '').slice(-10);
+  clicks = 0;
   constructor(coords, distance, duration) {
     this.coords = coords;
     this.distance = distance; // in km
@@ -32,6 +33,10 @@ class Workout {
     this.description = `${this.type[0].toUpperCase()}${this.type.slice(1)} on ${
       months[this.date.getMonth()]
     } ${this.date.getDate()}`;
+  }
+
+  click() {
+    this.clicks++;
   }
 }
 
@@ -68,11 +73,6 @@ class Cycling extends Workout {
   }
 }
 
-const run1 = new Running([39, -12], 5.2, 24, 178);
-const cycling1 = new Cycling([39, -12], 27, 95, 523);
-
-console.log(run1, cycling1);
-
 const form = document.querySelector('.form');
 const containerWorkouts = document.querySelector('.workouts');
 const inputType = document.querySelector('.form__input--type');
@@ -84,6 +84,7 @@ const inputElevation = document.querySelector('.form__input--elevation');
 class App {
   // Private Instance Properties
   #map;
+  #mapZoomLevel = 13;
   #mapEvent;
   #workouts = [];
 
@@ -112,7 +113,7 @@ class App {
     const coords = [latitude, longitude];
 
     if (!this.#map) {
-      this.#map = L.map('map').setView(coords, 13);
+      this.#map = L.map('map').setView(coords, this.#mapZoomLevel);
 
       L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution:
@@ -235,7 +236,7 @@ class App {
 
   _renderWorkout(workout) {
     let html = `
-    <li class="workout workout--${workout.type}" data-id=${workout.id}>
+    <li class="workout workout--${workout.type}" data-id="${workout.id}">
       <h2 class="workout__title">${workout.description}</h2>
       <div class="workout__details">
         <span class="workout__icon">${
@@ -286,10 +287,8 @@ class App {
     if (!this.#map) return;
     console.log('Clicked Element:', e.target);
     const workoutEl = e.target.closest('.workout');
-    // WHY THE FUCK ARE YOU NULL
-    console.log(workoutEl); // NULL
     // Find my closest workout element
-    // console.log('Found Workout Element:', workoutEl);
+    console.log('Found Workout Element:', workoutEl);
 
     // Checking for NULL
     if (!workoutEl) {
@@ -300,7 +299,17 @@ class App {
     const workout = this.#workouts.find(
       work => work.id === workoutEl.dataset.id
     );
-    console.log('Found Workout Object:', workout);
+    console.log('Found Workout Object:', workout); // What the actual fuck
+
+    this.#map.setView(workout.coords, this.#mapZoomLevel, {
+      animate: true,
+      pan: {
+        duration: 1,
+      },
+    });
+
+    // Using the Public Interface
+    workout.click();
   }
 }
 
