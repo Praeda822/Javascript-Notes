@@ -142,6 +142,7 @@ class App {
     form.classList.add('hidden');
     // Debugging this fucking piece of shit
     // setTimeout(() => (form.style.display = 'grid'), 1000);
+    form.style.display = 'grid';
   }
 
   _toggleElevationField() {
@@ -200,20 +201,17 @@ class App {
 
     // Add new object to workout array
     this.#workouts.push(workout);
-    console.log(workout);
+    // console.log(workout);
 
     // Render my workout on map as a marker
     this._renderWorkoutMarker(workout);
-    console.log('Map Marker Debugger', this.#mapEvent);
+    // console.log('Map Marker Debugger', this.#mapEvent);
 
     // Render workout on the list
     this._renderWorkout(workout);
 
     // Hide form + clear input fields
     this._hideForm();
-
-    // For debugging
-    console.log(this);
   }
 
   _renderWorkoutMarker(workout) {
@@ -284,11 +282,24 @@ class App {
 
     html += '</li>';
     form.insertAdjacentHTML('afterend', html);
+    console.log('Workout HTML:', html);
   }
 
   _moveToPopup(e) {
     const workoutEl = e.target.closest('.workout');
-    console.log('POPUP DEBUGGER', workoutEl);
+    // Find MY closest workout element
+    console.log('Found Workout Element:', workoutEl); // STILL FUCKING NULL FUCK YOU
+
+    // Checking for NULL
+    if (!workoutEl) {
+      console.log('No workout element found, returning.');
+      return;
+    }
+
+    const workout = this.#workouts.find(
+      work => work.id === workoutEl.dataset.id
+    );
+    console.log('Found Workout Object:', workout);
   }
 }
 
