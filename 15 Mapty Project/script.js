@@ -140,9 +140,7 @@ class App {
         '';
     form.style.display = 'none';
     form.classList.add('hidden');
-    // Debugging this fucking piece of shit
-    // setTimeout(() => (form.style.display = 'grid'), 1000);
-    form.style.display = 'grid';
+    setTimeout(() => (form.style.display = 'grid'), 1000);
   }
 
   _toggleElevationField() {
@@ -280,16 +278,18 @@ class App {
       </div>`;
     }
 
-    html += '</li>';
     form.insertAdjacentHTML('afterend', html);
-    console.log('Workout HTML:', html);
   }
 
   _moveToPopup(e) {
+    // Added map error check
     if (!this.#map) return;
+    console.log('Clicked Element:', e.target);
     const workoutEl = e.target.closest('.workout');
-    // Find MY closest workout element
-    console.log('Found Workout Element:', workoutEl); // STILL FUCKING NULL FUCK YOU
+    // WHY THE FUCK ARE YOU NULL
+    console.log(workoutEl); // NULL
+    // Find my closest workout element
+    // console.log('Found Workout Element:', workoutEl);
 
     // Checking for NULL
     if (!workoutEl) {
@@ -306,8 +306,6 @@ class App {
 
 // Creating my objects
 const app = new App();
-// Getting user's position loads my map
-app._getPosition();
 
 // ========================================
 // Project Architecture
