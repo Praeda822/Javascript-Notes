@@ -59,9 +59,10 @@ request.send();
 console.log(request.responseText);
 
 // Then I need to register a callback on the request object that listens for the 'load' event
+// So this returns a SHITLOAD of text (in JSON format)
 request.addEventListener('load', function () {
-  console.log(this.responseText);
-
-  const data = JSON.parse(this.responseText);
+  // And then I need to convert that JSON string into my javascript object
+  // Since it's an object, I can destructure it as well
+  const [data] = JSON.parse(this.responseText);
   console.log(data);
 });
