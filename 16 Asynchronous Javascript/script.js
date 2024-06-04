@@ -48,21 +48,48 @@ const countriesContainer = document.querySelector('.countries');
 // The OLD SKOOL Way
 // ========================================
 
-// First I create a new object and call the XMLHttpRequest() function, storing that result in a variable
-const request = new XMLHttpRequest();
+// FINALLY I'll assign this entire functionality to its own respective function
+const getCountryData = function (country) {
+  // First I create a new object and call the XMLHttpRequest() function, storing that result in a variable
+  const request = new XMLHttpRequest();
 
-// Next I call the open function on my variable and pass in the 'GET' data-type, followed by a string containing where the AJAX call needs to be made
-// This is also known as the API Endpoint
-request.open('GET', 'https://restcountries.com/v3.1/name/australia');
-// And I'll then need to SEND that request off
-request.send();
-console.log(request.responseText);
+  // Next I call the open function on my variable and pass in the 'GET' data-type, followed by a string containing where the AJAX call needs to be made
+  // This is also known as the API Endpoint
+  request.open('GET', `https://restcountries.com/v3.1/name/${country}`);
+  // And I'll then need to SEND that request off
+  request.send();
+  console.log(request.responseText);
 
-// Then I need to register a callback on the request object that listens for the 'load' event
-// So this returns a SHITLOAD of text (in JSON format)
-request.addEventListener('load', function () {
-  // And then I need to convert that JSON string into my javascript object
-  // Since it's an object, I can destructure it as well
-  const [data] = JSON.parse(this.responseText);
-  console.log(data);
-});
+  // Then I need to register a callback on the request object that listens for the 'load' event
+  // So this returns a SHITLOAD of text (in JSON format)
+  request.addEventListener('load', function () {
+    // And then I need to convert that JSON string into my javascript object
+    // Since data is an array containing an object, I can destructure it as well
+    const [data] = JSON.parse(this.responseText);
+    console.log(data);
+
+    // And then I'll create a template literal to create the cool card thing in the HTML
+    // Remember I can use + to convert to a number
+    const html = `
+<article class="country">
+  <img class="country__img" src="${data.flag}" />
+  <div class="country__data">
+    <h3 class="country__name">${data.name}</h3>
+    <h4 class="country__region">${data.region}</h4>
+    <p class="country__row"><span>👫</span>${(
+      +data.population / 25687041
+    ).toFixed(1)} people</p>
+    <p class="country__row"><span>🗣️</span>${data.languages}</p>
+    <p class="country__row"><span>💰</span>${data.currencies.name}</p>
+  </div>
+</article>
+`;
+    // And then I'll pretty much just add this to my document by sending it to my countries container
+    // Which would be great is I could even FUCKING see it since the API times out every single fucken time
+    countriesContainer.insertAdjacentElement('beforeend', html);
+    countriesContainer.style.opacity = 1;
+  });
+};
+
+getCountryData('australia');
+getCountryData('portgual');
