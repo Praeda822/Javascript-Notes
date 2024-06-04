@@ -49,13 +49,13 @@ const countriesContainer = document.querySelector('.countries');
 // ========================================
 
 // FINALLY I'll assign this entire functionality to its own respective function
-const getCountryData = function (country_name) {
+const getCountryData = function (country) {
   // First I create a new object and call the XMLHttpRequest() function, storing that result in a variable
   const request = new XMLHttpRequest();
 
   // Next I call the open function on my variable and pass in the 'GET' data-type, followed by a string containing where the AJAX call needs to be made
   // This is also known as the API Endpoint
-  request.open('GET', `https://restcountries.com/v3.1/name/${country_name}`);
+  request.open('GET', `https://restcountries.com/v3.1/name/${country}`);
   // And I'll then need to SEND that request off
   request.send();
 
@@ -70,18 +70,22 @@ const getCountryData = function (country_name) {
     // And then I'll create a template literal to create the cool card thing in the HTML
     // Remember I can use + to convert to a number
     const html = `
-<article class="country">
-  <img class="country__img" src="${data.flag}" />
-  <div class="country__data">
-    <h3 class="country__name">${data.name}</h3>
-    <h4 class="country__region">${data.region}</h4>
-    <p class="country__row"><span>👫</span>${(
-      +data.population / 25687041
-    ).toFixed(1)} people</p>
-    <p class="country__row"><span>🗣️</span>${data.languages}</p>
-    <p class="country__row"><span>💰</span>${data.currencies.name}</p>
-  </div>
-</article>
+    <article class="country">
+    <img class="country__img" src="${Object.entries(data.flags)[0][1]}" />
+    <div class="country__data">
+      <h3 class="country__name">${data.name}</h3>
+      <h4 class="country__region">${data.region}</h4>
+      <p class="country__row"><span>👫</span>${(
+        +data.population / 1000000
+      ).toFixed(1)} M people</p>
+      <p class="country__row"><span>🗣️</span>${
+        Object.entries(data.languages)[0][1]
+      }</p>
+      <p class="country__row"><span>💰</span>${
+        Object.entries(Object.entries(data.currencies)[0][1])[0][1]
+      }</p>
+    </div>
+  </article>
 `;
     // And then I'll pretty much just add this to my document by sending it to my countries container
     // Which would be great is I could even FUCKING see it since the API times out every single fucken time
@@ -91,4 +95,3 @@ const getCountryData = function (country_name) {
 };
 
 getCountryData('australia');
-getCountryData('portgual');
