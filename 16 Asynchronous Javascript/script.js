@@ -55,7 +55,11 @@ const getCountryData = function (country) {
 
   // Next I call the open function on my variable and pass in the 'GET' data-type, followed by a string containing where the AJAX call needs to be made
   // This is also known as the API Endpoint
-  request.open('GET', `https://restcountries.com/v3.1/name/${country}`);
+  request.open('GET', `https://restcountries.com/v3.1/name/${country}`, true); // ensure async is true
+
+  // ADDED: Set a timeout for the request to handle potential timeout issues
+  request.timeout = 10000; // Set timeout to 10 seconds
+
   // And I'll then need to SEND that request off
   request.send();
 
@@ -64,37 +68,48 @@ const getCountryData = function (country) {
   request.addEventListener('load', function () {
     // And then I need to convert that JSON string into my javascript object
     // Since data is an array containing an object, I can destructure it as well
-    const [data] = JSON.parse(this.responseText);
-    console.log(data);
+    if (request.status >= 200 && request.status < 300) {
+      // ADDED: Check if the request was successful
+      const [data] = JSON.parse(this.responseText);
+      console.log(data);
 
-    // And then I'll create a template literal to create the cool card thing in the HTML
-    // Remember I can use + to convert to a number
-    const html = `
-    <article class="country">
-    <img class="country__img" src="${Object.values(data.flags)[0]}" />
-    <div class="country__data">
-      <h3 class="country__name">${data.name.common}</h3>
-      <h4 class="country__region">${data.region}</h4>
-      <p class="country__row"><span>👫</span>${(
-        +data.population / 25687041
-      ).toFixed(1)} people</p>
-      <p class="country__row"><span>🗣️</span>${Object.values(
-        data.languages
-      ).join(', ')}</p>
-      <p class="country__row"><span>💰</span>${
-        Object.values(data.currencies)[0].name
-      }</p>
-    </div>
-  </article>
-`;
-    // And then I'll pretty much just add this to my document by sending it to my countries container
-    // Which would be great if I could even FUCKING see it since the API times out every single fucken time
-    countriesContainer.insertAdjacentHTML('beforeend', html);
-    countriesContainer.style.opacity = 1;
+      // And then I'll create a template literal to create the cool card thing in the HTML
+      // Remember I can use + to convert to a number
+      const html = `
+      <article class="country">
+      <img class="country__img" src="${Object.values(data.flags)[0]}" />
+      <div class="country__data">
+        <h3 class="country__name">${data.name.common}</h3>
+        <h4 class="country__region">${data.region}</h4>
+        <p class="country__row"><span>👫</span>${(
+          +data.population / 25687041
+        ).toFixed(1)} people</p>
+        <p class="country__row"><span>🗣️</span>${Object.values(
+          data.languages
+        ).join(', ')}</p>
+        <p class="country__row"><span>💰</span>${
+          Object.values(data.currencies)[0].name
+        }</p>
+      </div>
+    </article>
+    `;
+      // And then I'll pretty much just add this to my document by sending it to my countries container
+      // Which would be great if I could even FUCKING see it since the API times out every single fucken time
+      countriesContainer.insertAdjacentHTML('beforeend', html);
+      countriesContainer.style.opacity = 1;
+    } else {
+      console.error('Error:', request.statusText); // ADDED: Handle unsuccessful requests
+    }
   });
 
+  // ADDED: Error handling for network issues
   request.addEventListener('error', function () {
-    console.error('Error fetching country data');
+    console.error('Request failed');
+  });
+
+  // ADDED: Timeout handling
+  request.addEventListener('timeout', function () {
+    console.error('Request timed out');
   });
 };
 
