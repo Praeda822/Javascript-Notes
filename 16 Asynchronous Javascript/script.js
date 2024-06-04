@@ -76,30 +76,35 @@ const renderCountry = function (data) {
 
 // FINALLY I'll assign this entire functionality to its own respective function
 const getCountryAndNeighbour = function (country) {
-  // First I create a new object and call the XMLHttpRequest() function, storing that result in a variable
-  const request = new XMLHttpRequest();
-
-  // Next I call the open function on my variable and pass in the 'GET' data-type, followed by a string containing where the AJAX call needs to be made
-  // This is also known as the API Endpoint
-  request.open('GET', `https://restcountries.com/v3.1/name/${country}`, true); // ensure async is true
-
-  // ADDED: Set a timeout for the request to handle potential timeout issues
-  request.timeout = 10000; // Set timeout to 10 seconds
-
-  // And I'll then need to SEND that request off
-  request.send();
-
   // Then I need to register a callback on the request object that listens for the 'load' event
   // So this returns a SHITLOAD of text (in JSON format)
   request.addEventListener('load', function () {
     // And then I need to convert that JSON string into my javascript object
     // Since data is an array containing an object, I can destructure it as well
-    if (request.status >= 200 && request.status < 300) {
-      // ADDED: Check if the request was successful
-      const [data] = JSON.parse(this.responseText);
-      console.log(data);
-      renderCountry(data);
-    }
+    const [data] = JSON.parse(this.responseText);
+    console.log(data);
+
+    //Render country 1
+    renderCountry(data);
+
+    // Get neighbour country (2)
+    const neighbour = data.borders?.[0];
+
+    if (!neighbour) return;
+
+    // AJAX call country 1
+    // First I create a new object and call the XMLHttpRequest() function, storing that result in a variable
+    const request = new XMLHttpRequest();
+
+    // Next I call the open function on my variable and pass in the 'GET' data-type, followed by a string containing where the AJAX call needs to be made
+    // This is also known as the API Endpoint
+    request.open('GET', `https://restcountries.com/v3.1/alpha/${neighbour}`); // ensure async is true
+
+    // ADDED: Set a timeout for the request to handle potential timeout issues
+    request.timeout = 10000; // Set timeout to 10 seconds
+
+    // And I'll then need to SEND that request off
+    request.send();
   });
 
   // Error handling for network issues
