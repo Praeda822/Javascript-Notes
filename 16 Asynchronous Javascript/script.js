@@ -71,26 +71,30 @@ const getCountryData = function (country) {
     // Remember I can use + to convert to a number
     const html = `
     <article class="country">
-    <img class="country__img" src="${data.flag}" />
+    <img class="country__img" src="${Object.values(data.flags)[0]}" />
     <div class="country__data">
-      <h3 class="country__name">${data.name}</h3>
+      <h3 class="country__name">${data.name.common}</h3>
       <h4 class="country__region">${data.region}</h4>
       <p class="country__row"><span>👫</span>${(
-        +data.population / 26000000
-      ).toFixed(1)} M people</p>
-      <p class="country__row"><span>🗣️</span>${
-        Object.entries(data.languages)[0][1]
-      }</p>
+        +data.population / 25687041
+      ).toFixed(1)} people</p>
+      <p class="country__row"><span>🗣️</span>${Object.values(
+        data.languages
+      ).join(', ')}</p>
       <p class="country__row"><span>💰</span>${
-        Object.entries(Object.entries(data.currencies)[0][1])[0][1]
+        Object.values(data.currencies)[0].name
       }</p>
     </div>
   </article>
 `;
     // And then I'll pretty much just add this to my document by sending it to my countries container
-    // Which would be great is I could even FUCKING see it since the API times out every single fucken time
+    // Which would be great if I could even FUCKING see it since the API times out every single fucken time
     countriesContainer.insertAdjacentHTML('beforeend', html);
     countriesContainer.style.opacity = 1;
+  });
+
+  request.addEventListener('error', function () {
+    console.error('Error fetching country data');
   });
 };
 
