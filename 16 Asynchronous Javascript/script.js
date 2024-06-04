@@ -47,9 +47,35 @@ const countriesContainer = document.querySelector('.countries');
 
 // The OLD SKOOL Way
 // ========================================
+//
+//
+const renderCountry = function (data) {
+  const html = `
+      <article class="country">
+      <img class="country__img" src="${Object.values(data.flags)[0]}" />
+      <div class="country__data">
+        <h3 class="country__name">${data.name.common}</h3>
+        <h4 class="country__region">${data.region}</h4>
+        <p class="country__row"><span>👫</span>${(
+          +data.population / 25687041
+        ).toFixed(1)} people</p>
+        <p class="country__row"><span>🗣️</span>${Object.values(
+          data.languages
+        ).join(', ')}</p>
+        <p class="country__row"><span>💰</span>${
+          Object.values(data.currencies)[0].name
+        }</p>
+      </div>
+    </article>
+    `;
+  // And then I'll pretty much just add this to my document by sending it to my countries container
+  // Which would be great if I could even FUCKING see it since the API times out every single fucken time
+  countriesContainer.insertAdjacentHTML('beforeend', html);
+  countriesContainer.style.opacity = 1;
+};
 
 // FINALLY I'll assign this entire functionality to its own respective function
-const getCountryData = function (country) {
+const getCountryAndNeighbour = function (country) {
   // First I create a new object and call the XMLHttpRequest() function, storing that result in a variable
   const request = new XMLHttpRequest();
 
@@ -72,34 +98,7 @@ const getCountryData = function (country) {
       // ADDED: Check if the request was successful
       const [data] = JSON.parse(this.responseText);
       console.log(data);
-
-      // And then I'll create a template literal to create the cool card thing in the HTML
-      // Remember I can use + to convert to a number
-      const html = `
-      <article class="country">
-      <img class="country__img" src="${Object.values(data.flags)[0]}" />
-      <div class="country__data">
-        <h3 class="country__name">${data.name.common}</h3>
-        <h4 class="country__region">${data.region}</h4>
-        <p class="country__row"><span>👫</span>${(
-          +data.population / 25687041
-        ).toFixed(1)} people</p>
-        <p class="country__row"><span>🗣️</span>${Object.values(
-          data.languages
-        ).join(', ')}</p>
-        <p class="country__row"><span>💰</span>${
-          Object.values(data.currencies)[0].name
-        }</p>
-      </div>
-    </article>
-    `;
-      // And then I'll pretty much just add this to my document by sending it to my countries container
-      // Which would be great if I could even FUCKING see it since the API times out every single fucken time
-      countriesContainer.insertAdjacentHTML('beforeend', html);
-      countriesContainer.style.opacity = 1;
-    } else {
-      // Handle unsuccessful requests
-      console.error('Error:', request.statusText);
+      renderCountry(data);
     }
   });
 
@@ -114,6 +113,6 @@ const getCountryData = function (country) {
   });
 };
 
-getCountryData('australia');
-getCountryData('portugal');
-getCountryData('germany');
+getCountryAndNeighbour('australia');
+getCountryAndNeighbour('portugal');
+getCountryAndNeighbour('germany');

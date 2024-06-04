@@ -279,7 +279,7 @@ console.dir(Person.prototype.constructor);
 // THis is actually SICK
 // I can essentially look up all the prototypal methods available to arrays in javascript:
 const arr = [3, 6, 6, 5, 9, 9, 8]; // new Array === []
-// The above shorthand weay is the same as using Javascript's in-built constructors to create an array
+// The above shorthand way is the same as using Javascript's in-built constructors to create an array
 console.log(arr.__proto__);
 console.log(arr.__proto__) === Array.prototype;
 // And by going further UP the prototype chain, now I can see all the prototype methods of the array constructor:
@@ -633,7 +633,7 @@ tesla.brake(); // ..decelerates to 170 km/h
 // Inheritance between "Classes": ES6 Classes
 // ========================================
 //
-// Classes are, essentially, just a layer of abstracion over Constructor Functions since they hide a lot of what's going on behind the scenes
+// Classes are, essentially, just a layer of abstraction over Constructor Functions since they hide a lot of what's going on behind the scenes
 // Keep in mind that implementing inheritance like this is a reallyyyyy dodgy way of working with classes
 
 class People {
