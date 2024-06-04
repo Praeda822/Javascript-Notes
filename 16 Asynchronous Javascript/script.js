@@ -1,8 +1,5 @@
 'use strict';
 
-const btn = document.querySelector('.btn-country');
-const countriesContainer = document.querySelector('.countries');
-
 ///////////////////////////////////////
 // ========================================
 // Promises, Async/Await, AJAX and APIs
@@ -39,3 +36,32 @@ const countriesContainer = document.querySelector('.countries');
 // An API is a piece of software that can be used by another software in order to allow applications to talk to one another
 // So, an API is essentially a self-contained piece of software that allow other pieces of software to interact with them
 // remember making the public methods in our ES6 class lecture, and then I was able to essentially "interact" with my objects I assigned with the methods
+//
+//
+// ========================================
+// Using the AJAX Call: The XMLHttp Function
+// ========================================
+
+const btn = document.querySelector('.btn-country');
+const countriesContainer = document.querySelector('.countries');
+
+// The OLD SKOOL Way
+// ========================================
+
+// First I create a new object and call the XMLHttpRequest() function, storing that result in a variable
+const request = new XMLHttpRequest();
+
+// Next I call the open function on my variable and pass in the 'GET' data-type, followed by a string containing where the AJAX call needs to be made
+// This is also known as the API Endpoint
+request.open('GET', 'https://restcountries.com/v3.1/name/australia');
+// And I'll then need to SEND that request off
+request.send();
+console.log(request.responseText);
+
+// Then I need to register a callback on the request object that listens for the 'load' event
+request.addEventListener('load', function () {
+  console.log(this.responseText);
+
+  const data = JSON.parse(this.responseText);
+  console.log(data);
+});
