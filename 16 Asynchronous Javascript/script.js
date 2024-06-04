@@ -98,19 +98,22 @@ const getCountryData = function (country) {
       countriesContainer.insertAdjacentHTML('beforeend', html);
       countriesContainer.style.opacity = 1;
     } else {
-      console.error('Error:', request.statusText); // ADDED: Handle unsuccessful requests
+      // Handle unsuccessful requests
+      console.error('Error:', request.statusText);
     }
   });
 
-  // ADDED: Error handling for network issues
+  // Error handling for network issues
   request.addEventListener('error', function () {
     console.error('Request failed');
   });
 
-  // ADDED: Timeout handling
+  // Timeout handling
   request.addEventListener('timeout', function () {
     console.error('Request timed out');
   });
 };
 
 getCountryData('australia');
+getCountryData('portugal');
+getCountryData('germany');
