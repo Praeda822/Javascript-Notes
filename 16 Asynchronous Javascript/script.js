@@ -49,16 +49,15 @@ const countriesContainer = document.querySelector('.countries');
 // ========================================
 
 // FINALLY I'll assign this entire functionality to its own respective function
-const getCountryData = function (country) {
+const getCountryData = function (country_name) {
   // First I create a new object and call the XMLHttpRequest() function, storing that result in a variable
   const request = new XMLHttpRequest();
 
   // Next I call the open function on my variable and pass in the 'GET' data-type, followed by a string containing where the AJAX call needs to be made
   // This is also known as the API Endpoint
-  request.open('GET', `https://restcountries.com/v3.1/name/${country}`);
+  request.open('GET', `https://restcountries.com/v3.1/name/${country_name}`);
   // And I'll then need to SEND that request off
   request.send();
-  console.log(request.responseText);
 
   // Then I need to register a callback on the request object that listens for the 'load' event
   // So this returns a SHITLOAD of text (in JSON format)
@@ -86,7 +85,7 @@ const getCountryData = function (country) {
 `;
     // And then I'll pretty much just add this to my document by sending it to my countries container
     // Which would be great is I could even FUCKING see it since the API times out every single fucken time
-    countriesContainer.insertAdjacentElement('beforeend', html);
+    countriesContainer.insertAdjacentHTML('beforeend', html);
     countriesContainer.style.opacity = 1;
   });
 };
