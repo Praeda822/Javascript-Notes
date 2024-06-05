@@ -132,11 +132,24 @@ const request = fetch('https://restcountries.com/v3.1/name/australia');
 console.log(request);
 
 const getCountryData = function (country) {
+  // Country 1
   fetch(`https://restcountries.com/v3.1/name/${country}`)
     .then(response => response.json())
-    .then(data => renderCountry(data[0]));
+    .then(data => {
+      renderCountry(data[0]);
+      const neighbour = data[0].borders?.[0];
+
+      if (!neighbour) {
+        return;
+      }
+      // // Country 2
+      return fetch(`https://restcountries.com/v3.1/alpha/${neighbour}`);
+      // Return error check for alert
+    })
+    .then(response => response.json())
+    .then(data => renderCountry(data, 'neighbour'));
 };
-getCountryData('australia');
+getCountryData('usa');
 // In Javascript, a promise is an object that is used as a placeholder for the future result of an asynchronous operation
 // AKA, a promise is a container for an asynchronously delivered value
 // AKA, a promise is a container for a future value to be stored within
@@ -162,3 +175,4 @@ getCountryData('australia');
 // The json() method is a method that is available on ALL responses of the fetch method
 // The only issue with the json() method is that it's ALSO an aysnchronous function, which means it will ALSO return a NEW promise, so I'll need to both return the promise, but also handle that new promise
 // I do that by, as I said before, chaining methods, in this case I want to chain the .then() method
+// Important to note that the .then() method ALWAYS returns a promise, irrespective of whether any data is actually returned or not, but if we DO retujrn a value, then THAT value will become the value of the returned promise
