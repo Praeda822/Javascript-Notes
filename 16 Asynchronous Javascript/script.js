@@ -131,6 +131,11 @@ const renderCountry = function (data, className = '') {
 const request = fetch('https://restcountries.com/v3.1/name/australia');
 console.log(request);
 
+const getCountryData = function (country) {
+  fetch(`https://restcountries.com/v3.1/name/${country}`).then(function (
+    response
+  ) {});
+};
 // In Javascript, a promise is an object that is used as a placeholder for the future result of an asynchronous operation
 // AKA, a promise is a container for an asynchronously delivered value
 // AKA, a promise is a container for a future value to be stored within
@@ -151,3 +156,4 @@ console.log(request);
 
 // When I get the result of a promise, and consequently use it, this is known as "CONSUMING" the promise
 // And a promise can ONLY be consumed when I already have that promise to BE consumed
+// When I want to CONSUME that promise I successfully fetched, I can use the .then() method, and I need to pass a callback function that executes as soon as the promise is fulfilled, with the function recieving ONE argument: the resulting value of that fulfilled promise
