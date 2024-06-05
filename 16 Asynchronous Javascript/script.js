@@ -45,7 +45,7 @@
 const btn = document.querySelector('.btn-country');
 const countriesContainer = document.querySelector('.countries');
 
-// The OLD SKOOL Way
+// The OLD SKOOL Way (Callback Hell)
 // ========================================
 //
 //
@@ -75,52 +75,54 @@ const renderCountry = function (data, className = '') {
 };
 
 // Function to get country and its neighbour data
-const getCountryAndNeighbour = function (country) {
-  // AJAX call country 1
-  const request = new XMLHttpRequest();
-  request.open('GET', `https://restcountries.com/v3.1/name/${country}`);
-  // Set timeout to 10 seconds
-  request.timeout = 10000;
-  request.send();
-  request.addEventListener('load', function () {
-    const [data] = JSON.parse(this.responseText);
-    console.log(data);
-    //Render country 1
-    renderCountry(data);
+// const getCountryAndNeighbour = function (country) {
+//   // AJAX call country 1
+//   const request = new XMLHttpRequest();
+//   request.open('GET', `https://restcountries.com/v3.1/name/${country}`);
+//   // Set timeout to 10 seconds
+//   request.timeout = 10000;
+//   request.send();
+//   request.addEventListener('load', function () {
+//     const [data] = JSON.parse(this.responseText);
+//     console.log(data);
+//     //Render country 1
+//     renderCountry(data);
 
-    // Get neighbour country (2)
-    const neighbour = data.borders?.[0];
+//     // Get neighbour country (2)
+//     const neighbour = data.borders?.[0];
 
-    if (!neighbour) return;
+//     if (!neighbour) return;
 
-    // AJAX call country 2
-    const request2 = new XMLHttpRequest();
+//     // AJAX call country 2
+//     const request2 = new XMLHttpRequest();
 
-    request2.open('GET', `https://restcountries.com/v3.1/alpha/${neighbour}`);
-    // Set timeout to 10 seconds
-    request2.timeout = 10000;
-    request2.send();
+//     request2.open('GET', `https://restcountries.com/v3.1/alpha/${neighbour}`);
+//     // Set timeout to 10 seconds
+//     request2.timeout = 10000;
+//     request2.send();
 
-    request2.addEventListener('load', function () {
-      const [neighbourData] = JSON.parse(this.responseText);
-      renderCountry(neighbourData, 'neighbour');
-    });
-  });
+//     request2.addEventListener('load', function () {
+//       const [neighbourData] = JSON.parse(this.responseText);
+//       renderCountry(neighbourData, 'neighbour');
+//     });
+//   });
+// };
 
-  // Error handling for network issues
-  request.addEventListener('error', function () {
-    console.error('Request failed');
-  });
-
-  // Timeout handling
-  request.addEventListener('timeout', function () {
-    console.error('Request timed out');
-  });
-};
-
-getCountryAndNeighbour('portugal');
+// getCountryAndNeighbour('portugal');
 
 // Don't get trapped in CALLBACK HELL
 // Callback Hell is when I have a shitload of nested callbacks in order to execute asynchronous tasks sequentially
 // This happens for all asynchronous tasks, which are handled by callbacks and not just with AJAX calls
 // Callback Hell also makes my code both messy and hard to maintain - no gewd.
+
+//   // AJAX call country 1
+//   const request = new XMLHttpRequest();
+//   request.open('GET', `https://restcountries.com/v3.1/name/${country}`);
+//   // Set timeout to 10 seconds
+//   request.timeout = 10000;
+//   request.send();
+
+// Promises
+// ========================================
+//
+const request = fetch(`https://restcountries.com/v3.1/name/australia`);
