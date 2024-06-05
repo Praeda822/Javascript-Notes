@@ -121,9 +121,33 @@ const renderCountry = function (data, className = '') {
 //   // Set timeout to 10 seconds
 //   request.timeout = 10000;
 //   request.send();
-
+//
+//
+// ========================================
 // Promises
 // ========================================
 //
+
 const request = fetch('https://restcountries.com/v3.1/name/australia');
 console.log(request);
+
+// In Javascript, a promise is an object that is used as a placeholder for the future result of an asynchronous operation
+// AKA, a promise is a container for an asynchronously delivered value
+// AKA, a promise is a container for a future value to be stored within
+// By utilising promises, I no longer need to rely on events and callbacks passed into asynchronous functions to handle asynchronous results
+// And instead of nesting callbacks and producing shitty code, I'm able to chain promises for a sequence of asynchronous operations which are actually necessary to escape callback hell - Dante's Callback LOL
+//
+// The Promise Lifecycle
+// ========================================
+//
+// Before the future value is available, a promise is in the "Pending" state
+// DURING THIS TIME, the ansyynchronous task is still doing its work in the background, but when that task finally finishes it is considered to be in the "Settled" state
+// The state of promises can only be set ONCE (so it will stay that way indefinitely), and there are TWO (2) kinds of "Settled" states:
+
+// ========================================
+// FULFILLED Promises, where a promise has successfully resulted in a stored value (like successfully retrieving data from an API)
+// REJECTED Promises, where a promise has FAILED in retrieving data from an API, like when you live in Australia and literally have ADSL/2+ so I don't have the speed or bandwidth to connect to already slow APIs (lmao)
+// ========================================
+
+// When I get the result of a promise, and consequently use it, this is known as "CONSUMING" the promise
+// And a promise can ONLY be consumed when I already have that promise to BE consumed
