@@ -133,13 +133,13 @@ console.log(request);
 
 const getCountryData = function (country) {
   fetch(`https://restcountries.com/v3.1/name/${country}`)
-    .then(function (response) {
-      console.log(response); // Doesn't work
-      return response.json();
-    })
+    .then(response => response.json())
     .then(function (data) {
-      console.log(data);
       renderCountry(data[0]);
+
+      const neighbour = data.borders?.[0];
+
+      if (!neighbour) return;
     });
 };
 getCountryData('australia');
