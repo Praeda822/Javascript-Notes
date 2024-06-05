@@ -132,6 +132,13 @@ const renderError = function (msg) {
   // countriesContainer.style.opacity = 1;
 };
 
+const getJSON = function (url, errorMsg = 'Something went wrong..') {
+  return fetch(url).then(response => {
+    if (!response.ok) throw new Error(`${errorMsg} (${response.status})`);
+    return response.json();
+  });
+};
+
 const getCountryData = function (country) {
   // Country 1
   fetch(`https://restcountries.com/v3.1/name/${country}`)
@@ -175,9 +182,8 @@ const getCountryData = function (country) {
 };
 
 btn.addEventListener('click', function () {
-  getCountryData('greece');
+  getCountryData('russia');
 });
-getCountryData('greece');
 // In Javascript, a promise is an object that is used as a placeholder for the future result of an asynchronous operation
 // AKA, a promise is a container for an asynchronously delivered value
 // AKA, a promise is a container for a future value to be stored within
@@ -215,3 +221,4 @@ getCountryData('greece');
 
 // 1. Pass a second callback function INTO the .then() method that handles the returned promise
 // Since the .then() method's first callback function is for successful response promise states, and I can denote that with "err"
+// VERY IMPORTANT TO REMEMBER: Any error I get in any of the callback functions nested within their respective .then() handlers will immediately TERMINATE that .then() handler, consequently propagating down to my .catch() error handler function
