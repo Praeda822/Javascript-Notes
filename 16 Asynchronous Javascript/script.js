@@ -134,13 +134,7 @@ console.log(request);
 const getCountryData = function (country) {
   fetch(`https://restcountries.com/v3.1/name/${country}`)
     .then(response => response.json())
-    .then(function (data) {
-      renderCountry(data[0]);
-
-      const neighbour = data.borders?.[0];
-
-      if (!neighbour) return;
-    });
+    .then(data => renderCountry(data[0]));
 };
 getCountryData('australia');
 // In Javascript, a promise is an object that is used as a placeholder for the future result of an asynchronous operation
