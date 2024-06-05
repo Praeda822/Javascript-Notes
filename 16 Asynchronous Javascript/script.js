@@ -49,9 +49,9 @@ const countriesContainer = document.querySelector('.countries');
 // ========================================
 //
 //
-const renderCountry = function (data) {
+const renderCountry = function (data, className = '') {
   const html = `
-      <article class="country">
+      <article class="country ${className}">
       <img class="country__img" src="${data.flags.png}" />
       <div class="country__data">
         <h3 class="country__name">${data.name.common}</h3>
@@ -96,18 +96,31 @@ const getCountryAndNeighbour = function (country) {
     // AJAX call country 2
     const request2 = new XMLHttpRequest();
 
-    request.open('GET', `https://restcountries.com/v3.1/alpha/${neighbour}`);
+    request2.open('GET', `https://restcountries.com/v3.1/alpha/${neighbour}`);
     // Set timeout to 10 seconds
     request2.timeout = 10000;
     request2.send();
 
     request2.addEventListener('load', function () {
       const [neighbourData] = JSON.parse(this.responseText);
-      renderCountry(neighbourData);
+      renderCountry(neighbourData, 'neighbour');
     });
+  });
+
+  // Error handling for network issues
+  request.addEventListener('error', function () {
+    console.error('Request failed');
+  });
+
+  // Timeout handling
+  request.addEventListener('timeout', function () {
+    console.error('Request timed out');
   });
 };
 
-getCountryAndNeighbour('australia');
 getCountryAndNeighbour('portugal');
-getCountryAndNeighbour('germany');
+
+// Don't get trapped in CALLBACK HELL
+// Callback Hell is when I have a shitload of nested callbacks in order to execute asynchronous tasks sequentially
+// This happens for all asynchronous tasks, which are handled by callbacks and not just with AJAX calls
+// Callback Hell also makes my code both messy and hard to maintain - no gewd.
