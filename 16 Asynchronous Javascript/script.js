@@ -176,3 +176,4 @@ getCountryData('usa');
 // The only issue with the json() method is that it's ALSO an aysnchronous function, which means it will ALSO return a NEW promise, so I'll need to both return the promise, but also handle that new promise
 // I do that by, as I said before, chaining methods, in this case I want to chain the .then() method
 // Important to note that the .then() method ALWAYS returns a promise, irrespective of whether any data is actually returned or not, but if we DO retujrn a value, then THAT value will become the value of the returned promise
+// So, I always want to return a promise, then handle it OUTSIDE of the chain with the .then() method
