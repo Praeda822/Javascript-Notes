@@ -132,10 +132,17 @@ const request = fetch('https://restcountries.com/v3.1/name/australia');
 console.log(request);
 
 const getCountryData = function (country) {
-  fetch(`https://restcountries.com/v3.1/name/${country}`).then(function (
-    response
-  ) {});
+  fetch(`https://restcountries.com/v3.1/name/${country}`)
+    .then(function (response) {
+      console.log(response); // Doesn't work
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data);
+      renderCountry(data[0]);
+    });
 };
+getCountryData('australia');
 // In Javascript, a promise is an object that is used as a placeholder for the future result of an asynchronous operation
 // AKA, a promise is a container for an asynchronously delivered value
 // AKA, a promise is a container for a future value to be stored within
@@ -157,3 +164,7 @@ const getCountryData = function (country) {
 // When I get the result of a promise, and consequently use it, this is known as "CONSUMING" the promise
 // And a promise can ONLY be consumed when I already have that promise to BE consumed
 // When I want to CONSUME that promise I successfully fetched, I can use the .then() method, and I need to pass a callback function that executes as soon as the promise is fulfilled, with the function recieving ONE argument: the resulting value of that fulfilled promise
+// Then in order to actually read that retrieved data, I need to call the json() method on that response
+// The json() method is a method that is available on ALL responses of the fetch method
+// The only issue with the json() method is that it's ALSO an aysnchronous function, which means it will ALSO return a NEW promise, so I'll need to both return the promise, but also handle that new promise
+// I do that by, as I said before, chaining methods, in this case I want to chain the .then() method
