@@ -71,7 +71,7 @@ const renderCountry = function (data, className = '') {
     `;
 
   countriesContainer.insertAdjacentHTML('beforeend', html);
-  countriesContainer.style.opacity = 1;
+  // countriesContainer.style.opacity = 1;
 };
 
 // Function to get country and its neighbour data
@@ -129,7 +129,7 @@ const renderCountry = function (data, className = '') {
 //
 const renderError = function (msg) {
   countriesContainer.insertAdjacentText('beforeend', msg);
-  countriesContainer.style.opacity = 1;
+  // countriesContainer.style.opacity = 1;
 };
 
 const getCountryData = function (country) {
@@ -138,6 +138,7 @@ const getCountryData = function (country) {
     .then(response => response.json())
     .then(data => {
       renderCountry(data[0]);
+      if (!('borders' in data[0])) throw new Error('No neighbour found');
       const neighbour = data[0].borders?.[0];
 
       if (!neighbour) {
@@ -152,11 +153,14 @@ const getCountryData = function (country) {
     .catch(err => {
       console.error(`${err} 💥`);
       renderError(`Something fucked up: ${err.message}. Try again later, G.`);
+    })
+    .finally(() => {
+      countriesContainer.style.opacity = 1;
     });
 };
 
 btn.addEventListener('click', function () {
-  getCountryData('france');
+  getCountryData('germany');
 });
 
 // In Javascript, a promise is an object that is used as a placeholder for the future result of an asynchronous operation
