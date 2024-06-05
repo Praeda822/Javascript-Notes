@@ -125,4 +125,5 @@ const renderCountry = function (data, className = '') {
 // Promises
 // ========================================
 //
-const request = fetch(`https://restcountries.com/v3.1/name/australia`);
+const request = fetch('https://restcountries.com/v3.1/name/australia');
+console.log(request);
