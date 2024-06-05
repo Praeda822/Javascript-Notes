@@ -127,9 +127,10 @@ const renderCountry = function (data, className = '') {
 // Promises
 // ========================================
 //
-
-const request = fetch('https://restcountries.com/v3.1/name/australia');
-console.log(request);
+const renderError = function (msg) {
+  countriesContainer.insertAdjacentText('beforeend', msg);
+  countriesContainer.style.opacity = 1;
+};
 
 const getCountryData = function (country) {
   // Country 1
@@ -147,9 +148,17 @@ const getCountryData = function (country) {
       // Return error check for alert
     })
     .then(response => response.json())
-    .then(data => renderCountry(data, 'neighbour'));
+    .then(data => renderCountry(data, 'neighbour'))
+    .catch(err => {
+      console.error(`${err} 💥`);
+      renderError(`Something fucked up: ${err.message}. Try again later, G.`);
+    });
 };
-getCountryData('usa');
+
+btn.addEventListener('click', function () {
+  getCountryData('france');
+});
+
 // In Javascript, a promise is an object that is used as a placeholder for the future result of an asynchronous operation
 // AKA, a promise is a container for an asynchronously delivered value
 // AKA, a promise is a container for a future value to be stored within
@@ -177,3 +186,13 @@ getCountryData('usa');
 // I do that by, as I said before, chaining methods, in this case I want to chain the .then() method
 // Important to note that the .then() method ALWAYS returns a promise, irrespective of whether any data is actually returned or not, but if we DO retujrn a value, then THAT value will become the value of the returned promise
 // So, I always want to return a promise, then handle it OUTSIDE of the chain with the .then() method
+//
+//
+// ========================================
+// Handling Rejected Promises
+// ========================================
+//
+// I have two ways of handling rejected promises:
+
+// 1. Pass a second callback function INTO the .then() method that handles the returned promise
+// Since the .then() method's first callback function is for successful response promise states, and I can denote that with "err"
