@@ -307,7 +307,7 @@ const lotteryPromise = new Promise(function (resolve, reject) {
       // reject marks the promise as rejected
       // reject() takes the error message that I later want to be used by the catch()error handler
       // I can also create a new error object to simulate a REAL error
-      reject('PROMISE UNRESOLVED. YOU LOSE, PUNY HUMAN');
+      reject(new Error('PROMISE UNRESOLVED. YOU LOSE, PUNY HUMAN'));
     }
   }, 2000);
 });
