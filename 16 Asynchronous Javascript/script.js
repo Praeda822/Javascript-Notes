@@ -52,17 +52,15 @@ const countriesContainer = document.querySelector('.countries');
 const renderCountry = function (data, className = '') {
   const html = `
       <article class="country ${className}">
-      <img class="country__img" src="${data.flags?.png || ''}" />
+      <img class="country__img" src="${Object.values(data.flags)[0]}" />
       <div class="country__data">
-        <h3 class="country__name">${data.name.common}</h3>
+        <h3 class="country__name">${data.name}</h3>
         <h4 class="country__region">${data.region}</h4>
         <p class="country__row"><span>👫</span>${
           (+data.population / 1000000).toFixed(1)
           // Our actual pop: 25687041
         }m people</p>
-        <p class="country__row"><span>🗣️</span>${Object.values(
-          data.languages
-        )}</p>
+        <p class="country__row"><span>🗣️</span>${data.languages[0].name}</p>
         <p class="country__row"><span>💰</span>${
           Object.values(data.currencies)[0].name
         }</p>
@@ -130,7 +128,6 @@ const renderCountry = function (data, className = '') {
 // Render error function
 const renderError = function (msg) {
   countriesContainer.insertAdjacentText('beforeend', msg);
-  countriesContainer.style.opacity = 1;
 };
 
 // Helper function to fetch JSON data
@@ -186,31 +183,34 @@ const getJSON = function (url, errorMsg = 'Something went wrong..') {
 // Main function to get the country data (lmao)
 const getCountryData = function (country) {
   // Country 1
-  getJSON(`https://restcountries.com/v3.1/name/${country}`, 'Country not found')
+  getJSON(
+    `https://countries-api-836d.onrender.com/countries/name/${country}`,
+    'Country not found'
+  )
     .then(data => {
+      console.log(data[0]);
       renderCountry(data[0]);
       const neighbour = data[0].borders ? data[0].borders[0] : undefined;
       if (!neighbour) throw new Error('No neighbour found');
 
       // Fetch neighbour data Country 2
       return getJSON(
-        `https://restcountries.com/v3.1/alpha/${neighbour[0]}`,
+        `https://countries-api-836d.onrender.com/countries/alpha/${neighbour}`,
         'Country not found'
       );
     })
-
-    .then(data => renderCountry(data, 'neighbour'))
+    .then(data => {
+      renderCountry(data, 'neighbour');
+    })
     .catch(err => {
-      console.error(`${err} WTF`);
+      console.error(`${err}`);
       renderError(`Something went wrong, ${err.message}.Try again!`);
     })
-    .finally(() => {
-      countriesContainer.style.opacity = 1;
-    });
+    .finally((countriesContainer.style.opacity = 1));
 };
 
 btn.addEventListener('click', function () {
-  getCountryData('australia');
+  getCountryData('germany');
 });
 // In Javascript, a promise is an object that is used as a placeholder for the future result of an asynchronous operation
 // AKA, a promise is a container for an asynchronously delivered value
