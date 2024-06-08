@@ -250,3 +250,19 @@ btn.addEventListener('click', function () {
 // 1. Pass a second callback function INTO the .then() method that handles the returned promise
 // Since the .then() method's first callback function is for successful response promise states, and I can denote that with "err"
 // VERY IMPORTANT TO REMEMBER: Any error I get in any of the callback functions nested within their respective .then() handlers will immediately TERMINATE that .then() handler, consequently propagating down to my .catch() error handler function
+//
+//
+//
+// ========================================
+// Review: The Javascript Runtime
+// ========================================
+//
+// The Javascript runtime is basically a container that contains all the bits and pieces necessary to execute javsacript code
+// The heart of the Javascript runtime is known as the Engine, and the Engine is where the code is executed, within the Call tack, as well as where my Javascript objects are stored, within the Memory Heap
+// Within my Runtime container, I next have the WEB APIs, like the DOM, Timers, Fetch API, GeoLocation API, etc, and these are provided TO the engine
+// Next is the Callback Queue, and this is the data structure that holds all the ready to be executed callback functions that are attached to some event that has occurred
+// Finally, the Event Loop waits until the Call Stack is empty, then it takes the callbacks from the callback queue and places them into the call stack to be executed
+// The Event Loop is the essential piece that makes asynchronous code possible in Javascript, and is the reason why we have non-blocking concurrency model in Javascript, a Concurrency Model meaning just how a language handles multiple tasks happening simultaneously
+// But how can I execute asynchronous code in a NON-BLOCKING way when Javscript only has ONE THREAD OF EXECUTION IN THE ENGINE?
+// Well, I run my asynchronous code, and ALL my asycnrhonous tasks, in the "background", the background being the Web API environment itself, since the Web API environment isn't actually part of Javascript or the DOM
+// That's why, for instance, loading an image should occur in a Web APIs environment
