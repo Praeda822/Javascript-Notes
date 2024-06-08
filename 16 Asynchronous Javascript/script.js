@@ -266,3 +266,8 @@ btn.addEventListener('click', function () {
 // But how can I execute asynchronous code in a NON-BLOCKING way when Javscript only has ONE THREAD OF EXECUTION IN THE ENGINE?
 // Well, I run my asynchronous code, and ALL my asycnrhonous tasks, in the "background", the background being the Web API environment itself, since the Web API environment isn't actually part of Javascript or the DOM
 // That's why, for instance, loading an image should occur in a Web APIs environment
+// Each time the Event Loop takes a callback from the callback queue to be executed in the, what was a previously empty, Call Stack we call this an "Event Loop Tick"
+// This means, basically, the Event Loop orchestrates the Javascript Runtime
+// But PROMISES, like those used in the fetch() function work in a different way, in that they are placed into the Microtasks Queue
+// The Microtasks Queue is special because it takes priority OVER the Callback Queue!!
+// At the end of an event loop tick, the event loop will check, first for any microtasks waiting in the microtask queue, and if none are there will it only move on to the callback queue
