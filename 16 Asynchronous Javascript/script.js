@@ -277,11 +277,42 @@ btn.addEventListener('click', function () {
 // The Event Loop in Practice
 // ========================================
 //
-// 1. console logs executed first because they're built-in javascript prototypes part of the Execution Context's Call Stack.
-// 2. Promise gets resolved second since it's a Microtask
-// 3. callback timer resolved THIRD because it's a callback function
+// 1. console logs executed first because they're SYNCHRONOUS code and so are part of the Execution Context's Call Stack.
+// 2. Promise gets resolved second since it's ASYNCHRONOUS CODE and is Microtask
+// 3. callback timer resolved THIRD since it's ASYNCHRONOUS CODE
+// Important to note that both the callback timer and the promise get resolved at exactly the same time
+
 console.log('====Test Start=====');
 setTimeout(() => console.log('0 sec timer'), 0);
-
 Promise.resolve('Resolved promise 1').then(res => console.log(res));
 console.log('=====Test End=====');
+
+//
+//
+// ========================================
+// Creating Promises from Scratch
+// ========================================
+//
+// Start by creating a new promise using the Promise constructor, so it's just a js object
+// The promise constructor takes only one argument, and that is the "Executor Function"
+// The Executor Function will take two arguments, the resolve & reject functions
+const lotteryPromise = new Promise(function (resolve, reject) {
+  console.log('=====LOTTERY DRAW IS STARTING=====');
+  setTimeout(function () {
+    if (Math.random() >= 0.5) {
+      // resolve marks the promise as fulfilled
+      // resolve() takes the fulfilled value of the promise to be consumed with .then()
+      resolve('PROMISE RESOLVED. ASSUME THE POSITION');
+    } else {
+      // reject marks the promise as rejected
+      // reject() takes the error message that I later want to be used by the catch()error handler
+      // I can also create a new error object to simulate a REAL error
+      reject('PROMISE UNRESOLVED. YOU LOSE, PUNY HUMAN');
+    }
+  }, 2000);
+});
+
+// Now I need to consume the promised value, by using my lotterpromise variable as an (the promise) object and calling the .then() method on it
+// .then() takes a callback function that will be called with the promise's result value
+// FOLLOWED immediately by the catch() method to catch the error if one exists
+lotteryPromise.then(res => console.log(res)).catch(err => console.error(err));
