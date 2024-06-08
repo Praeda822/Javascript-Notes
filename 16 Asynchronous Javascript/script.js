@@ -271,3 +271,17 @@ btn.addEventListener('click', function () {
 // But PROMISES, like those used in the fetch() function work in a different way, in that they are placed into the Microtasks Queue
 // The Microtasks Queue is special because it takes priority OVER the Callback Queue!!
 // At the end of an event loop tick, the event loop will check, first for any microtasks waiting in the microtask queue, and if none are there will it only move on to the callback queue
+//
+//
+// ========================================
+// The Event Loop in Practice
+// ========================================
+//
+// 1. console logs executed first because they're built-in javascript prototypes part of the Execution Context's Call Stack.
+// 2. Promise gets resolved second since it's a Microtask
+// 3. callback timer resolved THIRD because it's a callback function
+console.log('====Test Start=====');
+setTimeout(() => console.log('0 sec timer'), 0);
+
+Promise.resolve('Resolved promise 1').then(res => console.log(res));
+console.log('=====Test End=====');
