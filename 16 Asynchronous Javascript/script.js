@@ -393,10 +393,32 @@ const whereAmI = async function (country) {
     `https://countries-api-836d.onrender.com/countries/name/${country}`
   );
   // Remember, JSON returns a NEW promise - the JSON string containing my country object
+  // So no fucking around with callbacks, just a variable holding my fulfilled promise value!!
   const data = await res.json();
-  // Now data contains the country object!!
   console.log(data);
   // Call my render country function on it...
   renderCountry(data[0]);
 };
-whereAmI('portugal');
+whereAmI('russia');
+
+//
+//
+// ========================================
+// Error Handling With try...catch
+// ========================================
+//
+// With Async/Await, I can't use the .catch() method to catch my errors..since there's not really anywhere I can attach it
+// Instead I can use something called a "try..catch statement"
+// So here I try to reassign my x variable which isn't possible since it's a constant value
+// I can add a try/catch block to catch whatever error occurs inside my try block,
+// By using my catch block I can define what I want to do with my error and, instead of both killing the script AND polluting my console, I can just display my error as an alert and handle it accordingly
+
+// try {
+//   let y = 1;
+//   const x = 2;
+//   x = 3;
+// } catch (err) {
+//   alert(err.message);
+// }
+
+// But the REAL purpose of try catch is to handle real errors, like the ones encountered when utilising asynchronous functions
