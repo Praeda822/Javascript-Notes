@@ -436,3 +436,8 @@ whereAmI('russia')
   .then(city => console.log(`2: ${city}`))
   .catch(err => console.error(`2: ${err.message} demonstrate error throwing`))
   .finally(() => console.log('3: Finished getting location'));
+
+// Now I can (attempt) to convert my code above to an async/await since the whereAmI() function returns a promise, and thus can be handled like any other promise, like using async/await
+// I can accomplish this using an IIFE, aka an Immediately Invoked Function Expression:
+
+(async function () {})();
