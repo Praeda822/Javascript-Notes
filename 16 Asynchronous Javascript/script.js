@@ -350,14 +350,17 @@ Promise.reject(new Error('Sucks to suck, hombre!')).catch(x =>
 // ========================================
 //
 //
-
+// In the last section I was passing a string as my (successful) resolve argument(s), as I knew I was going to get back a JSON String
+// But in my code below, I'm declaring my position object AS THE successful resolved value of my requested promise
 console.log('Getting position...');
 
 const getPosition = function () {
   return new Promise(function (resolve, reject) {
     navigator.geolocation.getCurrentPosition(
-      position => console.log(position),
-      err => console.error(err)
+      // Successful promise
+      position => resolve(position),
+      // Rejected promise
+      err => reject(err)
     );
   });
 };
