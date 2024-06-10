@@ -194,7 +194,6 @@ const getCountryData = function (country) {
     'Country not found'
   )
     .then(data => {
-      console.log(data[0]);
       renderCountry(data[0]);
       const neighbour = data[0].borders ? data[0].borders[0] : undefined;
       if (!neighbour) throw new Error('No neighbour found');
@@ -282,10 +281,8 @@ btn.addEventListener('click', function () {
 // 3. callback timer resolved THIRD since it's ASYNCHRONOUS CODE
 // Important to note that both the callback timer and the promise get resolved at exactly the same time
 
-console.log('====Test Start=====');
 setTimeout(() => console.log('0 sec timer'), 0);
 Promise.resolve('Resolved promise 1').then(res => console.log(res));
-console.log('=====Test End=====');
 
 //
 //
@@ -295,7 +292,6 @@ console.log('=====Test End=====');
 // The promise constructor takes only one argument, and that is the "Executor Function"
 // The Executor Function will take two arguments, the resolve & reject functions
 const lotteryPromise = new Promise(function (resolve, reject) {
-  console.log('=====LOTTERY DRAW IS STARTING=====');
   setTimeout(function () {
     if (Math.random() >= 0.5) {
       // resolve marks the promise as fulfilled
@@ -352,7 +348,6 @@ Promise.reject(new Error('Sucks to suck, hombre!')).catch(x =>
 //
 // In the last section I was passing a string as my (successful) resolve argument(s), as I knew I was going to get back a JSON String
 // But in my code below, I'm declaring my position object AS THE successful resolved value of my requested promise
-console.log('Getting position...');
 
 const getPosition = function () {
   return new Promise(function (resolve, reject) {
@@ -398,15 +393,14 @@ const whereAmI = async function (country) {
     // Remember, JSON returns a NEW promise - the JSON string containing my country object
     // So no fucking around with callbacks, just a variable holding my fulfilled promise value!!
     const data = await res.json();
-    console.log(data);
     // Call my render country function on it...
     renderCountry(data[0]);
+    return `You are in ${country}`;
   } catch (err) {
     console.error('FUUUUUARK', err);
-    renderCountry(`Oh no, it looks like something went wrong.. ${err.message}`);
+    renderError(`Oh no, it looks like something went wrong.. ${err.message}`);
   }
 };
-whereAmI('russia');
 
 //
 //
@@ -428,4 +422,17 @@ whereAmI('russia');
 //   alert(err.message);
 // }
 
-// But the REAL purpose of try catch is to handle real errors, like the ones encountered when utilising asynchronous functions
+// But the REAL purpose of try catch is to handle real errors, like the ones encountered when utilising asynchronous functions.
+
+//
+//
+// ========================================
+// Returning Values from Async Functions
+// ========================================
+//
+// Here my function is just hanging out
+// It has a STATE of fulfilled, to indicate that is running asynchronously in the background, but it still hasn't been officially resolved as PromiseResult is undefined
+console.log('1: Will Get the Location');
+const city = whereAmI('russia');
+console.log(city);
+console.log('2: Will Get the Location');
