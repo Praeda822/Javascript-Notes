@@ -356,11 +356,16 @@ console.log('Getting position...');
 
 const getPosition = function () {
   return new Promise(function (resolve, reject) {
-    navigator.geolocation.getCurrentPosition(
-      // Successful promise
-      position => resolve(position),
-      // Rejected promise
-      err => reject(err)
-    );
+    // navigator.geolocation.getCurrentPosition(
+    //   // Successful promise
+    //   position => resolve(position),
+    //   // Rejected promise
+    //   err => reject(err)
+    // );
+    // Refactored to demonstrate how I can automatically pass resolve itself as the callback function which will get the current position (361-363)
+    navigator.geolocation.getCurrentPosition(resolve, reject);
   });
 };
+// I need to handle my promise again..
+// Don't need an error block just yet
+getPosition().then(pos => console.log(pos));
