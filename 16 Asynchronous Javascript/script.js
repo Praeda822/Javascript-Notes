@@ -388,7 +388,6 @@ const whereAmI = async function (country) {
     const res = await fetch(
       `https://countries-api-836d.onrender.com/countries/name/${country}`
     );
-    if (!res.ok) throw new Error('FUUUUUARK MAN, Something went wrong..');
 
     // Remember, JSON returns a NEW promise - the JSON string containing my country object
     // So no fucking around with callbacks, just a variable holding my fulfilled promise value!!
@@ -397,8 +396,7 @@ const whereAmI = async function (country) {
     renderCountry(data[0]);
     return `You are in ${country}`;
   } catch (err) {
-    console.error('FUUUUUARK', err);
-    renderError(`Oh no, it looks like something went wrong.. ${err.message}`);
+    throw new Error(`'FUUUUUARK: ${err.message}`);
   }
 };
 
@@ -432,7 +430,9 @@ const whereAmI = async function (country) {
 //
 // Here my function is just hanging out
 // It has a STATE of fulfilled, to indicate that is running asynchronously in the background, but it still hasn't been officially resolved as PromiseResult is undefined
-console.log('1: Will Get the Location');
-const city = whereAmI('russia');
-console.log(city);
-console.log('2: Will Get the Location');
+
+console.log('1: Getting Location');
+whereAmI('russia')
+  .then(city => console.log(`2: ${city}`))
+  .catch(err => console.error(`2: ${err.message} demonstrate error throwing`))
+  .finally(() => console.log('3: Finished getting location'));
