@@ -369,3 +369,34 @@ const getPosition = function () {
 // I need to handle my promise again..
 // Don't need an error block just yet
 getPosition().then(pos => console.log(pos));
+//
+//
+// ========================================
+// Consuming Promises with Async/Await
+// ========================================
+//
+// I can make async functions by simply prepending the function with the async declarator
+// Now this function is asynchronous, which means it will keep running in the background while performing the code inside of it
+// Then, when the function is done, it will automatically return a Promise!
+// Inside my async function, I can have one, or more, "await" statements, and the await keyword essentially STOPS the code execution at this point of the function until a/the promise has been fulfilled - it's like a dynamic gate valve!
+// In this case, until the data has been fetched from the geolocation api
+// "Stalling" the code in an asynchronous function is OK since my async operations run in the Web API AND since I'm ALSO waiting for a PROMISE, that means it's only going to go into my MICROTASK QUEUE when the function itself is complete
+// Which is a long-winded way of saying that it DOESN'T block my main, and only, thread of execuition - so, my call stack
+// That's what's so special about async/await: it makes everything look like it's front-loaded but it's technically two different data streams originating from the same source
+// It's important that I remember that async/await is essentially syntactic sugar of using the .then() method in my promises:
+// fetch(`https://countries-api-836d.onrender.com/countries/name/${country}`
+//   ).then(res=>console.log(res))
+// It's all the same shit - just a weird flex but ok
+
+const whereAmI = async function (country) {
+  const res = await fetch(
+    `https://countries-api-836d.onrender.com/countries/name/${country}`
+  );
+  // Remember, JSON returns a NEW promise - the JSON string containing my country object
+  const data = await res.json();
+  // Now data contains the country object!!
+  console.log(data);
+  // Call my render country function on it...
+  renderCountry(data[0]);
+};
+whereAmI('portugal');
