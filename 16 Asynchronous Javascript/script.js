@@ -389,15 +389,22 @@ getPosition().then(pos => console.log(pos));
 // It's all the same shit - just a weird flex but ok
 
 const whereAmI = async function (country) {
-  const res = await fetch(
-    `https://countries-api-836d.onrender.com/countries/name/${country}`
-  );
-  // Remember, JSON returns a NEW promise - the JSON string containing my country object
-  // So no fucking around with callbacks, just a variable holding my fulfilled promise value!!
-  const data = await res.json();
-  console.log(data);
-  // Call my render country function on it...
-  renderCountry(data[0]);
+  try {
+    const res = await fetch(
+      `https://countries-api-836d.onrender.com/countries/name/${country}`
+    );
+    if (!res.ok) throw new Error('FUUUUUARK MAN, Something went wrong..');
+
+    // Remember, JSON returns a NEW promise - the JSON string containing my country object
+    // So no fucking around with callbacks, just a variable holding my fulfilled promise value!!
+    const data = await res.json();
+    console.log(data);
+    // Call my render country function on it...
+    renderCountry(data[0]);
+  } catch (err) {
+    console.error('FUUUUUARK', err);
+    renderCountry(`Oh no, it looks like something went wrong.. ${err.message}`);
+  }
 };
 whereAmI('russia');
 
