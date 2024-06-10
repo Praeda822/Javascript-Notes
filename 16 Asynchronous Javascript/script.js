@@ -431,13 +431,25 @@ const whereAmI = async function (country) {
 // Here my function is just hanging out
 // It has a STATE of fulfilled, to indicate that is running asynchronously in the background, but it still hasn't been officially resolved as PromiseResult is undefined
 
-console.log('1: Getting Location');
-whereAmI('russia')
-  .then(city => console.log(`2: ${city}`))
-  .catch(err => console.error(`2: ${err.message} demonstrate error throwing`))
-  .finally(() => console.log('3: Finished getting location'));
+// whereAmI('russia')
+//   .then(city => console.log(`2: ${city}`))
+//   .catch(err => console.error(`2: ${err.message} demonstrate error throwing`))
+//   .finally(() => console.log('3: Finished getting location'));
 
 // Now I can (attempt) to convert my code above to an async/await since the whereAmI() function returns a promise, and thus can be handled like any other promise, like using async/await
 // I can accomplish this using an IIFE, aka an Immediately Invoked Function Expression:
 
-(async function () {})();
+(async function () {
+  console.log('1: Getting Location');
+  try {
+    const city = await whereAmI('russia');
+    console.log(`2: ${city}`);
+  } catch (err) {
+    console.error(`2: ${err.message} demonstrate error throwing`);
+  }
+  console.log('3: Finished getting location');
+})();
+
+// So my try block is waiting for the whereAmI() function to resolve or reject, storing this returned promise's value in city
+// My errors (if any) are then caught in my catch block defined by err
+// finally, my console.log runs after the try/catch block, always logging my final message
