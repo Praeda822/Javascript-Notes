@@ -9,7 +9,7 @@
 // ========================================
 //
 // Most of the code I've been writing is known as Synchronous code
-// Synchronous code just means that my code is executed line-by-line by the exact order of execution, with each line of code waiting for the previous line to finish, with long-running operations block further code execution
+// Synchronous code just means that my code is executed line-by-line by the exact order of execution, with each line of code waiting for the previous line to finish, with long-running operations blocking further code execution
 
 // Asynchronous code is executed AFTER a task that runs in the "background" finishes
 // Asynchronous code is NON-BLOCKING, which means the code can execute whilst something else is running in the executon context
@@ -125,6 +125,12 @@ const renderCountry = function (data, className = '') {
 // Promises
 // ========================================
 //
+// In Javascript, a promise is an object that is used as a placeholder for the future result of an asynchronous operation
+// AKA, a promise is a container for an asynchronously delivered value
+// AKA, a promise is a container that a future value will be stored within
+// By utilising promises, I no longer need to rely on events and callbacks passed into asynchronous functions to handle asynchronous results
+// And instead of nesting callbacks and producing shitty code, I'm able to chain promises for a sequence of asynchronous operations which are actually necessary to escape callback hell - Dante's Callback LOL
+
 // Render error function
 const renderError = function (msg) {
   countriesContainer.insertAdjacentText('beforeend', msg);
@@ -212,23 +218,17 @@ const getCountryData = function (country) {
 btn.addEventListener('click', function () {
   getCountryData('germany');
 });
-// In Javascript, a promise is an object that is used as a placeholder for the future result of an asynchronous operation
-// AKA, a promise is a container for an asynchronously delivered value
-// AKA, a promise is a container for a future value to be stored within
-// By utilising promises, I no longer need to rely on events and callbacks passed into asynchronous functions to handle asynchronous results
-// And instead of nesting callbacks and producing shitty code, I'm able to chain promises for a sequence of asynchronous operations which are actually necessary to escape callback hell - Dante's Callback LOL
+
 //
 // The Promise Lifecycle
 // ========================================
 //
 // Before the future value is available, a promise is in the "Pending" state
-// DURING THIS TIME, the ansyynchronous task is still doing its work in the background, but when that task finally finishes it is considered to be in the "Settled" state
+// DURING THIS TIME, the ansynchronous task is still doing its work in the background, but when that task finally finishes it is considered to be in the "Settled" state
 // The state of promises can only be set ONCE (so it will stay that way indefinitely), and there are TWO (2) kinds of "Settled" states:
 
-// ========================================
 // FULFILLED Promises, where a promise has successfully resulted in a stored value (like successfully retrieving data from an API)
-// REJECTED Promises, where a promise has FAILED in retrieving data from an API, like when you live in Australia and literally have ADSL/2+ so I don't have the speed or bandwidth to connect to already slow APIs (lmao)
-// ========================================
+// REJECTED Promises, where a promise has FAILED in retrieving data from an API, like when you live in Australia and literally have ADSL/2+ so you don't have the speed or bandwidth to connect to already slow APIs (lmao)
 
 // When I get the result of a promise, and consequently use it, this is known as "CONSUMING" the promise
 // And a promise can ONLY be consumed when I already have that promise to BE consumed
@@ -289,9 +289,7 @@ console.log('=====Test End=====');
 
 //
 //
-// ========================================
-// Creating Promises from Scratch
-// ========================================
+
 //
 // Start by creating a new promise using the Promise constructor, so it's just a js object
 // The promise constructor takes only one argument, and that is the "Executor Function"
@@ -312,7 +310,54 @@ const lotteryPromise = new Promise(function (resolve, reject) {
   }, 2000);
 });
 
-// Now I need to consume the promised value, by using my lotterpromise variable as an (the promise) object and calling the .then() method on it
+// Now I need to consume the promised value, by using my lotteryPromise variable as an (the promise) object and calling the .then() method on it
 // .then() takes a callback function that will be called with the promise's result value
 // FOLLOWED immediately by the catch() method to catch the error if one exists
 lotteryPromise.then(res => console.log(res)).catch(err => console.error(err));
+
+// The ABOVE code is how I properly encapsulate my code, aka how to properly abstract functionality away for security, and is a really nice & helpul pattern to remember
+// In practice, though, most of the time I'm just going to simply consume promises, and I'll usually only build promises to wrap old, callback-based functions into new Promises
+// The process of wrapping old, callback-based functions into new promises is known as Promisifying
+// Promisifying means to convert callback-based asynchronous behaviour to promise-based
+
+// Promisifying setTimeout
+const wait = function (seconds) {
+  return new Promise(function (resolve) {
+    setTimeout(resolve, seconds * 1000);
+  });
+};
+
+// So I call my function and pass seconds as its argument and I handle the returned promise with .then()
+wait(2)
+  .then(() => {
+    console.log(
+      'I waited 2 whole seconds and all I got was this lousy console.log'
+    );
+    // Then I need to return a new promise
+    return wait(1);
+  })
+  // And then handle the new promise
+  .then(() => console.log('I waited for 1 second, instead'));
+
+// I can also pass the resolve() method, taking the resolved promise value as an argument, straight on to the promise prototype and chain the handler with the .then() method
+Promise.resolve('abc').then(x => console.log(x));
+Promise.reject(new Error('Sucks to suck, hombre!')).catch(x =>
+  console.error(x)
+);
+
+// ========================================
+// Promisifying the GeoLocation API
+// ========================================
+//
+//
+
+console.log('Getting position...');
+
+const getPosition = function () {
+  return new Promise(function (resolve, reject) {
+    navigator.geolocation.getCurrentPosition(
+      position => console.log(position),
+      err => console.error(err)
+    );
+  });
+};
