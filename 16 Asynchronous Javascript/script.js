@@ -453,3 +453,30 @@ const whereAmI = async function (country) {
 // So my try block is waiting for the whereAmI() function to resolve or reject, storing this returned promise's value in city
 // My errors (if any) are then caught in my catch block defined by err
 // finally, my console.log runs after the try/catch block, always logging my final message
+//
+//
+// ========================================
+// Running Promises in Parallel
+// ========================================
+//
+// I want to get some data about 3 countries at the same time, whilst the ordering of those countries is a non-concern
+// So I'm going to implement an async function that takes in 3 countries and will log the capital cities of these 3 cities as an array
+// Always remember to NEVER make async functions without a try/catch block for error handling
+const get3Countries = async function (c1, c2, c3) {
+  try {
+    const [data1] = await getJSON(
+      `https://countries-api-836d.onrender.com/countries/name/${c1}`
+    );
+    const [data2] = await getJSON(
+      `https://countries-api-836d.onrender.com/countries/name/${c2}`
+    );
+    const [data3] = await getJSON(
+      `https://countries-api-836d.onrender.com/countries/name/${c3}`
+    );
+
+    console.log([data1.capital, data2.capital, data3.capital]);
+  } catch (err) {
+    console.error(err);
+  }
+};
+get3Countries('portugal', 'canada', 'france');
