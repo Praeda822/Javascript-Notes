@@ -459,9 +459,13 @@ const whereAmI = async function (country) {
 // Running Promises in Parallel
 // ========================================
 //
+// The Promise.all() Combinator
+// ========================================
+// Whenever I have a situation in which I need to do multiple asynchronous operations at the same time (in parallel), and those operations don't depend upon one another, then I should ALWAYS ALWAYS ALWAYS run them in parallel
 // I want to get some data about 3 countries at the same time, whilst the ordering of those countries is a non-concern
 // So I'm going to implement an async function that takes in 3 countries and will log the capital cities of these 3 cities as an array
 // Always remember to NEVER make async functions without a try/catch block for error handling
+// Important to remember regarding promises and async functions, specifically Promise.all(), if even one promise rejects, then the entire promise request will reject, so all fail
 const get3Countries = async function (c1, c2, c3) {
   try {
     // const [data1] = await getJSON(
@@ -473,17 +477,57 @@ const get3Countries = async function (c1, c2, c3) {
     // const [data3] = await getJSON(
     //   `https://countries-api-836d.onrender.com/countries/name/${c3}`
     // );
+    // console.log([data1.capital, data2.capital, data3.capital]);
 
     // This function will take in an array of promises and will return a new promise that will then run all promises inside the array in parallel (simultaneously)
-    Promise.all([
+    const data = await Promise.all([
       getJSON(`https://countries-api-836d.onrender.com/countries/name/${c1}`),
       getJSON(`https://countries-api-836d.onrender.com/countries/name/${c2}`),
       getJSON(`https://countries-api-836d.onrender.com/countries/name/${c3}`),
     ]);
 
-    console.log([data1.capital, data2.capital, data3.capital]);
+    console.log(data.map(dat => dat[0].capital));
   } catch (err) {
     console.error(err);
   }
 };
 get3Countries('portugal', 'canada', 'france');
+
+//
+//
+// ========================================
+// 3 Promise Combinators: Race, allSettled, Any
+// ========================================
+//
+//
+// Promise.race([])
+// ========================================
+//
+// Promise.race([]), just like all other combinators, receives an array of promises and it also returns a promise
+// The promise that is returned by Promise.race([]) is settled as soon as one of the input promises settles, "Settled" meaning that the returned promise vlaue is available
+// Promise.race([]) doesn't care whether the promise was rejected OR fulfilled, it's only interested in the FIRST promise that "wisn the race" (hence the name)
+
+(async function () {
+  const res = await Promise.race([
+    getJSON(`https://countries-api-836d.onrender.com/countries/name/italy`),
+    getJSON(`https://countries-api-836d.onrender.com/countries/name/russia`),
+    getJSON(`https://countries-api-836d.onrender.com/countries/name/egypt`),
+  ]);
+  console.log(res[0]);
+})();
+
+// So, Promise.race() short-circuits whenever one of the promises gets settled
+
+const timeout = function (sec) {
+  return new Promise(function (_, reject) {
+    setTimeout(function () {
+      reject(new Error('request took too long'));
+    }, sec * 1000);
+  });
+};
+Promise.race([
+  getJSON(`https://countries-api-836d.onrender.com/countries/name/mexico`),
+  timeout(0.1),
+])
+  .then(res => console.log(res[0]))
+  .catch(err => console.log(err));
