@@ -545,3 +545,17 @@ Promise.allSettled([
   Promise.reject('ERROR'),
   Promise.resolve('Another success!'),
 ]).then(res => console.log(res));
+
+//
+// Promise.any([])
+// ========================================
+//
+// Promise.any([]) takes in an array of multiple promises and then returns ONLY the first fulfilled promise, ignoring any other rejected responses
+// This is extremely similar to Promise.race([]) with the main difference being that Promises.any([]) won't even acknowledge the other promises
+// This is useful because I know that the result of a Promise.any([]) will always be a fulfilled promise (unless they all reject..)
+
+Promise.any([
+  Promise.resolve('Success'),
+  Promise.reject('ERROR'),
+  Promise.resolve('Another success!'),
+]).then(res => console.log('niiiiice one gazzza', res));
