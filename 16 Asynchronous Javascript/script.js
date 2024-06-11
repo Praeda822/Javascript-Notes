@@ -525,9 +525,23 @@ const timeout = function (sec) {
     }, sec * 1000);
   });
 };
+
 Promise.race([
   getJSON(`https://countries-api-836d.onrender.com/countries/name/mexico`),
   timeout(0.1),
 ])
   .then(res => console.log(res[0]))
   .catch(err => console.log(err));
+
+//
+// Promise.allSettled([])
+// ========================================
+//
+// Promise.allSettled([]) takes in an array of promises again, and it will simply return an array of all the settled promises
+// Promise.allSettled([]) doesn't care whether a promise is rejected or not, so it's very similar to Promise.all(), (except Promise.all() short-circuits as soon as one promise rejects) but since Promise.allSettled([]) NEVER short-circuits, it returns ALL my promises
+
+Promise.allSettled([
+  Promise.resolve('Success'),
+  Promise.reject('ERROR'),
+  Promise.resolve('Another success!'),
+]).then(res => console.log(res));
