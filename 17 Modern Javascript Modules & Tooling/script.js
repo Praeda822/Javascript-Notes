@@ -92,12 +92,18 @@
 //
 // Import statements to the TOP of the file
 // Importing module
-import { addToCart, totalPrice, totalQuantity } from './shoppingCart.js';
+import {
+  addToCart,
+  totalPrice as price,
+  totalQuantity as quantity,
+} from './shoppingCart.js';
 console.log('importing module');
 // console.log(shippingCost);
 
 addToCart('bread', 5);
 // 5 bread was added to the cart
 
-console.log(totalPrice, totalQuantity);
+console.log(price, quantity);
 // 237, 23
+
+// I can also reassign the values to variables declaratively by using the "as" keyword
