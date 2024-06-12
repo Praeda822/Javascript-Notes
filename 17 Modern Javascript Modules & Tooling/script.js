@@ -124,8 +124,15 @@
 // I can even mix-match named defaults and named exports, but best-practice dictates that I should never do dumb shit like writing messy code
 // The preferred style is to use ONE DEFAULT EXPORT PER MODULE and the IMPORT that module just like I have with my code here, but that's not a hard & rigid rule
 // HOWEVER: DO NOT MIX NAMED AND DEFAULT EXPORTS
-import add from './shoppingCart.js';
+import add, { cart } from './shoppingCart.js';
 add('pizza', 2);
 add('bread', 5);
 add('milk', 1);
 add('apples', 3);
+// An example of mixing and matching...
+// I eport the empty cart array, and now I can create a new object that contains an object of arrays filled with the values provided above
+// and I can manipulate the arrays to muck around with the data however I see fit FUCK ME that's actually sick
+// This also proves that the imported value is NOT an empty object, nor a simply copy of the exported empty cart array, but instead a NEW object full of arrays created by use of the add function and populated with the values given
+// So, even though they are technically the exact same copy of the exact same object behind the scenes, IMPORTS ARE NOT 1:1 COPIES OF THEIR RESPECTIVE EXPORTS
+// THIS IS KNOWN AS A LIVE CONNECTION, meaning that they point to the same place in the memory (pointer)
+console.log(cart);
