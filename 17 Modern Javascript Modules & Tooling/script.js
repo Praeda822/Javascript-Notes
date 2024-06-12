@@ -91,5 +91,5 @@
 // ========================================
 //
 // Importing module
-import './shoppingCart';
-console.log('Importing Module');
+import './shoppingCart.js';
+console.log('importing module');
