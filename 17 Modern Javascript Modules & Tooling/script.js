@@ -90,6 +90,14 @@
 // Exporting/Importing in ES6 Modules
 // ========================================
 //
+// Import statements to the TOP of the file
 // Importing module
-import './shoppingCart.js';
+import { addToCart, totalPrice, totalQuantity } from './shoppingCart.js';
 console.log('importing module');
+// console.log(shippingCost);
+
+addToCart('bread', 5);
+// 5 bread was added to the cart
+
+console.log(totalPrice, totalQuantity);
+// 237, 23
