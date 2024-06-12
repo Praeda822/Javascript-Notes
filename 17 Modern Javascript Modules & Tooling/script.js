@@ -90,6 +90,9 @@
 // Exporting/Importing in ES6 Modules
 // ========================================
 //
+// Named Exports
+// ========================================
+//
 // Import statements to the TOP of the file
 // I can also reassign the values to variables declaratively by using the "as" keyword
 // Importing module
@@ -108,10 +111,21 @@
 // 237, 23
 
 // Import all the exports of a module at once into one singular object
-import * as ShoppingCart from './shoppingCart.js';
-ShoppingCart.addToCart('bread', 5);
+// import shoppingCart, * as ShoppingCart from './shoppingCart.js';
+// ShoppingCart.addToCart('bread', 5);
+// console.log(shoppingCart.totalPrice);
 
 // Holy fuck that's sick
 // I shortened all the shit commented out above by essentially importing the data in shoppingCart.js module as a new Javascript object containing shoppingCart's exported values
 // Then I call the addToCart method on the object and pass in my arguments
 // So I'm basically exporting a Public API, like a class, as if ShoppingCart was a class with it's own built-in method | SIIIIIICK
+
+// Now by exporting the default, which is the module's function VALUE, I can import that same module for re use:
+// I can even mix-match named defaults and named exports, but best-practice dictates that I should never do dumb shit like writing messy code
+// The preferred style is to use ONE DEFAULT EXPORT PER MODULE and the IMPORT that module just like I have with my code here, but that's not a hard & rigid rule
+// HOWEVER: DO NOT MIX NAMED AND DEFAULT EXPORTS
+import add from './shoppingCart.js';
+add('pizza', 2);
+add('bread', 5);
+add('milk', 1);
+add('apples', 3);
