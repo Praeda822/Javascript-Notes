@@ -91,19 +91,27 @@
 // ========================================
 //
 // Import statements to the TOP of the file
+// I can also reassign the values to variables declaratively by using the "as" keyword
 // Importing module
-import {
-  addToCart,
-  totalPrice as price,
-  totalQuantity as quantity,
-} from './shoppingCart.js';
-console.log('importing module');
+// import {
+//   addToCart,
+//   totalPrice as price,
+//   totalQuantity as quantity,
+// } from './shoppingCart.js';
+// console.log('importing module');
 // console.log(shippingCost);
 
-addToCart('bread', 5);
+// addToCart('bread', 5);
 // 5 bread was added to the cart
 
-console.log(price, quantity);
+// console.log(price, quantity);
 // 237, 23
 
-// I can also reassign the values to variables declaratively by using the "as" keyword
+// Import all the exports of a module at once into one singular object
+import * as ShoppingCart from './shoppingCart.js';
+ShoppingCart.addToCart('bread', 5);
+
+// Holy fuck that's sick
+// I shortened all the shit commented out above by essentially importing the data in shoppingCart.js module as a new Javascript object containing shoppingCart's exported values
+// Then I call the addToCart method on the object and pass in my arguments
+// So I'm basically exporting a Public API, like a class, as if ShoppingCart was a class with it's own built-in method | SIIIIIICK

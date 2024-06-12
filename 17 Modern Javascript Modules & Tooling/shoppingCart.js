@@ -23,4 +23,4 @@ const totalPrice = 237;
 const totalQuantity = 23;
 
 // and I can export those same variables by wrapping them in curly brackets
-export { totalPrice, totalQuantity };
+export { totalPrice, totalQuantity as qt };
