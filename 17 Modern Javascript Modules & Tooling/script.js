@@ -59,3 +59,28 @@
 //
 // 6. Es6 modules are downloaded & retrieved in an ASYNCHRONOUS WAY, so they'll be handled by the/an WebAPI
 // 6,5. Regular scripts are downloaded by default in a blocking, synchronous way, UNLESS I use the async/defer attributes on my scriptt ag
+//
+//
+// How ES6 Modules Are Imported!
+// ========================================
+//
+// index.js
+import { rand } from '.math.js';
+import { showDice } from '.dom.js';
+const dice = rand(1, 6, 2);
+showDice(dice);
+
+// Here I'm importing two values called "rend" and "showDice" from both the math.js & dom.js modules, respectively
+
+// Now as soon as Javascript code is executed, the first step is that the code is PARSED, which means that the code is simply being read by the Runtime but not yet executed, and this is also the moment where the imports are hoisted to the top of the file, with this ENTIRE module importing process occurring before the code executes
+
+// So first of all the index.js file imports both of the math.js and dom.js modules in a SYNCHRONOUS way, which means that only AFTER all imported modules have been downloaded and executed will the main index.js module be executed as well
+// This process is only possible due to top-level ("static") imports, which make imports known before the engine's runtime execution
+// So by knowing all of the module dependencies between my modules before execution, bundlers like webpack and Parcel can then join multiple modules together and eliminate that code and this is why I can only import and export outside of any code that needs to be executed, such as afunction or an if block
+
+// After the parsing process has digured out which modules it needs to import, these modules are then downloaded from the web-server in an ASYNCHRONOUS way - remember that SYNCHRONOUS is importing
+// After a module arrives, it's then parsed and then the modules EXPORTS are linked to the module's IMPORTS in index.js
+// In the example above, the math.js module is eporting a module called { rand }, and this export is consequently connected, or linked, to the { rand } object in my index.js module
+// This link, or connection, is what's known as a "Live Connection", which means exported values are not copied to imports
+// Instead, the import is essentially just a reference to the exported value, like a pointer, so when the value changes in the exported module, then the same value also changes in the importing module
+// Finally, the imported modules are executed, with the subsequent execution of the index.js module being last, as it encapsulates all of my modules in the runtime
