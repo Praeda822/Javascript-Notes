@@ -65,10 +65,10 @@
 // ========================================
 //
 // index.js
-import { rand } from '.math.js';
-import { showDice } from '.dom.js';
-const dice = rand(1, 6, 2);
-showDice(dice);
+// import { rand } from '.math.js';
+// import { showDice } from '.dom.js';
+// const dice = rand(1, 6, 2);
+// showDice(dice);
 
 // Here I'm importing two values called "rend" and "showDice" from both the math.js & dom.js modules, respectively
 
@@ -84,3 +84,12 @@ showDice(dice);
 // This link, or connection, is what's known as a "Live Connection", which means exported values are not copied to imports
 // Instead, the import is essentially just a reference to the exported value, like a pointer, so when the value changes in the exported module, then the same value also changes in the importing module
 // Finally, the imported modules are executed, with the subsequent execution of the index.js module being last, as it encapsulates all of my modules in the runtime
+//
+//
+// ========================================
+// Exporting/Importing in ES6 Modules
+// ========================================
+//
+// Importing module
+import './shoppingCart';
+console.log('Importing Module');
