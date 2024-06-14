@@ -171,8 +171,8 @@ console.log(lastPost); // Pending Promise
 
 // BUT above is a disgusting way of doing it
 // Instead, I can use top-level await for this:
-const lastPost2 = await getLastPost();
-console.log(lastPost2);
+// const lastPost2 = await getLastPost();
+// console.log(lastPost2);
 
 // Important to remember!!!
 // If one module imports a module which has a top-level await inside of it, then that importing module will wait for the imported module to finish the blocking code
@@ -262,3 +262,17 @@ console.log(stateDeepClone);
 // ========================================
 // Building With Parcel & NPM Scripts
 // ========================================
+//
+// npx parcel index.html
+
+// Hot Module Reloading
+// ========================================
+//
+// Hot Module Reloading means that whenever I change something in one of the modules, it will then AUTOMATICALLY trigger a rebuild, with that new modified bundle also automatically being included by being injected into the browser
+// This is AMAZING for testing state whenever I'm testing something out
+
+if (module.hot) {
+  module.hot.accept();
+}
+
+// Now I can npm run start, since I've declared the start script to be parcel index.html
