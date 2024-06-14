@@ -2,11 +2,9 @@
 
 // Blocking code to see the lag
 // ONLY AFTER this top-level await does the rest of the code execute
-console.log('start fetching users');
-await fetch('https://jsonplaceholder.typicode.com/users');
-console.log('Finish fetching users');
-
-//
+// console.log('start fetching users');
+// await fetch('https://jsonplaceholder.typicode.com/users');
+// console.log('Finish fetching users');
 
 // Exporting Module
 console.log('Exporting Module');

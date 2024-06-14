@@ -176,3 +176,5 @@ console.log(lastPost2);
 
 // Important to remember!!!
 // If one module imports a module which has a top-level await inside of it, then that importing module will wait for the imported module to finish the blocking code
+
+// So, a top-level await, an await OUTSIDE of any asynchronous function, will block both its own entire module as well as the module importing it!!
