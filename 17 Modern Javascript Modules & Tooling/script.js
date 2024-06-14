@@ -256,3 +256,9 @@ console.log(stateClone); // false
 // State's logged in variable will stay true, but the copy will be changed to false
 // Using new API:
 console.log(stateDeepClone);
+
+//
+//
+// ========================================
+// Building With Parcel & NPM Scripts
+// ========================================
