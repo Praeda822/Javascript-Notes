@@ -136,3 +136,36 @@ add('apples', 3);
 // So, even though they are technically the exact same copy of the exact same object behind the scenes, IMPORTS ARE NOT 1:1 COPIES OF THEIR RESPECTIVE EXPORTS
 // THIS IS KNOWN AS A LIVE CONNECTION, meaning that they point to the same place in the memory (pointer)
 console.log(cart);
+
+//
+//
+// ========================================
+// Top-Level Await
+// ========================================
+//
+// From ES 2022, I can now use the await keyword OUTSIDE of asynchronous functions, at least within modules
+//
+// async function x(){}
+// console.log('Start fetching..');
+// const res = await fetch('https://jsonplaceholder.typicode.com/posts');
+// const data = await res.json();
+// console.log(data);
+
+// Whilst it's all well-and-good for me to use top-level await, but now I've actually blockeed the entire execution of the module now
+
+const getLastPost = async function () {
+  const res = await fetch('https://jsonplaceholder.typicode.com/posts');
+  const data = await res.json();
+  console.log(data);
+  // Get very last element of an array
+  return { title: data.at(-1).title, text: data.at(-1).body };
+};
+
+// Calling an asynchronous function will ALWAYS return a promise!!!
+
+const lastPost = getLastPost();
+console.log(lastPost); // Pending Promise
+
+// So I can actually use the promise as an object and call my .then() method on it to get access to the promise data, and console.log it
+// BUT this is a disgusting way of doing it
+lastPost.then(last => console.log(last));
