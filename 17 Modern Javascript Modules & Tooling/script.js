@@ -185,12 +185,13 @@ console.log(lastPost2);
 // The Module Pattern
 // ========================================
 //
-// The main goal of the Module Pattern is is to encapsulate functionality, to implement private data, and to expose a public API
-// The best way of achieving all of this is by simply using a function, since functions give me private data by default and allow me to return a value from that function, which can become my public API
-// The ONLY PURPOSE of this function is to create a new scope, and return the data from that scope
-// So I'm going to use an IIFE in order to not reuse code by running it multiple times and calling it just once, so I wrap my function in parentheses
+// The main goal of the Module Pattern is to encapsulate functionality, implement private data, and expose a public API.
+// The best way to achieve all of this is by using a function, since functions provide private data by default and allow us to return a value from the function, which can serve as our public API.
+// The ONLY PURPOSE of this function is to create a new scope and return data from that scope.
+// We use an IIFE (Immediately Invoked Function Expression) to ensure the function runs once and doesn't pollute the global scope.
 
 const ShoppingCart2 = (function () {
+  // Private variables and functions
   const cart = [];
   const shippingCost = 10;
   const totalPrice = 237;
@@ -205,9 +206,8 @@ const ShoppingCart2 = (function () {
     console.log(`${quantity} ${product} ordered from supplier`);
   };
 
-  // Now all the data in this IIFE is PRIVATE, since it's limited to the function scope
-  // All I need to do now is return some data from it in order to "expose" the Public API
-  // TO do that I simply return an object with whatever I want to become public
+  // All the data in this IIFE is PRIVATE, as it's limited to the function scope.
+  // To "expose" the Public API, we simply return an object with the elements we want to make public.
 
   return {
     addToCart,
@@ -217,13 +217,19 @@ const ShoppingCart2 = (function () {
   };
 })();
 
+// Using the public API
 ShoppingCart2.addToCart('cucumber', 2);
-ShoppingCart2.addToCart('brocolli', 5);
+ShoppingCart2.addToCart('broccoli', 5);
 console.log(ShoppingCart2);
 
-// This is all possible thanks to CLOSURES
-// Closures allow a function to have access to all the variables that were present when it was created
-// Since my functions are all scoped together, they never lose their "connection", so for instace my addToCart function can still access the cart variable within the ShoppingCart2 object
-// The only problem is that if I wanted one module per file, like I have with ES6 modules, then I have to create lots of different scripts and link them ALL back to the HTML file
-// Like I need to be very careful in which order they are declared within the HTML, and I would have all my variables living in the GLOBAL scope
-// I also wouldn't be able to bundle them all together using a module bundler
+// This is all possible thanks to CLOSURES.
+// Closures allow a function to access all the variables that were present when it was created.
+// Since our functions are all scoped together, they never lose their "connection". For instance, the addToCart function can still access the cart variable within the ShoppingCart2 object.
+// The only problem is that if I wanted one module per file, like I have with ES6 modules, then I have to create lots of different scripts and link them ALL back to the HTML file.
+// I need to be very careful in which order they are declared within the HTML, and I would have all my variables living in the GLOBAL scope.
+// I also wouldn't be able to bundle them all together using a module bundler.
+
+//
+// ========================================
+// CommonJS Modules
+// ========================================
