@@ -233,3 +233,26 @@ console.log(ShoppingCart2);
 // ========================================
 // CommonJS Modules
 // ========================================
+//
+// ========================================
+// Introduction to NPM
+// ========================================
+// //
+// import cloneDeep from './node_modules/lodash-es/cloneDeep.js';
+// New browser API for deep copy, structureClone:
+
+const state = {
+  cart: [
+    { product: 'bread', quantity: 5 },
+    { product: 'cheese', quantity: 3 },
+  ],
+  user: { loggedIn: true },
+};
+
+const stateClone = Object.assign({}, state);
+const stateDeepClone = structuredClone(state);
+state.user.loggedIn = false;
+console.log(stateClone); // false
+// State's logged in variable will stay true, but the copy will be changed to false
+// Using new API:
+console.log(stateDeepClone);
