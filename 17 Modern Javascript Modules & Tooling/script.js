@@ -156,7 +156,6 @@ console.log(cart);
 const getLastPost = async function () {
   const res = await fetch('https://jsonplaceholder.typicode.com/posts');
   const data = await res.json();
-  console.log(data);
   // Get very last element of an array
   return { title: data.at(-1).title, text: data.at(-1).body };
 };
@@ -167,5 +166,13 @@ const lastPost = getLastPost();
 console.log(lastPost); // Pending Promise
 
 // So I can actually use the promise as an object and call my .then() method on it to get access to the promise data, and console.log it
-// BUT this is a disgusting way of doing it
-lastPost.then(last => console.log(last));
+
+// lastPost.then(last => console.log(last));
+
+// BUT above is a disgusting way of doing it
+// Instead, I can use top-level await for this:
+const lastPost2 = await getLastPost();
+console.log(lastPost2);
+
+// Important to remember!!!
+// If one module imports a module which has a top-level await inside of it, then that importing module will wait for the imported module to finish the blocking code
