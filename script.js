@@ -305,10 +305,24 @@ import 'regenerator-runtime/runtime';
 //
 // I should write my code not only in a way that others can understand it, but that I can also understand it if I was to come back a year later and read it
 // I should also avoid being too clever, or overly verbose, and I should be using descriptive variable names (what the variable contains) as well as descriptive function names (what the function does)
-
+//
 //
 // General Code
 // ========================================
 // I should ALWAYS use the DRY principle whenever I refactor my code
 // I should NOT pollute the global namespace with shitty variable names and garbage
 // I should use strong types checks, like === and !==, and i shouldn't use shit like var
+//
+//
+// Functions
+// ========================================
+//
+// I generally, and should always strive for, want my functions to do ONLY ONE THING
+// I shouldn't use more than 3 function parameters if I can help it, and I should use default parameters wherever possible (like element, index, array)
+//
+//
+// OOP
+// ========================================
+//
+// I should get in the habit of using ES6 classes to properly encapsulate my data, so I DON'T MUTATE IT from outside the class (and, ideally, can't)
+// I should implement method chaining, like with my promise .then() returns, and I should NOT use arrow functions as my methods (in regular objects) as then I won't have access to the .this keyword
