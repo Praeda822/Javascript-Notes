@@ -305,3 +305,10 @@ import 'regenerator-runtime/runtime';
 //
 // I should write my code not only in a way that others can understand it, but that I can also understand it if I was to come back a year later and read it
 // I should also avoid being too clever, or overly verbose, and I should be using descriptive variable names (what the variable contains) as well as descriptive function names (what the function does)
+
+//
+// General Code
+// ========================================
+// I should ALWAYS use the DRY principle whenever I refactor my code
+// I should NOT pollute the global namespace with shitty variable names and garbage
+// I should use strong types checks, like === and !==, and i shouldn't use shit like var
