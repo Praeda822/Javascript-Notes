@@ -14,19 +14,23 @@ const spendingLimits = {
   matilda: 100,
 };
 
-const addExpense = function (value, description, user) {
-  if (!user) user = 'jonas';
+const addExpense = function (value, description, user = 'jonas') {
   user = user.toLowerCase();
 
-  let lim;
-  if (spendingLimits[user]) {
-    lim = spendingLimits[user];
-  } else {
-    lim = 0;
-  }
+  // let lim;
+  // if (spendingLimits[user]) {
+  //   lim = spendingLimits[user];
+  // } else {
+  //   lim = 0;
+  // }
 
-  if (value <= lim) {
-    budget.push({ value: -value, description: description, user: user });
+  // const limit = spendingLimits[user] ? spendingLimits[user] : 0;
+  const limit = spendingLimits?.[user] ?? 0;
+
+  if (value <= limit) {
+    // budget.push({ value: -value, description: description, user: user });
+
+    budget.push({ value: -value, description, user });
   }
 };
 addExpense(10, 'Pizza 🍕');
