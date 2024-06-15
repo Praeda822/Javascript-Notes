@@ -335,3 +335,10 @@ import 'regenerator-runtime/runtime';
 // And instead of if/else-if blocks, I should just use multiple ifs in my code, for readabiltiy and reusabiltiy
 // I should also try avoid using for loops, including for of and foreach loops, and instead should strive to use _ideally) built-in array methods instead
 // I should also avoid using callback-based asynchronous APIS, instead opting for Async/Await or .then() to handle asynchronous code
+//
+//
+// Asynchronous Code
+// ========================================
+//
+// I should consume promises with async await for best readability
+// WHenever possible, I should run my promises in parallel by using the Promise.all() method
