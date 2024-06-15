@@ -326,3 +326,12 @@ import 'regenerator-runtime/runtime';
 //
 // I should get in the habit of using ES6 classes to properly encapsulate my data, so I DON'T MUTATE IT from outside the class (and, ideally, can't)
 // I should implement method chaining, like with my promise .then() returns, and I should NOT use arrow functions as my methods (in regular objects) as then I won't have access to the .this keyword
+//
+//
+// Avoid Nested Code
+// ========================================
+//
+// I should implement early returns, or guard clauses, for my code, and I should use the ternary (conditional) or logical operators instead of if blocks
+// And instead of if/else-if blocks, I should just use multiple ifs in my code, for readabiltiy and reusabiltiy
+// I should also try avoid using for loops, including for of and foreach loops, and instead should strive to use _ideally) built-in array methods instead
+// I should also avoid using callback-based asynchronous APIS, instead opting for Async/Await or .then() to handle asynchronous code
