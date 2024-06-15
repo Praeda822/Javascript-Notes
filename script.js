@@ -276,3 +276,20 @@ if (module.hot) {
 }
 
 // Now I can npm run start, since I've declared the start script to be parcel index.html
+
+class Person {
+  greeting = 'Hey';
+  constructor(name) {
+    this.name = name;
+    console.log(`${this.greeting}, ${this.name}`);
+  }
+}
+const patrick = new Person('Patrick');
+console.log('Patrick' ?? null);
+
+console.log(cart.find(el => el.quantity >= 2));
+Promise.resolve('TEST').then(x => console.log(x));
+
+import 'core-js/stable';
+// Polifilling async functions
+import 'regenerator-runtime/runtime';

@@ -1,8 +1,8 @@
-7117
+7121
 106C:\Users\Pk\repos\Javascript-Notes\node_modules\csso\node_modules\css-tree\lib\syntax\node\SelectorList.js133628241229042420 0
 94C:\Users\Pk\repos\Javascript-Notes\node_modules\css-tree\cjs\definition-syntax\SyntaxError.cjs133628241163382077 0
 71C:\Users\Pk\repos\Javascript-Notes\node_modules\semver\functions\inc.js133628241172557543 0
-39C:\Users\Pk\repos\Javascript-Notes\dist133628241950489208 1
+39C:\Users\Pk\repos\Javascript-Notes\dist133629221734375531 1
 96C:\Users\Pk\repos\Javascript-Notes\node_modules\caniuse-lite\data\features\keyboardevent-code.js133628241179000304 0
 65C:\Users\Pk\repos\Javascript-Notes\node_modules\leaflet\src\layer133628241227895479 1
 97C:\Users\Pk\repos\Javascript-Notes\node_modules\lmdb\dependencies\lmdb\libraries\liblmdb\Makefile133628241167929911 0
@@ -187,7 +187,7 @@
 66C:\Users\Pk\repos\Javascript-Notes\node_modules\fill-range\LICENSE133628241146582662 0
 57C:\Users\Pk\repos\Javascript-Notes\node_modules\callsites133628241149817816 1
 94C:\Users\Pk\repos\Javascript-Notes\node_modules\csso\node_modules\mdn-data\css\properties.json133628241228394217 0
-44C:\Users\Pk\repos\Javascript-Notes\script.js133628227736419239 0
+44C:\Users\Pk\repos\Javascript-Notes\script.js133629222265958398 0
 81C:\Users\Pk\repos\Javascript-Notes\node_modules\leaflet\src\layer\VideoOverlay.js133628241227696020 0
 72C:\Users\Pk\repos\Javascript-Notes\node_modules\csso\lib\clean\Atrule.js133628241160818983 0
 88C:\Users\Pk\repos\Javascript-Notes\node_modules\lmdb\dependencies\lmdb\libraries\liblmdb133628241195376950 1
@@ -237,7 +237,7 @@
 64C:\Users\Pk\repos\Javascript-Notes\node_modules\svgo\lib\svgo.js133628241161088210 0
 74C:\Users\Pk\repos\Javascript-Notes\node_modules\lodash-es\cloneDeepWith.js133628241224664134 0
 68C:\Users\Pk\repos\Javascript-Notes\node_modules\lodash-es\_baseGt.js133628241215089366 0
-47C:\Users\Pk\repos\Javascript-Notes\package.json133628241652327424 0
+47C:\Users\Pk\repos\Javascript-Notes\package.json133628242685994665 0
 118C:\Users\Pk\repos\Javascript-Notes\node_modules\@parcel\optimizer-svgo\node_modules\css-tree\lib\syntax\atrule\page.js133628241240182635 0
 80C:\Users\Pk\repos\Javascript-Notes\node_modules\svgo\plugins\sortDefsChildren.js133628241169236416 0
 44C:\Users\Pk\repos\Javascript-Notes\README.md133396854367939111 0
@@ -1228,6 +1228,7 @@
 84C:\Users\Pk\repos\Javascript-Notes\node_modules\svgo\plugins\cleanupNumericValues.js133628241164369428 0
 64C:\Users\Pk\repos\Javascript-Notes\node_modules\srcset\readme.md133628241155284092 0
 78C:\Users\Pk\repos\Javascript-Notes\node_modules\svgo\plugins\collapseGroups.js133628241164389383 0
+61C:\Users\Pk\repos\Javascript-Notes\dist\index.760df6db.js.map133628242751196463 0
 89C:\Users\Pk\repos\Javascript-Notes\node_modules\@babel\highlight\node_modules\chalk\types133628241228743228 1
 77C:\Users\Pk\repos\Javascript-Notes\node_modules\@lezer\lr\dist\constants.d.ts133628241175010978 0
 77C:\Users\Pk\repos\Javascript-Notes\node_modules\escape-string-regexp\index.js133628241142060577 0
@@ -2891,6 +2892,7 @@
 72C:\Users\Pk\repos\Javascript-Notes\node_modules\lodash-es\_baseRandom.js133628241216824747 0
 71C:\Users\Pk\repos\Javascript-Notes\node_modules\lodash-es\_baseRange.js133628241216844671 0
 72C:\Users\Pk\repos\Javascript-Notes\node_modules\lodash-es\_baseReduce.js133628241216854647 0
+57C:\Users\Pk\repos\Javascript-Notes\dist\index.0b9c7f0f.js133629221734345606 0
 116C:\Users\Pk\repos\Javascript-Notes\node_modules\@parcel\optimizer-htmlnano\node_modules\css-select\lib\sort.d.ts.map133628241239783686 0
 72C:\Users\Pk\repos\Javascript-Notes\node_modules\lodash-es\_baseRepeat.js133628241216894587 0
 96C:\Users\Pk\repos\Javascript-Notes\node_modules\@babel\highlight\node_modules\chalk\templates.js133628241228733301 0
@@ -5500,7 +5502,7 @@
 81C:\Users\Pk\repos\Javascript-Notes\node_modules\@swc\helpers\_\_non_iterable_rest133628241171859405 1
 90C:\Users\Pk\repos\Javascript-Notes\node_modules\@parcel\transformer-react-refresh-wrap\src133628241186221037 1
 91C:\Users\Pk\repos\Javascript-Notes\node_modules\@swc\helpers\_\_possible_constructor_return133628241171909276 1
-61C:\Users\Pk\repos\Javascript-Notes\dist\index.8cfc62b9.js.map133628241950479234 0
+61C:\Users\Pk\repos\Javascript-Notes\dist\index.8cfc62b9.js.map133629221614075554 0
 79C:\Users\Pk\repos\Javascript-Notes\node_modules\@swc\helpers\_\_read_only_error133628241171919248 1
 84C:\Users\Pk\repos\Javascript-Notes\node_modules\@swc\helpers\cjs\_inherits_loose.cjs133628241165935241 0
 67C:\Users\Pk\repos\Javascript-Notes\node_modules\@swc\helpers\_\_set133628241171929224 1
@@ -6928,8 +6930,11 @@
 98C:\Users\Pk\repos\Javascript-Notes\node_modules\.bin\node-gyp-build-optional-packages-optional.cmd133628241650226113 0
 94C:\Users\Pk\repos\Javascript-Notes\node_modules\.bin\node-gyp-build-optional-packages-test.cmd133628241650236092 0
 94C:\Users\Pk\repos\Javascript-Notes\node_modules\.bin\node-gyp-build-optional-packages-test.ps1133628241650226113 0
-57C:\Users\Pk\repos\Javascript-Notes\dist\index.8cfc62b9.js133628241950459287 0
-50C:\Users\Pk\repos\Javascript-Notes\dist\index.html133628241950449369 0
+61C:\Users\Pk\repos\Javascript-Notes\dist\index.0b9c7f0f.js.map133629221734375531 0
+44C:\Users\Pk\repos\Javascript-Notes\.cache\d4133628227805367318 1
+57C:\Users\Pk\repos\Javascript-Notes\dist\index.760df6db.js133628242751166542 0
+57C:\Users\Pk\repos\Javascript-Notes\dist\index.8cfc62b9.js133629221614065589 0
+50C:\Users\Pk\repos\Javascript-Notes\dist\index.html133629221734345606 0
 78C:\Users\Pk\repos\Javascript-Notes\18 Forkify App\forkify-flowchart-part-2.png132886955210000000 0
 53C:\Users\Pk\repos\Javascript-Notes\18 Forkify App\src132886955210000000 1
 57C:\Users\Pk\repos\Javascript-Notes\18 Forkify App\src\img132886955210000000 1
@@ -7094,7 +7099,6 @@
 44C:\Users\Pk\repos\Javascript-Notes\.cache\ce133628227805367318 1
 44C:\Users\Pk\repos\Javascript-Notes\.cache\d0133628227805367318 1
 44C:\Users\Pk\repos\Javascript-Notes\.cache\d1133628227805367318 1
-44C:\Users\Pk\repos\Javascript-Notes\.cache\d4133628227805367318 1
 44C:\Users\Pk\repos\Javascript-Notes\.cache\d6133628227805367318 1
 44C:\Users\Pk\repos\Javascript-Notes\.cache\d7133628227805377290 1
 44C:\Users\Pk\repos\Javascript-Notes\.cache\da133628227805377290 1
