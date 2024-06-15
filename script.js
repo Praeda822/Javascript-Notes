@@ -293,3 +293,15 @@ Promise.resolve('TEST').then(x => console.log(x));
 import 'core-js/stable';
 // Polifilling async functions
 import 'regenerator-runtime/runtime';
+
+//
+//
+// ========================================
+// Review: Modern & Clean Javascript Code
+// ========================================
+//
+// Readable Code
+// ========================================
+//
+// I should write my code not only in a way that others can understand it, but that I can also understand it if I was to come back a year later and read it
+// I should also avoid being too clever, or overly verbose, and I should be using descriptive variable names (what the variable contains) as well as descriptive function names (what the function does)
