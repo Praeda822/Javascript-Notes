@@ -38,7 +38,7 @@ addExpense(100, 'Going to movies 🍿', 'Matilda');
 addExpense(200, 'Stuff', 'Jay');
 console.log(budget);
 
-const getLimit = user => spendingLimits?.[entry.user] ?? 0;
+const getLimit = user => spendingLimits?.[user] ?? 0;
 
 const checkExpenses = function () {
   for (const entry of budget) {
