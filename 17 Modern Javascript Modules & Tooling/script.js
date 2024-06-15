@@ -262,3 +262,60 @@ console.log(stateDeepClone);
 // ========================================
 // Building With Parcel & NPM Scripts
 // ========================================
+//
+//
+// ========================================
+// Imperative vs Declarative Code
+// ========================================
+//
+// There are two fundamentally different ways of writing code, also known as "paradigms": Imperative & Declarative
+//
+// Imperative
+// ========================================
+//
+// Imperative code is where the programmer explains HOW to do things with the code
+// So where I'm basically explaining every single step the computer needs to take to achieve a result
+// So an Imperative way of doing things would be by giving Lozza a recipe of how to bake a cake and telling her to follow it step-by-step, without deviating, to bake that cake
+// As a code example:
+
+const arr = [2, 4, 6, 8];
+const doubled = [];
+for (let i = 0; i < arr.length; i++) doubled[i] = arr[i] * 2;
+console.log(doubled);
+
+// Declarative
+// ========================================
+//
+// Declarative code is where the programmer only tells the computer WHAT to do
+// So where I'm basically describing the way I believe the computer should achieve the result I want
+// The HOW (all the step-by-step instructions) get abstracted away
+// To provide a code example:
+
+const arr2 = [2, 4, 6, 8];
+const doubled2 = arr2.map(n => n * 2);
+console.log(doubled2);
+//
+//
+// ========================================
+// Functional Programming
+// ========================================
+
+// Functional programming, and by extension declarative code, is the most popular way of programming
+// Functional programming is a declarative paradigm that is based on the idea of writing software by combining many PURE FUNCTIONS, avoiding SIDE EFFECTS and MUTATING data
+// A Side Effect is the modification (mutation) of any data OUTSIDE of the function scope, such as mutating external variables, logging to console, writing to DOM, etc.
+// A Pure Function is a function that does not return on external variables, in that when giben the same inputst that function will always return the same outputs, which means a pure function is a function without Side Effects
+// In Functional programming, State (data) is NEVER MODIFIED, instead the state is COPIED and then it is that COPY that is mutated and returned
+
+//
+// Functional Programming Techniques
+// ========================================
+//
+// In Functional Programming, I should try and avoid data mutations and I should always try to use built-in methods that don't produce (unnecessary) side effects
+// I should try and perform my data transofmrations with methods such as .map(), .filter(), and .reduce(), keeping in mind that I want to try and avoid sife effects in my functions as much as possible, despite that not ALWAYS going to be a possibility
+
+//
+// Declarative Syntax
+// ========================================
+//
+// I should use array and object destructuring wherever, and whenever, possible, as well as the spread operator
+// I should also be trying to use the ternary (conditional) operator(s) where I can, and I should also use template literals, as these operators are more about  telling the code WHAT to do, instead of the steps it should take, therefore it makes my code more declarative
