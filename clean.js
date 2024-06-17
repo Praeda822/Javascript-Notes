@@ -1,3 +1,5 @@
+'use strict';
+
 const budget = [
   { value: 250, description: 'Sold old TV 📺', user: 'jonas' },
   { value: -45, description: 'Groceries 🥑', user: 'jonas' },
@@ -9,30 +11,38 @@ const budget = [
   { value: -1800, description: 'New Laptop 💻', user: 'jonas' },
 ];
 
-const spendingLimits = {
+// I can use Object.freeze() to make objects immutable
+// Object.freeze() only freezes the FIRST level of the object, so I can still mutate the object's values from INSIDE the object
+
+const spendingLimits = Object.freeze({
   jonas: 1500,
   matilda: 100,
-};
+});
 
 const getLimit = user => spendingLimits?.[user] ?? 0;
+// let lim;
+// if (spendingLimits[user]) {
+//   lim = spendingLimits[user];
+// } else {
+//   lim = 0;
+// }
+// const limit = spendingLimits[user] ? spendingLimits[user] : 0;
+// const limit = getLimit(user);
+const addExpense = function (
+  state,
+  limits,
+  value,
+  description,
+  user = 'jonas'
+) {
+  const cleanUser = user.toLowerCase();
 
-const addExpense = function (value, description, user = 'jonas') {
-  user = user.toLowerCase();
-
-  // let lim;
-  // if (spendingLimits[user]) {
-  //   lim = spendingLimits[user];
-  // } else {
-  //   lim = 0;
-  // }
-
-  // const limit = spendingLimits[user] ? spendingLimits[user] : 0;
-  // const limit = getLimit(user);
-
-  if (value <= getLimit(user)) {
+  if (value <= getLimit(cleanUser)) {
     // budget.push({ value: -value, description: description, user: user });
 
-    budget.push({ value: -value, description, user });
+    // budget.push({ value: -value, description, user: cleanUser });
+
+    return [...state, { value: -value, description, user: cleanUser }];
   }
 };
 addExpense(10, 'Pizza 🍕');

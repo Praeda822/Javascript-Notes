@@ -318,4 +318,4 @@ console.log(doubled2);
 // ========================================
 //
 // I should use array and object destructuring wherever, and whenever, possible, as well as the spread operator
-// I should also be trying to use the ternary (conditional) operator(s) where I can, and I should also use template literals, as these operators are more about  telling the code WHAT to do, instead of the steps it should take, therefore it makes my code more declarative
+// I should also be trying to use the ternary (conditional) operator(s) where I can, and I should also use template literals, as these operators are more about telling the code WHAT to do, instead of the steps it should take, therefore it makes my code more declarative
