@@ -28,6 +28,8 @@ const getLimit = user => spendingLimits?.[user] ?? 0;
 // }
 // const limit = spendingLimits[user] ? spendingLimits[user] : 0;
 // const limit = getLimit(user);
+
+// Pure Function
 const addExpense = function (
   state,
   limits,
@@ -37,17 +39,24 @@ const addExpense = function (
 ) {
   const cleanUser = user.toLowerCase();
 
-  if (value <= getLimit(cleanUser)) {
-    // budget.push({ value: -value, description: description, user: user });
+  return value <= getLimit(cleanUser)
+    ? // budget.push({ value: -value, description: description, user: user });
 
-    // budget.push({ value: -value, description, user: cleanUser });
+      // budget.push({ value: -value, description, user: cleanUser });
 
-    return [...state, { value: -value, description, user: cleanUser }];
-  }
+      [...state, { value: -value, description, user: cleanUser }]
+    : state;
 };
-addExpense(10, 'Pizza 🍕');
-addExpense(100, 'Going to movies 🍿', 'Matilda');
-addExpense(200, 'Stuff', 'Jay');
+const newBudget1 = addExpense(budget, spendingLimits, 10, 'Pizza 🍕');
+const newBudget2 = addExpense(
+  budget,
+  spendingLimits,
+  100,
+  'Going to movies 🍿',
+  'Matilda'
+);
+const newBudget3 = addExpense(newBudget2, spendingLimits, 200, 'Stuff', 'Jay');
+console.log('I AM THE NEW BUDGETS', newBudget1, newBudget2, newBudget3);
 
 const checkExpenses = function () {
   // let lim;
