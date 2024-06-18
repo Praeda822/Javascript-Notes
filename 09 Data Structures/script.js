@@ -190,7 +190,7 @@ console.log(one, two); // 23 7
 // Again, I can retrieve the property values of nested objects just like I can with arrays
 // All I need to do is match the variable name with the property value I want to extract
 // So here I get the open: 11, close: 23 that represents the openingHours nested object, friday's property value
-// but I can FURTHER destruct the object by appending my variable with a colon : , which then also allows me to fruther break it down into two seperate variables, 11 and 23
+// but I can FURTHER destruct the object by appending my variable with a colon : , which then also allows me to further break it down into two seperate variables, 11 and 23
 const {
   fri: { open, close },
 } = openingHours;
@@ -224,7 +224,7 @@ console.log(newMenu);
 // Here I'm NOT creating a new array
 // I am simply manipulating the data of the restaurant object, accessing the mainMenu array, creating a new string, 'Gnocci', and adding it to main menu, returning the value inside of a NEW array + the new string
 
-// The spread operator takes all the elemnts from an array, but it does **NOT** create new variables, and as a direct consequence, we can only use it where there are values seperated by commas
+// The spread operator takes all the elements from an array, but it does **NOT** create new variables, and as a direct consequence, we can only use it where there are values seperated by commas
 
 // Shallow-copying arrays
 //========================================
@@ -246,7 +246,7 @@ const letters = [...str, ' ', 'S.'];
 console.log(...str);
 console.log(letters);
 
-// So here I've created a new array, ingrdients
+// So here I've created a new array, ingredients
 // ingredients holds 3 prompts which will I will pass as one single argument into my orderPasta function using the spread operator
 // Real-world example
 //========================================
@@ -313,7 +313,7 @@ console.log(pizza, risotto, otherFood);
 
 // When using the **REST Pattern**, it **MUST ALWAYS BE LAST IN THE DESTRUCTURING ASSIGNMENT**
 // Otherwise, Javascript can't tell when to collect *the rest* of the unselected elements
-// For the same reason, **there can only ever be *ONE* REST Pattern in a destructuring assignment** (*again, on the fucken LEFT OF THE ASSIGNMENT*)
+// For the same reason, **there can only ever be *ONE* REST Pattern in a destructuring assignment** (*again, on the LEFT OF THE ASSIGNMENT*)
 
 // **Spread Operator: Building Objects**
 //========================================
@@ -438,7 +438,7 @@ console.log(7 && 'Pat'); // Pat
 //
 console.log('Hello' && 29 && null && 'Pat');
 //
-// Here I'm checking if a method exists, and if itn does, I want to call it
+// Here I'm checking if a method exists, and if it does, I want to call it
 //
 if (restaurant.orderPizza) {
   restaurant.orderPizza('mushrooms', 'spinach');
@@ -601,7 +601,7 @@ if (restaurant.openingHours.fri) console.log(restaurant.openingHours.fri.open); 
 // So, if openingHours.fri exists, log it to the console
 
 // But how would I even know if restaurant exists?
-// How can I chceck for both??
+// How can I check for both??
 // But obviously this not only *looks fucked*, it can get *even more fucked*
 if (restaurant.openingHours && restaurant.openingHours.mon)
   console.log(restaurant.openingHours.mon.open);
@@ -726,7 +726,7 @@ console.log(vitriol.lastIndexOf('r'));
 // I can even search for entire words (case sensitive)
 console.log(vitriol.lastIndexOf('destructuring'));
 
-// A useful usecase for this is extracting a certain word from a astring in order to **slice** it.
+// A useful usecase for this is extracting a certain word from a string in order to **slice** it.
 // The resulting string is known as a **sub-string**
 // This does NOT change the original string value, since **Strings are **Primitives**, however *slice* does return a new string
 console.log(vitriol.slice(17));
