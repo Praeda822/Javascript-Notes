@@ -17,7 +17,7 @@ const spendingLimits = {
 const getLimit = user => spendingLimits?.[user] ?? 0;
 
 const addExpense = function (value, description, user = 'jonas') {
-  user = user.toLowerCase();
+  const cleanUser = user.toLowerCase();
 
   // let lim;
   // if (spendingLimits[user]) {
@@ -29,10 +29,11 @@ const addExpense = function (value, description, user = 'jonas') {
   // const limit = spendingLimits[user] ? spendingLimits[user] : 0;
   // const limit = getLimit(user);
 
-  if (value <= getLimit(user)) {
+  // Grab value based upon state
+  if (value <= getLimit(cleanUser)) {
     // budget.push({ value: -value, description: description, user: user });
 
-    budget.push({ value: -value, description, user });
+    budget.push({ value: -value, description, user: cleanUser });
   }
 };
 addExpense(10, 'Pizza 🍕');

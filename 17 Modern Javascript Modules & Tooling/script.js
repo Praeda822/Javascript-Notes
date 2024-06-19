@@ -4,11 +4,11 @@
 // Modern Javascript Development
 // ========================================
 //
-// The first step of a build process in modern javascsript is known as the "Bundling" process, in which all my modules and/or 3rd party packages are bundled into one big file
-// This is a pretty complicated process, but it can eleminate unused code and compress our code as well
+// The first step of a build process in modern javascript is known as the "Bundling" process, in which all my modules and/or 3rd party packages are bundled into one big file
+// This is a pretty complicated process, but it can eliminate unused code and compress my code as well
 // This step is important for TWO big reasons:
 // 1. Older browsers don't support Modules at all, so any code in a module can not be executed by any older browser
-//2 . It's significantly better for performance to limit the amount of files sent to the browser, and that the bundling step compresses our code
+//2 . It's significantly better for performance to limit the amount of files sent to the browser, and that the bundling step compresses my code
 
 // The second step of the build process in modern javascript is known as Transpiling/Polyfilling
 // Transpiling/Polyfilling is a process in where all modern javascript & features are converted BACK into ES5 syntax, so that even older browser can read our code without breaking
@@ -33,9 +33,9 @@
 // I can think of modules as small building blocks that I can then put together to build really complex applications, and there are a few advantages of using modules to compose my software
 // The idea of modules is that it allows me to isolate my codeblocks without them interfering with the entire codebase - rather they're structured in a way that sort of "attaches" them
 // Modules are also used to abstract code complexity, and implement low level code and then-for sake of functionality, accessibility, AND compatibility-I can import these abstractions into other modules
-// The use of Modules also naturally lead s to a more structured, and organised codebase since modules allow me to easily reuse code, even across multiple projects I may have
+// The use of Modules also naturally leads to a more structured, and organised codebase since modules allow me to easily reuse code, even across multiple projects I may have
 
-// Native Jvascript (ES6) Modules
+// Native Javascript (ES6) Modules
 // ========================================
 //
 // ES6 modules are stored in files,
@@ -52,13 +52,13 @@
 // 3,5. In Scripts, the .this keyword will point to the window() object
 //
 // 4. A special feature of ES6 modules, as well as overall code reusability, is the ability to use the Export/Import syntax
-// 4,5. In regular Scripts, exporting/importing values is nooooo bueno, but, regarding imports/exports, it's important for me to remember that they can only happen at the top level, so outsie of any function or if block, and ALL my imports are hoisted to the top of the file since importing always occurs first in modules
+// 4,5. In regular Scripts, exporting/importing values is nooooo bueno, but, regarding imports/exports, it's important for me to remember that they can only happen at the top level, so outside of any function or if block, and ALL my imports are hoisted to the top of the file since importing always occurs first in modules
 //
 // 5. In order to link an ES6 module to my HTML, I need to use the script tag with a type declaration of "module"": <script type="module">
 // 5,5. Regular 'ol script tag: <script>
 //
-// 6. Es6 modules are downloaded & retrieved in an ASYNCHRONOUS WAY, so they'll be handled by the/an WebAPI
-// 6,5. Regular scripts are downloaded by default in a blocking, synchronous way, UNLESS I use the async/defer attributes on my scriptt ag
+// 6. ES6 modules are downloaded & retrieved in an ASYNCHRONOUS WAY, so they'll be handled by the/an (Web)API
+// 6,5. Regular scripts are downloaded by default in a blocking, synchronous way, UNLESS I use the async/defer attributes on my script tag
 //
 //
 // How ES6 Modules Are Imported!
@@ -78,7 +78,7 @@
 // This process is only possible due to top-level ("static") imports, which make imports known before the engine's runtime execution
 // So by knowing all of the module dependencies between my modules before execution, bundlers like webpack and Parcel can then join multiple modules together and eliminate that code and this is why I can only import and export outside of any code that needs to be executed, such as afunction or an if block
 
-// After the parsing process has digured out which modules it needs to import, these modules are then downloaded from the web-server in an ASYNCHRONOUS way - remember that SYNCHRONOUS is importing
+// After the parsing process has figured out which modules it needs to import, these modules are then downloaded from the web-server in an ASYNCHRONOUS way - remember that SYNCHRONOUS is importing
 // After a module arrives, it's then parsed and then the modules EXPORTS are linked to the module's IMPORTS in index.js
 // In the example above, the math.js module is eporting a module called { rand }, and this export is consequently connected, or linked, to the { rand } object in my index.js module
 // This link, or connection, is what's known as a "Live Connection", which means exported values are not copied to imports
