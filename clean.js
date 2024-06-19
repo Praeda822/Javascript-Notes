@@ -95,8 +95,13 @@ console.log('I am the FINAL budget!', finalBudget);
 const logBigExpenses = function (state, bigLimit) {
   const bigExpenses = state
     .filter(element => element.value <= -bigLimit)
-    .map(element => element.description.slice(-2))
-    .join(' / ');
+    // .map(element => element.description.slice(-2))
+    // .join(' / ');
+    .reduce(
+      (accumulator, element) =>
+        `${accumulator} / ${element.description.slice(-2)}`,
+      ''
+    );
   console.log(bigExpenses);
 
   // let output = '';

@@ -330,7 +330,7 @@ console.log(withdrawals);
 // reduce()
 //========================================
 // The reduce method will reduce the elements of an array to a single value, e.g. adding all elements together
-// reduce has two arguments, the accumulator (acc) and the current index position (i)
+// reduce takes a callback that has two (technically 3) arguments, the accumulator (acc) (the current element value) and the current index position (i)
 // Don't forget we start at ZERO!!
 // Each time reduce iterates over an array, the element value is added to the accumulator, and so on, and so on, until  I have the sum total of all the elements at the end of the loop
 // Think of like a shopping cart, with an array that holds all of the prices
