@@ -70,39 +70,45 @@ const checkExpenses = (state, limits) => {
   });
 };
 
-const checkExpenses2 = function (state, limits) {
-  return state.map(entry => {
-    return entry.value < -getLimit(limits, entry.user)
-      ? { ...entry, flag: 'limit' }
-      : entry;
-  });
+// const checkExpenses2 = function (state, limits) {
+//   return state.map(entry => {
+//     return entry.value < -getLimit(limits, entry.user)
+//       ? { ...entry, flag: 'limit' }
+//       : entry;
+//   });
 
-  // let lim;
-  // if (spendingLimits[entry.user]) {
-  //   lim = spendingLimits[entry.user];
-  // } else {
-  //   lim = 0;
-  // }
+// let lim;
+// if (spendingLimits[entry.user]) {
+//   lim = spendingLimits[entry.user];
+// } else {
+//   lim = 0;
+// }
 
-  // const limit = spendingLimits?.[entry.user] ?? 0;
+// const limit = spendingLimits?.[entry.user] ?? 0;
 
-  // for (const entry of newBudget3)
-  //   if (entry.value < -getLimit(limits, entry.user)) entry.flag = 'limit';
-};
+// for (const entry of newBudget3)
+//   if (entry.value < -getLimit(limits, entry.user)) entry.flag = 'limit';
+// };
 const finalBudget = checkExpenses(newBudget3, spendingLimits);
 console.log('I am the FINAL budget!', finalBudget);
 
-const logBigExpenses = function (bigLimit) {
-  let output = '';
-  for (const entry of budget)
-    output +=
-      entry.value <= -bigLimit
-        ? (output += `${entry.description.slice(-2)} /`)
-        : ''; // Emojis are 2 chars
-  output = output.slice(0, -2); // Remove last '/ '
-  console.log(output);
+const logBigExpenses = function (state, bigLimit) {
+  const bigExpenses = state
+    .filter(element => element.value <= -bigLimit)
+    .map(element => element.description.slice(-2))
+    .join(' / ');
+  console.log(bigExpenses);
+
+  // let output = '';
+  // for (const entry of budget)
+  //   output +=
+  //     entry.value <= -bigLimit
+  //       ? (output += `${entry.description.slice(-2)} /`)
+  //       : ''; // Emojis are 2 chars
+  // output = output.slice(0, -2); // Remove last '/ '
+  // console.log(output);
 };
 
 console.log('I am just "budget"', budget);
 
-logBigExpenses(500);
+logBigExpenses(finalBudget, 500);
