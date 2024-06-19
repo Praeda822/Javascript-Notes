@@ -31,9 +31,8 @@ const addExpense = function (value, description, user = 'jonas') {
 
   // Grab value based upon state
   if (value <= getLimit(cleanUser)) {
+    return [...state, { value: -value, description, user: cleanUser }];
     // budget.push({ value: -value, description: description, user: user });
-
-    budget.push({ value: -value, description, user: cleanUser });
   }
 };
 addExpense(10, 'Pizza 🍕');
