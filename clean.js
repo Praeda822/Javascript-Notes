@@ -40,13 +40,17 @@ const addExpense = function (
   const cleanUser = user.toLowerCase();
 
   return value <= getLimit(cleanUser)
-    ? // budget.push({ value: -value, description: description, user: user });
-
-      // budget.push({ value: -value, description, user: cleanUser });
-
-      [...state, { value: -value, description, user: cleanUser }]
+    ? [...state, { value: -value, description, user: cleanUser }]
     : state;
+
+  // budget.push({ value: -value, description: description, user: user });
+
+  // budget.push({ value: -value, description, user: cleanUser });
 };
+
+// In the real world I would use a technique called "Currying" to essentially chain all the operations below together
+// I would then use a technique called "Composing" to basically run all the below functions at once
+
 const newBudget1 = addExpense(budget, spendingLimits, 10, 'Pizza 🍕');
 const newBudget2 = addExpense(
   budget,
@@ -56,22 +60,29 @@ const newBudget2 = addExpense(
   'Matilda'
 );
 const newBudget3 = addExpense(newBudget2, spendingLimits, 200, 'Stuff', 'Jay');
-console.log('I AM THE NEW BUDGETS', newBudget1, newBudget2, newBudget3);
+console.log('I AM THE NEW BUDGETS', newBudget1, newBudget2);
 
-const checkExpenses = function () {
+const checkExpenses = function (state, limits) {
+  return state.map(entry => {
+    return entry.value < -getLimit(limits, entry.user)
+      ? { ...entry, flag: 'limit' }
+      : entry;
+  });
+
   // let lim;
   // if (spendingLimits[entry.user]) {
   //   lim = spendingLimits[entry.user];
   // } else {
   //   lim = 0;
   // }
-  // const limit = spendingLimits?.[entry.user] ?? 0;
-  for (const entry of budget)
-    if (entry.value < -getLimit(entry.user)) entry.flag = 'limit';
-};
-checkExpenses();
 
-console.log(budget);
+  // const limit = spendingLimits?.[entry.user] ?? 0;
+
+  // for (const entry of newBudget3)
+  //   if (entry.value < -getLimit(limits, entry.user)) entry.flag = 'limit';
+};
+const finalBudget = checkExpenses(newBudget3, spendingLimits);
+console.log('I am the FINAL budget!', finalBudget);
 
 const logBigExpenses = function (bigLimit) {
   let output = '';
@@ -84,6 +95,6 @@ const logBigExpenses = function (bigLimit) {
   console.log(output);
 };
 
-console.log(budget);
+console.log('I am just "budget"', budget);
 
 logBigExpenses(500);
