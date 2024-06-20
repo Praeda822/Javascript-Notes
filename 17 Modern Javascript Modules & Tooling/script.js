@@ -4,11 +4,11 @@
 // Modern Javascript Development
 // ========================================
 //
-// The first step of a build process in modern javascript is known as the "Bundling" process, in which all my modules and/or 3rd party packages are bundled into one big file
-// This is a pretty complicated process, but it can eliminate unused code and compress my code as well
+// The first step of a build process in modern javascsript is known as the "Bundling" process, in which all my modules and/or 3rd party packages are bundled into one big file
+// This is a pretty complicated process, but it can eleminate unused code and compress our code as well
 // This step is important for TWO big reasons:
 // 1. Older browsers don't support Modules at all, so any code in a module can not be executed by any older browser
-//2 . It's significantly better for performance to limit the amount of files sent to the browser, and that the bundling step compresses my code
+//2 . It's significantly better for performance to limit the amount of files sent to the browser, and that the bundling step compresses our code
 
 // The second step of the build process in modern javascript is known as Transpiling/Polyfilling
 // Transpiling/Polyfilling is a process in where all modern javascript & features are converted BACK into ES5 syntax, so that even older browser can read our code without breaking
@@ -33,9 +33,9 @@
 // I can think of modules as small building blocks that I can then put together to build really complex applications, and there are a few advantages of using modules to compose my software
 // The idea of modules is that it allows me to isolate my codeblocks without them interfering with the entire codebase - rather they're structured in a way that sort of "attaches" them
 // Modules are also used to abstract code complexity, and implement low level code and then-for sake of functionality, accessibility, AND compatibility-I can import these abstractions into other modules
-// The use of Modules also naturally leads to a more structured, and organised codebase since modules allow me to easily reuse code, even across multiple projects I may have
+// The use of Modules also naturally lead s to a more structured, and organised codebase since modules allow me to easily reuse code, even across multiple projects I may have
 
-// Native Javascript (ES6) Modules
+// Native Jvascript (ES6) Modules
 // ========================================
 //
 // ES6 modules are stored in files,
@@ -52,13 +52,13 @@
 // 3,5. In Scripts, the .this keyword will point to the window() object
 //
 // 4. A special feature of ES6 modules, as well as overall code reusability, is the ability to use the Export/Import syntax
-// 4,5. In regular Scripts, exporting/importing values is nooooo bueno, but, regarding imports/exports, it's important for me to remember that they can only happen at the top level, so outside of any function or if block, and ALL my imports are hoisted to the top of the file since importing always occurs first in modules
+// 4,5. In regular Scripts, exporting/importing values is nooooo bueno, but, regarding imports/exports, it's important for me to remember that they can only happen at the top level, so outsie of any function or if block, and ALL my imports are hoisted to the top of the file since importing always occurs first in modules
 //
 // 5. In order to link an ES6 module to my HTML, I need to use the script tag with a type declaration of "module"": <script type="module">
 // 5,5. Regular 'ol script tag: <script>
 //
-// 6. ES6 modules are downloaded & retrieved in an ASYNCHRONOUS WAY, so they'll be handled by the/an (Web)API
-// 6,5. Regular scripts are downloaded by default in a blocking, synchronous way, UNLESS I use the async/defer attributes on my script tag
+// 6. Es6 modules are downloaded & retrieved in an ASYNCHRONOUS WAY, so they'll be handled by the/an WebAPI
+// 6,5. Regular scripts are downloaded by default in a blocking, synchronous way, UNLESS I use the async/defer attributes on my scriptt ag
 //
 //
 // How ES6 Modules Are Imported!
@@ -78,7 +78,7 @@
 // This process is only possible due to top-level ("static") imports, which make imports known before the engine's runtime execution
 // So by knowing all of the module dependencies between my modules before execution, bundlers like webpack and Parcel can then join multiple modules together and eliminate that code and this is why I can only import and export outside of any code that needs to be executed, such as afunction or an if block
 
-// After the parsing process has figured out which modules it needs to import, these modules are then downloaded from the web-server in an ASYNCHRONOUS way - remember that SYNCHRONOUS is importing
+// After the parsing process has digured out which modules it needs to import, these modules are then downloaded from the web-server in an ASYNCHRONOUS way - remember that SYNCHRONOUS is importing
 // After a module arrives, it's then parsed and then the modules EXPORTS are linked to the module's IMPORTS in index.js
 // In the example above, the math.js module is eporting a module called { rand }, and this export is consequently connected, or linked, to the { rand } object in my index.js module
 // This link, or connection, is what's known as a "Live Connection", which means exported values are not copied to imports
@@ -171,8 +171,8 @@ console.log(lastPost); // Pending Promise
 
 // BUT above is a disgusting way of doing it
 // Instead, I can use top-level await for this:
-const lastPost2 = await getLastPost();
-console.log(lastPost2);
+// const lastPost2 = await getLastPost();
+// console.log(lastPost2);
 
 // Important to remember!!!
 // If one module imports a module which has a top-level await inside of it, then that importing module will wait for the imported module to finish the blocking code
@@ -263,59 +263,82 @@ console.log(stateDeepClone);
 // Building With Parcel & NPM Scripts
 // ========================================
 //
-//
-// ========================================
-// Imperative vs Declarative Code
-// ========================================
-//
-// There are two fundamentally different ways of writing code, also known as "paradigms": Imperative & Declarative
-//
-// Imperative
-// ========================================
-//
-// Imperative code is where the programmer explains HOW to do things with the code
-// So where I'm basically explaining every single step the computer needs to take to achieve a result
-// So an Imperative way of doing things would be by giving Lozza a recipe of how to bake a cake and telling her to follow it step-by-step, without deviating, to bake that cake
-// As a code example:
+// npx parcel index.html
 
-const arr = [2, 4, 6, 8];
-const doubled = [];
-for (let i = 0; i < arr.length; i++) doubled[i] = arr[i] * 2;
-console.log(doubled);
-
-// Declarative
+// Hot Module Reloading
 // ========================================
 //
-// Declarative code is where the programmer only tells the computer WHAT to do
-// So where I'm basically describing the way I believe the computer should achieve the result I want
-// The HOW (all the step-by-step instructions) get abstracted away
-// To provide a code example:
+// Hot Module Reloading means that whenever I change something in one of the modules, it will then AUTOMATICALLY trigger a rebuild, with that new modified bundle also automatically being included by being injected into the browser
+// This is AMAZING for testing state whenever I'm testing something out
 
-const arr2 = [2, 4, 6, 8];
-const doubled2 = arr2.map(n => n * 2);
-console.log(doubled2);
-//
-//
-// ========================================
-// Functional Programming
-// ========================================
+if (module.hot) {
+  module.hot.accept();
+}
 
-// Functional programming, and by extension declarative code, is the most popular way of programming
-// Functional programming is a declarative paradigm that is based on the idea of writing software by combining many PURE FUNCTIONS, avoiding SIDE EFFECTS and MUTATING data
-// A Side Effect is the modification (mutation) of any data OUTSIDE of the function scope, such as mutating external variables, logging to console, writing to DOM, etc.
-// A Pure Function is a function that does not return on external variables, in that when giben the same inputst that function will always return the same outputs, which means a pure function is a function without Side Effects
-// In Functional programming, State (data) is NEVER MODIFIED, instead the state is COPIED and then it is that COPY that is mutated and returned
+// Now I can npm run start, since I've declared the start script to be parcel index.html
+
+class Person {
+  greeting = 'Hey';
+  constructor(name) {
+    this.name = name;
+    console.log(`${this.greeting}, ${this.name}`);
+  }
+}
+const patrick = new Person('Patrick');
+console.log('Patrick' ?? null);
+
+console.log(cart.find(el => el.quantity >= 2));
+Promise.resolve('TEST').then(x => console.log(x));
+
+import 'core-js/stable';
+// Polifilling async functions
+import 'regenerator-runtime/runtime';
 
 //
-// Functional Programming Techniques
+//
+// ========================================
+// Review: Modern & Clean Javascript Code
 // ========================================
 //
-// In Functional Programming, I should try and avoid data mutations and I should always try to use built-in methods that don't produce (unnecessary) side effects
-// I should try and perform my data transofmrations with methods such as .map(), .filter(), and .reduce(), keeping in mind that I want to try and avoid sife effects in my functions as much as possible, despite that not ALWAYS going to be a possibility
-
-//
-// Declarative Syntax
+// Readable Code
 // ========================================
 //
-// I should use array and object destructuring wherever, and whenever, possible, as well as the spread operator
-// I should also be trying to use the ternary (conditional) operator(s) where I can, and I should also use template literals, as these operators are more about telling the code WHAT to do, instead of the steps it should take, therefore it makes my code more declarative
+// I should write my code not only in a way that others can understand it, but that I can also understand it if I was to come back a year later and read it
+// I should also avoid being too clever, or overly verbose, and I should be using descriptive variable names (what the variable contains) as well as descriptive function names (what the function does)
+//
+//
+// General Code
+// ========================================
+// I should ALWAYS use the DRY principle whenever I refactor my code
+// I should NOT pollute the global namespace with shitty variable names and garbage
+// I should use strong types checks, like === and !==, and i shouldn't use shit like var
+//
+//
+// Functions
+// ========================================
+//
+// I generally, and should always strive for, want my functions to do ONLY ONE THING
+// I shouldn't use more than 3 function parameters if I can help it, and I should use default parameters wherever possible (like element, index, array)
+//
+//
+// OOP
+// ========================================
+//
+// I should get in the habit of using ES6 classes to properly encapsulate my data, so I DON'T MUTATE IT from outside the class (and, ideally, can't)
+// I should implement method chaining, like with my promise .then() returns, and I should NOT use arrow functions as my methods (in regular objects) as then I won't have access to the .this keyword
+//
+//
+// Avoid Nested Code
+// ========================================
+//
+// I should implement early returns, or guard clauses, for my code, and I should use the ternary (conditional) or logical operators instead of if blocks
+// And instead of if/else-if blocks, I should just use multiple ifs in my code, for readabiltiy and reusabiltiy
+// I should also try avoid using for loops, including for of and foreach loops, and instead should strive to use _ideally) built-in array methods instead
+// I should also avoid using callback-based asynchronous APIS, instead opting for Async/Await or .then() to handle asynchronous code
+//
+//
+// Asynchronous Code
+// ========================================
+//
+// I should consume promises with async await for best readability
+// WHenever possible, I should run my promises in parallel by using the Promise.all() method
