@@ -37,3 +37,58 @@ As a **_[type of user]_**, I want **_[an action]_** so that **_[a benefit]_**
    <br>
 
 5. For saving the current running app state, as well as the implementation of being still able to see my bookmarked and/or own recipes, I can store the data in the browser using _localstorage_ and I can both read & display those saved localstorage bookmarks when the page loads
+   <br>
+   <br>
+
+# 3. The MVC Architecture & Code Hygeine
+
+I should think of MVC, or **Model View Control**, Architecture as a venn-diagram comprised of the following three partitions:
+
+#### 1. Code Structure
+
+I should always be thinking about the structure of my code, which is basically just how I **organise** my code.
+<br>
+
+#### 2. Maintainability
+
+I should always be thinking about the maintainability of what I'm building, even **before** i've built it; a project is never _really_ done
+<br>
+
+#### 3. Expandability (Scalability)
+
+I should always be thinking about my project's scabaility, in that I want to be able to add/remove features & functionalities of an app _easily_, this is also where modularised design patterns come in
+<br>
+<br>
+
+Typically speaking, in corporate and/or enterprise-scale (_large-scale_) projects, I'd be using a framework such as **React**, **AngularJS**, **Vue**, **Svelte**, _etc._ to handle the architectural framework & design patterns for me
+<br>
+<br>
+
+## 3.5 Components of _any_ Architecture
+
+I'm able to break up the components that comprise _all_ software architecture into the following 5 categories:
+
+#### 1. Business Logic
+
+The **business logic** is **_any code that solves the actual business problem directly_**, in that the code itself is _directly_ related to what the business does and what it needs to be successful. For example, **sending messages**, **storing transactions**, **calculating taxes**, **_etc._** would _all_ collectively be categorised as **business logic **
+<br>
+
+#### 2. State
+
+The **state** is, essentially, a global variable that stores **all the data** about the application with this global state variable being my one **_true_** source of truth in this _grimdark_ world of programming. **My UI should always be kept in-sync with the application state**. There are, however, _state libraries_ that exist to do all the shitty work for me but since these are concepts I **need** to know, I'm not going to take the easy route.
+<br>
+
+#### 3. HTTP Library
+
+The **HTTP Library** is responsible **for making and receiving AJAX requests**, and whilst entirely optional, it is _almost always necessary_ in the creation of real-world apps.
+<br>
+
+#### 4. Application Logic (_Router_)
+
+The *Application Logic** is code **that is only about the *implementation of the application* itself\*\*, and this logic is also responsible for the handling of both *navigation* as well as *UI events\*
+<br>
+
+#### 5. Presentation Logic(_UI Layer_)
+
+The **Presentation Logic** is code **that is concerned about only the _visible parts_ of the application**, and this logic is essentially responsible for displaying, and maintaining, the _application state_
+<br>
