@@ -19,6 +19,8 @@
     "sass": "^1.77.6"
   },
   "dependencies": {
-    "fracty": "^1.0.9"
+    "core-js": "^3.37.1",
+    "fracty": "^1.0.9",
+    "regenerator-runtime": "^0.14.1"
   }
 }
