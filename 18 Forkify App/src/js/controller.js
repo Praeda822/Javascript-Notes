@@ -36,6 +36,9 @@ const showRecipe = async function () {
     const id = window.location.hash.slice(1);
     console.log(id);
 
+    // Guard-clause to protect from shitty errors
+    if (!id) return;
+
     // 1. Loading recipe
     renderSpinner(recipeContainer);
 
@@ -44,6 +47,7 @@ const showRecipe = async function () {
     );
     // Convert promise result to JSON
     const data = await res.json();
+    console.log(data, res);
 
     if (!res.ok) throw new Error(`${data.message}(${res.status})`);
 
@@ -165,5 +169,6 @@ const showRecipe = async function () {
   }
 };
 
-window.addEventListener('hashchange', showRecipe);
-window.addEventListener('load', showRecipe);
+['hashchange', 'load'].forEach(ev => window.addEventListener(ev, showRecipe));
+// window.addEventListener('hashchange', showRecipe);
+// window.addEventListener('load', showRecipe);
