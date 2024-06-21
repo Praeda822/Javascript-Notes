@@ -64,7 +64,7 @@ Typically speaking, in corporate and/or enterprise-scale (_large-scale_) project
 <br>
 <br>
 
-## 3.5 Components of _any_ Architecture
+## 3.3 Components of _any_ Architecture
 
 I'm able to break up the components that comprise _all_ software architecture into the following 5 categories:
 
@@ -75,7 +75,7 @@ The **business logic** is **_any code that solves the actual business problem di
 
 #### 2. State
 
-The **state** is, essentially, a global variable that stores **all the data** about the application with this global state variable being my one **_true_** source of truth in this _grimdark_ world of programming. **My UI should always be kept in-sync with the application state**. There are, however, _state libraries_ that exist to do all the shitty work for me but since these are concepts I **need** to know, I'm not going to take the easy route.
+The **State** is, essentially, a global variable that stores **all the data** about the application, with this global state variable being my one **_true_** source of truth in this _grimdark_ world of programming. **My UI should always be kept in-sync with the application state**. There are, however, _state libraries_ that exist to do all the shitty work for me, such as **Redux** & **MopX**, but since these are concepts I **need** to know, I'm not going to take the easy route.
 <br>
 
 #### 3. HTTP Library
@@ -92,3 +92,24 @@ The **Application Logic** is code **that is only concerned about the _implementa
 
 The **Presentation Logic** is code **that is concerned about only the _visible parts_ of the application**, and this logic is essentially responsible for displaying, and maintaining, the _application state_.
 <br>
+<br>
+<br>
+
+## 3.6 The Model-View-Controller (MVC)Architecture
+
+The main purpose of the _MVC Architecture_ is to specifically seperate the **Business Logic** from the **Application Logic**, however I need a _bridge_ to _re-unite_ the two logic-blocks together as a direct consequence of this divorce, with that bridge explicitly being the **Controller**
+Good software design incorporates all of the aforementioned concepts into its design structure, but it also follows the same logic as I used to on the tools, in that **any good architect designs a house to be built in a manner where all the trades are able to perform their jobs without touching dicks with one another**. What I mean by this, is that all of the structured design components that go into the house are **_kept seperated_**.
+<br>
+But, as a _universal rule_ all good software design contains three main parts:
+
+#### 1. Model
+
+The **Model** contains both the **State** as well as the **Business Logic responsible for manipulating the State**. The **Model** also contains the **HTTP Library** that is responsible for **both getting & receiving data retrieved from the web**, such as from an _API_ or backend.
+
+#### 2. Controller
+
+The **Controller** contains the **Application Logic**, and it kind of _sits_ between the **Model** and the **View**, acting as a _bridge_ between the **Model** and the **View** since the two typically don't know about one another (_or should always exist independently of each other_)
+
+#### 3. View
+
+The **View** is for the **Presentation Logic**, so it is the part of the application that the user will directly interact with. This model focuses entirely on the application's **_data_**, and so the **View** will typically contain both the **State** as well as the **Business Logic that manipulates the State**.
