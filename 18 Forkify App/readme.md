@@ -70,7 +70,7 @@ I'm able to break up the components that comprise _all_ software architecture in
 
 #### 1. Business Logic
 
-The **business logic** is **_any code that solves the actual business problem directly_**, in that the code itself is _directly_ related to what the business does and what it needs to be successful. For example, **sending messages**, **storing transactions**, **calculating taxes**, **_etc._** would _all_ collectively be categorised as **business logic **
+The **business logic** is **_any code that solves the actual business problem directly_**, in that the code itself is _directly_ related to what the business does and what it needs to be successful. For example, **sending messages**, **storing transactions**, **calculating taxes**, **_etc._** would _all_ collectively be categorised as **business logic**.
 <br>
 
 #### 2. State
@@ -85,10 +85,10 @@ The **HTTP Library** is responsible **for making and receiving AJAX requests**, 
 
 #### 4. Application Logic (_Router_)
 
-The *Application Logic** is code **that is only about the *implementation of the application* itself\*\*, and this logic is also responsible for the handling of both *navigation* as well as *UI events\*
+The **Application Logic** is code **that is only concerned about the _implementation of the application_ itself**, and this logic is also responsible for the handling of both _navigation_ as well as _UI events_.
 <br>
 
 #### 5. Presentation Logic(_UI Layer_)
 
-The **Presentation Logic** is code **that is concerned about only the _visible parts_ of the application**, and this logic is essentially responsible for displaying, and maintaining, the _application state_
+The **Presentation Logic** is code **that is concerned about only the _visible parts_ of the application**, and this logic is essentially responsible for displaying, and maintaining, the _application state_.
 <br>
