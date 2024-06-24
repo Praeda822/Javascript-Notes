@@ -1,3 +1,5 @@
+import * as model from './model.js';
+
 import icons from 'url:../img/icons.svg';
 // Pollyfilling Everything else
 // import 'core-js/stable';
@@ -41,28 +43,6 @@ const showRecipe = async function () {
 
     // 1. Loading recipe
     renderSpinner(recipeContainer);
-
-    const res = await fetch(
-      `https://forkify-api.herokuapp.com/api/v2/recipes/${id}`
-    );
-    // Convert promise result to JSON
-    const data = await res.json();
-    console.log(data, res);
-
-    if (!res.ok) throw new Error(`${data.message}(${res.status})`);
-
-    let { recipe } = data.data;
-    recipe = {
-      id: recipe.id,
-      title: recipe.title,
-      publisher: recipe.publisher,
-      sourceUrl: recipe.source_url,
-      image: recipe.image_url,
-      servings: recipe.servings,
-      cookingTime: recipe.cooking_time,
-      ingredients: recipe.ingredients,
-    };
-    console.log(recipe);
 
     // 2. Rendering recipe
     const markup = `
