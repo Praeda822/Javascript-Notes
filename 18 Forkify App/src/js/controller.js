@@ -5,8 +5,6 @@ import recipeView from './views/recipeView.js';
 // Polyfilling Async/Await
 // import 'regenerator-runtime/runtime';
 
-const recipeContainer = document.querySelector('.recipe');
-
 const timeout = function (s) {
   return new Promise(function (_, reject) {
     setTimeout(function () {
