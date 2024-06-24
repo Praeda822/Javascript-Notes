@@ -3,6 +3,10 @@ import { getJSON } from './helpers.js';
 
 export const state = {
   recipe: {},
+  search: {
+    query: '',
+    results: [],
+  },
 };
 
 export const loadRecipe = async function (id) {
@@ -24,6 +28,27 @@ export const loadRecipe = async function (id) {
   } catch (err) {
     // temp error handling
     console.error(`${err} man this is confusing`);
+    throw err;
+  }
+};
+
+export const loadSearchResults = async function (query) {
+  try {
+    state.search.query = query;
+    const data = await getJSON(`${API_URL}?search=${query}`);
+    console.log(data);
+    state.search.results = data.data.recipes.map(element => {
+      return {
+        id: element.id,
+        title: element.title,
+        publisher: element.publisher,
+        image: element.image_url,
+      };
+    });
+  } catch (err) {
+    console.error(
+      `${err} Throwing the error again to reuse it in the controller`
+    );
     throw err;
   }
 };

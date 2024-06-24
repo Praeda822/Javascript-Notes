@@ -1,5 +1,6 @@
 import * as model from './model.js';
 import recipeView from './views/recipeView.js';
+import searchView from './views/recipeView.js';
 // Pollyfilling Everything else
 // import 'core-js/stable';
 // Polyfilling Async/Await
@@ -7,6 +8,8 @@ import recipeView from './views/recipeView.js';
 
 // https://forkify-api.herokuapp.com/v2
 
+///////////////////////////////////////
+// NO DOM ELEMENTS IN HERE!!
 ///////////////////////////////////////
 
 const controlRecipes = async function () {
@@ -28,6 +31,19 @@ const controlRecipes = async function () {
     recipeView.renderError();
   }
 };
+
+const controlSearchResults = async function () {
+  try {
+    const query = searchView.getQuery();
+    if (!query) return;
+    await model.loadSearchResults(query);
+    console.log(model.state.search.results);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+controlSearchResults();
 
 const init = function () {
   recipeView.addHandlerRender(controlRecipes);
