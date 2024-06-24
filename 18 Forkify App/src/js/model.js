@@ -23,6 +23,7 @@ export const loadRecipe = async function (id) {
     console.log(state.recipe);
   } catch (err) {
     // temp error handling
-    console.error(`${err} WTF CUUUUNT`);
+    console.error(`${err} man this is confusing`);
+    throw err;
   }
 };

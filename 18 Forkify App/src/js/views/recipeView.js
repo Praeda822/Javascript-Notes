@@ -4,6 +4,7 @@ import fracty from 'fracty';
 class RecipeView {
   #parentElement = document.querySelector('.recipe');
   #data;
+  #errorMessage = 'Man I hope my error handling works now..';
 
   render(data) {
     this.#data = data;
@@ -28,7 +29,7 @@ class RecipeView {
     this.#parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 
-  renderError(message) {
+  renderError(message = this.#errorMessage) {
     const markup = `
      <div class="error">
        <div>
