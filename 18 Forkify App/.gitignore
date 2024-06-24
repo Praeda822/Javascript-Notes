@@ -41,3 +41,6 @@ dist/
 
 # Nuxt.js build output
 .nuxt
+
+# Parcel build output
+.parcel-cache/
