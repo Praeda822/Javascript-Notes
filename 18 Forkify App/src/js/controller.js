@@ -16,7 +16,6 @@ import resultsView from './views/resultsView.js';
 const controlRecipes = async function () {
   try {
     const id = window.location.hash.slice(1);
-    console.log(id);
 
     // Guard-clause to protect from shitty errors
     if (!id) return;
@@ -44,7 +43,7 @@ const controlSearchResults = async function () {
     await model.loadSearchResults(query);
 
     // 3. Render results
-    console.log(model.state.search.results);
+    resultsView.render(model.state.search.results);
   } catch (err) {
     console.log(err);
   }
