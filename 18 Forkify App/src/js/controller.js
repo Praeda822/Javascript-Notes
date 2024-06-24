@@ -1,4 +1,5 @@
 import * as model from './model.js';
+import * as model from './model.js';
 
 import icons from 'url:../img/icons.svg';
 // Pollyfilling Everything else
@@ -40,9 +41,12 @@ const showRecipe = async function () {
 
     // Guard-clause to protect from shitty errors
     if (!id) return;
+    renderSpinner(recipeContainer);
 
     // 1. Loading recipe
-    renderSpinner(recipeContainer);
+    // Will return a promise - HANDLE IT
+    await model.loadRecipe(id);
+    const { recipe } = model.state.recipe;
 
     // 2. Rendering recipe
     const markup = `
