@@ -46,7 +46,7 @@ const showRecipe = async function () {
     // 1. Loading recipe
     // Will return a promise - HANDLE IT
     await model.loadRecipe(id);
-    const { recipe } = model.state.recipe;
+    const { recipe } = model.state;
 
     // 2. Rendering recipe
     const markup = `
