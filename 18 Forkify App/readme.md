@@ -113,3 +113,30 @@ The **Controller** is responsible for handling UI events and **dispatching tasks
 #### 3. View
 
 The **View** is for the **Presentation Logic**, so it is the part of the application that the user will directly interact with. This model focuses entirely on the application's **_data_**, and so the **View** will typically contain both the **State** as well as the **Business Logic that manipulates the State**. The **View** also receives the data from the **Controller** that was _originally asked for and sent by the **Model**_, and requested for by the **Controller**, with this received data ultimately becoming responsible for changing the application's **State** and finishing the whole _data-flow_ cycle.
+<br>
+<br>
+<br>
+
+## 3.9 Event Handling in MVC: Publisher-Subscriber Pattern
+
+Events should be **handled** by the **controller**, otherwise I would end up with application logic in the view. <br>
+Additionally, events should be **listened for** in the **View**, otherwise I would need DOM elements in the controller
+<br>
+
+In the **Publisher-Subscriber Pattern**, I have a **Publisher**, which is essentially my code that knows _when_ to react, and in this project's case that code is the _addHandlerRender()_ function, **as it will contain the _addEventListener()_ method and will therefore know when to react to the event**, and that _addHandlerRender()_ function is part of the **Class RecipeView**.
+<br>
+
+On the other hand, in the **Publisher-Subscriber Pattern** I also have a **Subscriber**, which is essentially **the code that will be executed when the event happens**, and in this project's case that code is the _controlRecipes()_ function that is in my **Controller**
+<br>
+
+OK... So, what's the solution to the problem of my _MVC_ architectural components being not only unable to see one another, but also requiring the ability to see one another for my app's functionality in the first place??
+<br>
+
+Well, I can **subscribe to the publisher (_link my MVC Architecture together_) by passing in my _subscriber_ function as an _argument_ to the _init()_ function (_part of the controller module_) which is called as soon as the program loads, which in turn immediately calls the _addHandlerRender()_ function from the view**. This is all possible since the controller _does_ import both the **view** as well as the **model**.
+<br>
+
+Now, as I call my _addHandlerRender()_ function, I pass the _controlRecipes()_ function into it as an argument, so I'm essentially **subscribing _controlRecipes()_ to _addHandlerRender()_**
+<br>
+
+Finally, connecting these two functions together on initial app load, _addHandlerRender()_ **listens for events using the _addEventListener()_ method (_as always_) and as soon as the event actually happens the _controlRecipes()_ function will be called as the callback function of _addEventListener()_**
+<br>
