@@ -4,6 +4,15 @@ import icons from 'url:../../img/icons.svg';
 class PaginationView extends View {
   _parentElement = document.querySelector('.pagination');
 
+  addHandlerClick(handler) {
+    this._parentElement.addEventListener('click', function (e) {
+      // Looking UP for parents
+      const btn = e.target.closest('.btn--inline');
+      if (!button) return;
+      console.log(btn);
+    });
+  }
+
   // Buttonmaker
   _generateMarkup() {
     const curPage = this._data.page;
