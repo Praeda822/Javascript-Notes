@@ -20,6 +20,7 @@ const controlRecipes = async function () {
 
     // Guard-clause to protect from shitty errors
     if (!id) return;
+
     recipeView.renderSpinner();
 
     // 1. Loading recipe
@@ -44,7 +45,7 @@ const controlSearchResults = async function () {
     await model.loadSearchResults(query);
 
     // 3. Render results
-    resultsView.render(model.getSearchResultsPage(1));
+    resultsView.render(model.getSearchResultsPage());
 
     // 4. Render initial pagination buttons
     paginationView.render(model.state.search);

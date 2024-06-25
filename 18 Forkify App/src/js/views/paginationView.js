@@ -8,9 +8,7 @@ class PaginationView extends View {
     this._parentElement.addEventListener('click', function (e) {
       // Looking UP for parents
       const btn = e.target.closest('.btn--inline');
-      console.log(btn);
       const goToPage = +btn.dataset.goto;
-      console.log(btn.dataset.goto);
       handler(goToPage);
     });
   }
@@ -20,7 +18,6 @@ class PaginationView extends View {
     const numPages = Math.ceil(
       this._data.results.length / this._data.resultsPerPage
     );
-    console.log(numPages);
 
     // Single page, no paggie needed
     if (numPages <= 1) return '';
