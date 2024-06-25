@@ -8,12 +8,13 @@ class PaginationView extends View {
     this._parentElement.addEventListener('click', function (e) {
       // Looking UP for parents
       const btn = e.target.closest('.btn--inline');
-      if (!button) return;
       console.log(btn);
+      const goToPage = +btn.dataset.goto;
+      console.log(btn.dataset.goto);
+      handler(goToPage);
     });
   }
 
-  // Buttonmaker
   _generateMarkup() {
     const curPage = this._data.page;
     const numPages = Math.ceil(
@@ -42,10 +43,10 @@ class PaginationView extends View {
     // Page 1, and there are NO other pages
     return '';
   }
-
+  // Buttonmaker
   _generateBtnMarkup(direction, page) {
     return `
-      <button class="btn--inline pagination__btn--${direction}">
+      <button data-goto="${page}"class="btn--inline pagination__btn--${direction}">
         ${
           direction === 'prev'
             ? `

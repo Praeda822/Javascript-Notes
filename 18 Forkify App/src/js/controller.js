@@ -53,8 +53,19 @@ const controlSearchResults = async function () {
   }
 };
 
+const controlPagination = function (goToPage) {
+  console.log('paggie controller');
+  // Update my current page in the state
+  model.state.search.page = goToPage;
+  // Render the results
+  resultsView.render(model.getSearchResultsPage(goToPage));
+  // Render new pagination buttons
+  paginationView.render(model.state.search);
+};
+
 const init = function () {
   recipeView.addHandlerRender(controlRecipes);
   searchView.addHandlerSearch(controlSearchResults);
+  paginationView.addHandlerClick(controlPagination);
 };
 init();
