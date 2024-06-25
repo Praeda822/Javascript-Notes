@@ -22,29 +22,27 @@ class PaginationView extends View {
     );
     console.log(numPages);
 
+    // Single page, no paggie needed
+    if (numPages <= 1) return '';
+
     // Page 1, and there are other pages
     if (curPage === 1 && numPages > 1) {
-      return this._generateBtnMarkup('next', curPage + 1);
+      return this._makeBtn('next', curPage + 1);
     }
     // Last Page
     if (curPage === numPages) {
-      return this._generateBtnMarkup('prev', curPage - 1);
+      return this._makeBtn('prev', curPage - 1);
     }
     // Other page
     if (curPage < numPages) {
       return `
-      ${this._generateBtnMarkup('prev', curPage - 1)}${this._generateBtnMarkup(
-        'next',
-        curPage + 1
-      )}
+      ${this._makeBtn('prev', curPage - 1)}${this._makeBtn('next', curPage + 1)}
 
       `;
     }
-    // Page 1, and there are NO other pages
-    return '';
   }
   // Buttonmaker
-  _generateBtnMarkup(direction, page) {
+  _makeBtn(direction, page) {
     return `
       <button data-goto="${page}"class="btn--inline pagination__btn--${direction}">
         ${
