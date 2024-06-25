@@ -14,29 +14,21 @@ class PaginationView extends View {
 
     // Page 1, and there are other pages
     if (curPage === 1 && numPages > 1) {
-      return `
-            <button class="btn--inline pagination__btn--next">
-                <span>Page ${curPage + 1}</span>
-                <svg class="search__icon">
-                    <use href="${icons}#icon-arrow-right"></use>
-                </svg>
-            </button>
-        `;
+      return this._generateBtnMarkup('next', curPage + 1);
     }
     // Last Page
     if (curPage === numPages) {
-      return `
-            <button class="btn--inline pagination__btn--prev">
-                <svg class="search__icon">
-                    <use href="${icons}#icon-arrow-left"></use>
-                </svg>
-                <span>Page ${curPage - 1}</span>
-            </button>
-            
-        `;
+      return this._generateBtnMarkup('prev', curPage - 1);
     }
     // Other page
     if (curPage < numPages) {
+      return `
+      ${this._generateBtnMarkup('prev', curPage - 1)}${this._generateBtnMarkup(
+        'next',
+        curPage + 1
+      )}
+
+      `;
     }
     // Page 1, and there are NO other pages
     return '';
