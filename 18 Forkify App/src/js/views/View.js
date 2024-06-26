@@ -16,6 +16,18 @@ export default class View {
     this._parentElement.innerHTML = '';
   }
 
+  update(data) {
+    if (!data || (Array.isArray(data) && data.length === 0))
+      return this.renderError();
+    this._data = data;
+    const newMarkup = this._generateMarkup();
+
+    // This method converts my HTML string (newMarkup) to a yuuuge new DOM object, like a virtual DOM (what React does I think..) and I can fuck with this DOM as if it was the real one
+    const newDOM = document.createRange().createContextualFragment(newMarkup);
+    const newElements = newDOM.querySelectorAll('*');
+    console.log(newElements);
+  }
+
   renderSpinner() {
     const markup = `
               <div class="spinner">
