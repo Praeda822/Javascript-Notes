@@ -57,14 +57,14 @@ class RecipeView extends View {
         <div class="recipe__info-buttons">
           <button data-update-to="${
             this._data.servings - 1
-          }"class="btn--tiny btn--update-servings >
+          }"class="btn--tiny btn--update-servings">
             <svg>
               <use href="${icons}#icon-minus-circle"></use>
             </svg>
           </button>
           <button data-update-to="${
             this._data.servings + 1
-          }"class="btn--tiny btn--update-servings >
+          }"class="btn--tiny btn--update-servings">
             <svg>
               <use href="${icons}#icon-plus-circle"></use>
             </svg>
