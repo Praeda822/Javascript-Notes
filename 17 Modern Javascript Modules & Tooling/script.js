@@ -15,7 +15,7 @@
 // THIS is done using a tool known as...Babel!!
 
 // After these two steps, I'll end up with the final javascript bundle ready to be deployed on a server for production
-// I DON'T do this process myself, and should instead be using a modern javascriptk bundler, such as "webpack" or "parcel"
+// I DON'T do this process myself, and should instead be using a modern javascript bundler, such as "webpack" or "parcel"
 // Javascript Bundlers, such as Webpack & Parcel, take my raw code and transform it into a javascript bundle
 // Between Webpack and Parcel, Webpack is the more popular of the two javascript bundlers, but it's a fucker to configure whereas Parcel simply just works out of the box (no set-up code)
 
@@ -52,7 +52,7 @@
 // 3,5. In Scripts, the .this keyword will point to the window() object
 //
 // 4. A special feature of ES6 modules, as well as overall code reusability, is the ability to use the Export/Import syntax
-// 4,5. In regular Scripts, exporting/importing values is nooooo bueno, but, regarding imports/exports, it's important for me to remember that they can only happen at the top level, so outsie of any function or if block, and ALL my imports are hoisted to the top of the file since importing always occurs first in modules
+// 4,5. In regular Scripts, exporting/importing values is nooooo bueno, but, regarding imports/exports, it's important for me to remember that they can only happen at the top level, so outside of any function or if block, and ALL my imports are hoisted to the top of the file since importing always occurs first in modules
 //
 // 5. In order to link an ES6 module to my HTML, I need to use the script tag with a type declaration of "module"": <script type="module">
 // 5,5. Regular 'ol script tag: <script>
@@ -341,4 +341,4 @@ import 'regenerator-runtime/runtime';
 // ========================================
 //
 // I should consume promises with async await for best readability
-// WHenever possible, I should run my promises in parallel by using the Promise.all() method
+// Whenever possible, I should run my promises in parallel by using the Promise.all() method
