@@ -17,7 +17,6 @@ class RecipeView extends View {
       // Don't forget to validate...
       if (!btn) return;
       console.log(btn);
-      // WTF?? Why isn't this converting?????
       const updateTo = +btn.dataset.updateTo;
       console.log('Update to:', updateTo);
       if (updateTo > 0) handler(updateTo);

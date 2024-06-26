@@ -68,9 +68,6 @@ const controlPagination = function (goToPage) {
 };
 
 const controlServings = function (newServings) {
-  // Debugging...
-  console.log('newServings:', newServings);
-
   // Update recipe servings (in state)
   model.updateServings(newServings);
   // Update the recipe view
