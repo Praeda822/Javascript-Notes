@@ -32,7 +32,21 @@ export default class View {
     // Comparison using .isEqualNode()
     newElements.forEach((newEl, index) => {
       const curEl = curElements[index];
-      console.log(curEl, newEl.isEqualNode(curEl));
+
+      // Updates only changed TEXT
+      if (
+        !newEl.isEqualNode(curEl) &&
+        newEl.firstChild.nodeValue.trim() !== ''
+      ) {
+        curEl.textContent = newEl.textContent;
+      }
+      // Updates only changed ATTRIBUTES
+      if (!newEl.isEqualNode(curEl))
+        Array.from(
+          newEl.attributes.forEach(attr =>
+            curEl.setAttribute(attr.name, attr.value)
+          )
+        );
     });
   }
 
