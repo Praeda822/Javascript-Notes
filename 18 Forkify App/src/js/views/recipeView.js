@@ -18,7 +18,7 @@ class RecipeView extends View {
       if (!btn) return;
       console.log(btn);
       // WTF?? Why isn't this converting?????
-      const { updateTo } = +btn.dataset;
+      const updateTo = +btn.dataset.updateTo;
       console.log('Update to:', updateTo);
       if (updateTo > 0) handler(updateTo);
     });
@@ -55,14 +55,14 @@ class RecipeView extends View {
         <span class="recipe__info-text">servings</span>
 
         <div class="recipe__info-buttons">
-          <button data-update-to="${
+          <button data-update-to ="${
             this._data.servings - 1
           }"class="btn--tiny btn--update-servings">
             <svg>
               <use href="${icons}#icon-minus-circle"></use>
             </svg>
           </button>
-          <button data-update-to="${
+          <button data-update-to ="${
             this._data.servings + 1
           }"class="btn--tiny btn--update-servings">
             <svg>
