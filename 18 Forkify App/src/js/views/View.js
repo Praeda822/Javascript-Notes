@@ -17,8 +17,6 @@ export default class View {
   }
 
   update(data) {
-    if (!data || (Array.isArray(data) && data.length === 0))
-      return this.renderError();
     this._data = data;
     const newMarkup = this._generateMarkup();
 
@@ -42,7 +40,6 @@ export default class View {
       }
       // Updates only changed ATTRIBUTES
       // Fixed the bug here, I was missing the Array.from() method to convert newEl.attributes to an array
-
       if (!newEl.isEqualNode(curEl)) {
         Array.from(newEl.attributes).forEach(attr =>
           curEl.setAttribute(attr.name, attr.value)
