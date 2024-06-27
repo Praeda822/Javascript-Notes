@@ -3,6 +3,7 @@ import recipeView from './views/recipeView.js';
 import searchView from './views/searchView.js';
 import resultsView from './views/resultsView.js';
 import paginationView from './views/paginationView.js';
+import bookmarksView from './views/bookmarksView.js';
 // Pollyfilling Everything else
 // import 'core-js/stable';
 // Polyfilling Async/Await
@@ -81,13 +82,16 @@ const controlServings = function (newServings) {
 };
 
 const controlAddBookmark = function () {
+  // Add/removes bookmarks
   if (!model.state.recipe.bookmarked) {
     model.addBookmark(model.state.recipe);
   } else {
     model.deleteBookmark(model.state.recipe.id);
   }
-  model.addBookmark(model.state.recipe);
+  // Updates the recipe view container
   recipeView.render(model.state.recipe);
+  // Renders the bookmarks in the bookmark container
+  bookmarksView.render(model.state.bookmarks);
 };
 
 const init = function () {
