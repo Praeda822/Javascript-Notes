@@ -22,8 +22,8 @@ export default class View {
     this._data = data;
     const newMarkup = this._generateMarkup();
 
-    // This method converts my HTML string (newMarkup) to a yuuuge new DOM object, like a virtual DOM (what React does I think..) and I can fuck with this DOM as if it was the real one
-    // In reality, though, I want to do a comparison check between my new fake DOM and the OG REAL DOM
+    // This method converts my HTML string (newMarkup) to a new DOM object, like a virtual DOM (what React does I think..) and I can manipulate this DOM as if it was the real one
+    // In reality, though, I want to do a comparison check between my new virtual DOM and the original real DOM
     const newDOM = document.createRange().createContextualFragment(newMarkup);
     // Convert variables to arrays
     const newElements = Array.from(newDOM.querySelectorAll('*'));
@@ -41,12 +41,13 @@ export default class View {
         curEl.textContent = newEl.textContent;
       }
       // Updates only changed ATTRIBUTES
-      if (!newEl.isEqualNode(curEl))
-        Array.from(
-          newEl.attributes.forEach(attr =>
-            curEl.setAttribute(attr.name, attr.value)
-          )
+      // Fixed the bug here, I was missing the Array.from() method to convert newEl.attributes to an array
+
+      if (!newEl.isEqualNode(curEl)) {
+        Array.from(newEl.attributes).forEach(attr =>
+          curEl.setAttribute(attr.name, attr.value)
         );
+      }
     });
   }
 
