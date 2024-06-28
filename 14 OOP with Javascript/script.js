@@ -21,7 +21,7 @@
 // ========================================
 //
 // Abstraction means to ignore, or hide, the details that don't matter
-// To simplify this, I can think of the addEventListener() method: I don't completely understand it, but because I don't have to worry about the low-level details, I can still utilise the method as a tool by abstarcting away the things I don't need to know.
+// To simplify this, I can think of the addEventListener() method: I don't completely understand it, but because I don't have to worry about the low-level details, I can still utilise the method as a tool by abstracting away the things I don't need to know.
 //
 // Encapsulation
 // ========================================
@@ -37,7 +37,7 @@
 // In OOP, when I have two classes that are closely related, I can have one class inherit it's properties from another - so a parent, and a child class, with that respective child class being an extension of its parent (thinking back to BEM...)
 // For example, let's say I have three classes: User, Admin, and Author, and all three of these classes have their own respective method for logging in, login(password){}
 // But both the Admin & Author classes have another property, named "permissions", as well as their own identical method for logging in
-// So designing my classes to have ALL the same properties & methods becomes not only a huge ballache, but I'll run into BIIIIG problems
+// So designing my classes to have ALL the same properties & methods becomes not only a huge ballache, but I'll run into some problems
 // Well I can structure my code in a way where the both the Admin & Author classes become child classes of User, respectively, so Admin/Author are both technically users, but extended users
 //
 
@@ -58,9 +58,8 @@
 // In Javascript, classes can be used to create actual objects (object generation, remember?)called INSTANCES
 // This process, where Objects are created (generated) from a class, is called INSTANTIATION
 // And, as I also know, all objects in Javascript are: PROTOTYPES.
-// Remember the Data Science bullshit bonanza from Section 9 that you wanted to headbutt a wall doing after 3 rounds of it?
-// What's an Array (REALLY)? Well, it's technically speaking, an object that I am amble to pass methods() to
-// Remember, PASS the methods to, meaning it's the PROTOTYPE (Blueprint brooo) that ACTUALLY contains the methods, and the Objects themselves are BUILT FROM the site plans!! (what a fuck around trifecta)
+// What's an Array (REALLY)? Well, it's technically speaking, an object that I am able to pass methods() to
+// Remember, PASS the methods to, meaning it's the PROTOTYPE (Blueprint brooo) that ACTUALLY contains the methods, and the Objects themselves are BUILT FROM the site plans!!
 // Technically speaking, this is called
 
 // PROTYPAL INHERITANCE:
