@@ -3,6 +3,17 @@ import icons from 'url:../../img/icons.svg';
 export default class View {
   _data;
 
+  // Double star into single for the JSDocs functionality to generate function docs
+  /**
+   * Renders received object to the DOM
+   * @param {Object | Object[]} data rendered data (e.g. recipe)
+   * @param {boolean} [render=true]  If false, create markup string instead of rendering to the DOM
+   * @returns {undefined | string} A markup string is returned if render=false
+   * @this {Object} View instance
+   * @author Patrick Kelly
+   * @todo Finish implementation
+   */
+
   render(data, render = true) {
     if (!data || (Array.isArray(data) && data.length === 0))
       return this.renderError();
