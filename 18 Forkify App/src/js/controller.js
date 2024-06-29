@@ -104,7 +104,12 @@ const controlBookmarks = function () {
 };
 
 const controlAddRecipe = function (newRecipe) {
-  model.uploadRecipe(newRecipe);
+  try {
+    model.uploadRecipe(newRecipe);
+  } catch (err) {
+    console.error('This is YOUR fuckup, mate', err);
+    addRecipeView.renderError(err.message);
+  }
 };
 
 const init = function () {
