@@ -120,21 +120,35 @@ const clearBookmarks = function () {
 // clearBookmarks();
 
 export const uploadRecipe = async function (newRecipe) {
-  // The .map() method is always good to create new arrays built from already pre-existing data
-  // console.log(Object.entries(newRecipe));
-  const ingredients = Object.entries(newRecipe)
-    .filter(entry => entry[0].startsWith('ingredient') && entry[1] !== '')
-    .map(ing => {
-      const ingArr = ing[1].replaceAll(' ', '').split(',');
+  try {
+    // The .map() method is always good to create new arrays built from already pre-existing data
+    // console.log(Object.entries(newRecipe));
+    const ingredients = Object.entries(newRecipe)
+      .filter(entry => entry[0].startsWith('ingredient') && entry[1] !== '')
+      .map(ing => {
+        const ingArr = ing[1].replaceAll(' ', '').split(',');
 
-      if (ingArr.length !== 3)
-        throw new Error(
-          'Wrong ingredient format, bro. Use the correct format, please, thanks.'
-        );
+        if (ingArr.length !== 3)
+          throw new Error(
+            'Wrong ingredient format, bro. Use the correct format, please, thanks.'
+          );
 
-      const [quantity, unit, description] = ingArr;
+        const [quantity, unit, description] = ingArr;
 
-      return { quantity: quantity ? +quantity : null, unit, description };
-    });
-  console.log(ingredients);
+        return { quantity: quantity ? +quantity : null, unit, description };
+      });
+
+    const recipe = {
+      title: newRecipe.title,
+      source_url: newRecipe.sourceUrl,
+      image_url: newRecipe.image,
+      publisher: newRecipe.publisher,
+      cooking_time: +newRecipe.cookingTime,
+      servings: +newRecipe.servings,
+      ingredients,
+    };
+    console.log(recipe);
+  } catch (err) {
+    throw err;
+  }
 };
