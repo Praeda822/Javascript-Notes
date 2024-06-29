@@ -118,3 +118,14 @@ const clearBookmarks = function () {
   localStorage.clear('bookmarks');
 };
 // clearBookmarks();
+
+export const uploadRecipe = async function (newRecipe) {
+  // The .map() method is always good to create new arrays built from already pre-existing data
+  // console.log(Object.entries(newRecipe));
+  const ingredients = Object.entries(newRecipe)
+    .filter(entry => entry[0].startsWith('ingredient') && entry[1] !== '')
+    .map(ing => {
+      ing.replaceAll(' ', '').split(',');
+    });
+  console.log(ingredients);
+};
