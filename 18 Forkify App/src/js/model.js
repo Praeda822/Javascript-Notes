@@ -28,7 +28,7 @@ const createRecipeObject = function (data) {
 
 export const loadRecipe = async function (id) {
   try {
-    const data = await getJSON(`${API_URL}/${id}`);
+    const data = await getJSON(`${API_URL}${id}`);
     state.recipe = createRecipeObject(data);
 
     if (state.bookmarks.some(bookmark => bookmark.id === id)) {
@@ -148,12 +148,11 @@ export const uploadRecipe = async function (newRecipe) {
       servings: +newRecipe.servings,
       ingredients,
     };
-    console.log(recipe);
     const data = await sendJSON(
       `${API_URL}?search=${recipe.title}&key=${KEY}`,
       recipe
     );
-    console.log(data);
+    state.recipe = createRecipeObject(data);
   } catch (err) {
     throw err;
   }
