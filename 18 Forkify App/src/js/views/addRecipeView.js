@@ -20,7 +20,6 @@ class AddRecipeView extends View {
   }
 
   _addHandlerShowWindow() {
-    console.log(this._btnOpen);
     this._btnOpen.addEventListener('click', this.toggleWindow.bind(this));
   }
 
@@ -29,11 +28,14 @@ class AddRecipeView extends View {
     this._overlay.addEventListener('click', this.toggleWindow.bind(this));
   }
 
-  _addHandlerUplaod() {
-    this._parentELement.addEventListener('submit', function (e) {
+  addHandlerUpload(handler) {
+    this._parentElement.addEventListener('submit', function (e) {
       e.preventDefault();
-      const data = [...new FormData(this)];
-      console.log(data);
+      const dataArr = [...new FormData(this)];
+      // Converting my array to an object
+      // .fromEntries() is the opposite of the .entries() method, in that .fromEntries() TAKES an array of entries and converts that array to an object
+      const data = Object.fromEntries(dataArr);
+      handler(data);
     });
   }
 
