@@ -59,7 +59,7 @@ export const loadSearchResults = async function (query) {
         title: element.title,
         publisher: element.publisher,
         image: element.image_url,
-        ...(rec.key && { key: rec.key }),
+        ...(element.key && { key: element.key }),
       };
     });
     state.search.page = 1;
@@ -135,7 +135,8 @@ export const uploadRecipe = async function (newRecipe) {
     const ingredients = Object.entries(newRecipe)
       .filter(entry => entry[0].startsWith('ingredient') && entry[1] !== '')
       .map(ing => {
-        const ingArr = ing[1].replaceAll(' ', '').split(',');
+        const ingArr = ing[1].split(',').map(el => el.trim());
+        // const ingArr = ing[1].replaceAll(' ', '').split(',');
 
         if (ingArr.length !== 3)
           throw new Error('Bro, use the right ingredient format!.');
