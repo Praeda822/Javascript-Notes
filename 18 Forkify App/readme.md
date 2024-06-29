@@ -140,3 +140,22 @@ Now, as I call my _addHandlerRender()_ function, I pass the _controlRecipes()_ f
 
 Finally, connecting these two functions together on initial app load, _addHandlerRender()_ **listens for events using the _addEventListener()_ method (_as always_) and as soon as the event actually happens the _controlRecipes()_ function will be called as the callback function of _addEventListener()_**
 <br>
+<br>
+<br>
+
+## 4. Features yet to be implemented
+
+1. Display **number of pages** between the pagiantion buttons
+   <br>
+2. Ability to **sort** search results by duration and/or by number(s) of ingredient(s)
+   <br>
+3. Perform **ingredient validation** (_data validation_) in the view, prior to form submission
+   <br>
+4. **Improve recipe ingredient input**: seperate in multiple fields and allow more than 6 total ingredients
+   <br>
+5. Implement a **shopping list feature**: add a button to the recipe in order to add ingredients to a list
+   <br>
+6. **Weekling meal planning feature**: assign recipes for the next 7 days as part of a meal-prep plan and have them displayed on a weekly calender
+   <br>
+7. **Get nutritional data**: on each ingredient from the **Spoonacular API** (_htpps://spoonacular.com/food-api_) and calculate total calories of recipe
+   <br><br><br>
