@@ -23,6 +23,10 @@ const createRecipeObject = function (data) {
     servings: recipe.servings,
     cookingTime: recipe.cooking_time,
     ingredients: recipe.ingredients,
+    // this is a REALLY NICE WAY of conditionally adding properties to an object
+    // if recipe.key is a falsy value, nothing happens since && short-circuits
+    // if recipe.key DOES exist, then the key object is returned and displayed as if the values were on the outside
+    ...(recipe.key && { key: recipe.key }),
   };
 };
 
@@ -153,6 +157,7 @@ export const uploadRecipe = async function (newRecipe) {
       recipe
     );
     state.recipe = createRecipeObject(data);
+    addBookmark(state.recipe);
   } catch (err) {
     throw err;
   }
