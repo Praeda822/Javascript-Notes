@@ -4,6 +4,7 @@ import searchView from './views/searchView.js';
 import resultsView from './views/resultsView.js';
 import paginationView from './views/paginationView.js';
 import bookmarksView from './views/bookmarksView.js';
+import AddRecipeView from './views/addRecipeView.js';
 // Pollyfilling Everything else
 // import 'core-js/stable';
 // Polyfilling Async/Await
