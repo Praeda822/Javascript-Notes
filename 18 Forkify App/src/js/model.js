@@ -2,6 +2,22 @@ import { API_URL, RES_PER_PAGE, KEY } from './config.js';
 // import { getJSON, sendJSON } from './helpers.js';
 import { AJAX } from './helpers.js';
 
+/**
+ * Represents the state of the application.
+ * @typedef {Object} State
+ * @property {Object} recipe - The currently selected recipe.
+ * @property {Object} search - The search state.
+ * @property {string} search.query - The search query.
+ * @property {Array} search.results - The search results.
+ * @property {number} search.page - The current page of search results.
+ * @property {number} search.resultsPerPage - The number of search results per page.
+ * @property {Array} bookmarks - The bookmarked recipes.
+ */
+
+/**
+ * The application state.
+ * @type {State}
+ */
 export const state = {
   recipe: {},
   search: {
@@ -13,6 +29,12 @@ export const state = {
   bookmarks: [],
 };
 
+/**
+ * Creates a recipe object based on the provided data.
+ *
+ * @param {Object} data - The data object containing recipe information.
+ * @returns {Object} - The created recipe object.
+ */
 const createRecipeObject = function (data) {
   const { recipe } = data.data;
   return {
@@ -31,6 +53,11 @@ const createRecipeObject = function (data) {
   };
 };
 
+/**
+ * Loads a recipe from the API and updates the state with the recipe data.
+ * @param {string} id - The ID of the recipe to load.
+ * @throws {Error} If there is an error loading the recipe.
+ */
 export const loadRecipe = async function (id) {
   try {
     const data = await AJAX(`${API_URL}${id}?key=${KEY}`);
@@ -48,6 +75,13 @@ export const loadRecipe = async function (id) {
   }
 };
 
+/**
+ * Loads search results based on the provided query.
+ *
+ * @param {string} query - The search query.
+ * @returns {Promise<void>} - A promise that resolves when the search results are loaded.
+ * @throws {Error} - If there is an error while loading the search results.
+ */
 export const loadSearchResults = async function (query) {
   try {
     state.search.query = query;
@@ -71,6 +105,12 @@ export const loadSearchResults = async function (query) {
   }
 };
 
+/**
+ * Retrieves a specific page of search results.
+ *
+ * @param {number} [page=state.search.page] - The page number to retrieve. Defaults to the current page in the state.
+ * @returns {Array} - An array containing the search results for the specified page.
+ */
 export const getSearchResultsPage = function (page = state.search.page) {
   state.search.page = page;
 
@@ -80,6 +120,11 @@ export const getSearchResultsPage = function (page = state.search.page) {
   return state.search.results.slice(start, end);
 };
 
+/**
+ * Updates the servings of the recipe and adjusts the ingredient quantities accordingly.
+ *
+ * @param {number} newServings - The new number of servings for the recipe.
+ */
 export const updateServings = function (newServings) {
   state.recipe.ingredients.forEach(ing => {
     // newQt = oldQt * newServings / oldServings
@@ -103,6 +148,10 @@ export const addBookmark = function (recipe) {
   persistBookmarks();
 };
 
+/**
+ * Deletes a bookmark from the state and updates the recipe's bookmark status.
+ * @param {string} id - The ID of the bookmark to be deleted.
+ */
 export const deleteBookmark = function (id) {
   // Delete bookmark
   const index = state.bookmarks.findIndex(el => el.id === id);
@@ -128,6 +177,13 @@ const clearBookmarks = function () {
 };
 // clearBookmarks();
 
+/**
+ * Uploads a new recipe to the server.
+ *
+ * @param {Object} newRecipe - The new recipe object to be uploaded.
+ * @returns {Promise} A promise that resolves when the recipe is uploaded successfully.
+ * @throws {Error} If the ingredient format is incorrect.
+ */
 export const uploadRecipe = async function (newRecipe) {
   try {
     // The .map() method is always good to create new arrays built from already pre-existing data
