@@ -8,6 +8,13 @@ const timeout = function (s) {
   });
 };
 
+/**
+ * Makes an AJAX request to the specified URL.
+ * @param {string} url - The URL to make the request to.
+ * @param {Object} [uploadData] - The data to be uploaded (optional).
+ * @returns {Promise<Object>} - A promise that resolves to the response data.
+ * @throws {Error} - If the request fails or the response is not OK.
+ */
 export const AJAX = async function (url, uploadData = undefined) {
   try {
     const fetchPro = uploadData

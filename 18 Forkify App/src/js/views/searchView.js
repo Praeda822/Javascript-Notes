@@ -1,3 +1,7 @@
+/**
+ * Represents a search view.
+ * @class
+ */
 class SearchView {
   _parentElement = document.querySelector('.search');
 

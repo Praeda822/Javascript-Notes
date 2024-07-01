@@ -2,6 +2,10 @@ import View from './View.js';
 import icons from 'url:../../img/icons.svg';
 import fracty from 'fracty';
 
+/**
+ * Represents a view for rendering recipe details.
+ * @extends View
+ */
 class RecipeView extends View {
   _parentElement = document.querySelector('.recipe');
   _errorMessage = 'Man I hope my error handling works now..';

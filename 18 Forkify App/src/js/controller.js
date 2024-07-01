@@ -6,16 +6,15 @@ import resultsView from './views/resultsView.js';
 import paginationView from './views/paginationView.js';
 import bookmarksView from './views/bookmarksView.js';
 import addRecipeView from './views/addRecipeView.js';
-// import 'core-js/stable';
-// Polyfilling Async/Await
-// import 'regenerator-runtime/runtime';
-
-// https://forkify-api.herokuapp.com/v2
 
 ///////////////////////////////////////
 // NO DOM ELEMENTS IN HERE!!
 ///////////////////////////////////////
 
+/**
+ * Controls the rendering of a recipe.
+ * @async
+ */
 const controlRecipes = async function () {
   try {
     const id = window.location.hash.slice(1);
@@ -45,6 +44,10 @@ const controlRecipes = async function () {
   }
 };
 
+/**
+ * Controls the search results.
+ * @async
+ */
 const controlSearchResults = async function () {
   try {
     resultsView.renderSpinner();
@@ -65,6 +68,10 @@ const controlSearchResults = async function () {
   }
 };
 
+/**
+ * Controls the pagination.
+ * @param {number} goToPage - The page number to go to.
+ */
 const controlPagination = function (goToPage) {
   console.log('paggie controller');
   // Update my current page in the state
@@ -75,6 +82,10 @@ const controlPagination = function (goToPage) {
   paginationView.render(model.state.search);
 };
 
+/**
+ * Controls the servings of a recipe.
+ * @param {number} newServings - The new number of servings.
+ */
 const controlServings = function (newServings) {
   // Update recipe servings (in state)
   model.updateServings(newServings);
@@ -85,6 +96,9 @@ const controlServings = function (newServings) {
   recipeView.update(model.state.recipe);
 };
 
+/**
+ * Controls adding/removing bookmarks.
+ */
 const controlAddBookmark = function () {
   // Add/removes bookmarks
   if (!model.state.recipe.bookmarked) {
@@ -98,11 +112,26 @@ const controlAddBookmark = function () {
   bookmarksView.render(model.state.bookmarks);
 };
 
+/**
+ * Controls rendering of bookmarks.
+ */
 const controlBookmarks = function () {
   // Load first, then render & view
   bookmarksView.render(model.state.bookmarks);
 };
 
+/**
+ * Controls adding a new recipe.
+ * @async
+ * @param {Object} newRecipe - The new recipe data.
+ */
+/**
+ * Handles the addition of a new recipe.
+ *
+ * @param {Object} newRecipe - The new recipe to be added.
+ * @returns {Promise<void>} - A promise that resolves when the recipe is added successfully.
+ * @throws {Error} - If there is an error during the addition of the recipe.
+ */
 const controlAddRecipe = async function (newRecipe) {
   try {
     // Show the spinner
@@ -136,6 +165,9 @@ const controlAddRecipe = async function (newRecipe) {
   }
 };
 
+/**
+ * Initializes the application.
+ */
 const init = function () {
   bookmarksView.addHandlerRender(controlBookmarks);
   recipeView.addHandlerRender(controlRecipes);

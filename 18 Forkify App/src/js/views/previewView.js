@@ -1,6 +1,10 @@
 import View from './View.js';
 import icons from 'url:../../img/icons.svg';
 
+/**
+ * Represents a preview view for a recipe.
+ * @extends View
+ */
 class PreviewView extends View {
   _parentElement = '';
 
