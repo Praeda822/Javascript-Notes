@@ -137,6 +137,14 @@ const renderError = function (msg) {
 };
 
 // Helper function to fetch JSON data
+/**
+ * Fetches JSON data from the specified URL.
+ *
+ * @param {string} url - The URL to fetch JSON data from.
+ * @param {string} [errorMsg='Something went wrong..'] - The error message to display if the fetch fails.
+ * @returns {Promise} A promise that resolves to the JSON data.
+ * @throws {Error} If the fetch fails, an error with the specified error message and status code will be thrown.
+ */
 const getJSON = function (url, errorMsg = 'Something went wrong..') {
   return fetch(url).then(response => {
     if (!response.ok) throw new Error(`${errorMsg} (${response.status})`);

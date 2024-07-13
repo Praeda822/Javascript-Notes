@@ -79,6 +79,7 @@ document.querySelector('.check').addEventListener('click', function () {
           ? 'Your guess is too high, bro!'
           : 'Your guess is too low, bro..'
       );
+      document.querySelector('body').style.backgroundColor = '#ff0000';
       score--;
       document.querySelector('.score').textContent = score;
     } else {

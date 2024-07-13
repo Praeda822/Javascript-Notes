@@ -96,6 +96,16 @@ const calcDisplayBalance = function (acc) {
   labelBalance.textContent = `$${acc.balance}AUD`;
 };
 
+/**
+ * Calculates and displays the summary of the account movements.
+ *
+ * @param {object} acc - The account object.
+ */
+/**
+ * Calculates and displays the summary of the account movements.
+ *
+ * @param {object} acc - The account object.
+ */
 const calcDisplaySummary = function (acc) {
   const incomes = acc.movements
     .filter(function (element) {
@@ -115,6 +125,11 @@ const calcDisplaySummary = function (acc) {
     }, 0);
   labelSumOut.textContent = `${Math.abs(outgoing)}€`;
 
+  /**
+   * Calculates the total interest earned on positive movements in the account.
+   *
+   * @type {number}
+   */
   const interest = acc.movements
     .filter(function (element) {
       return element > 0;
