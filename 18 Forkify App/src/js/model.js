@@ -131,7 +131,7 @@ export const updateServings = function (newServings) {
     ing.quantity = (ing.quantity * newServings) / state.recipe.servings;
   });
 
-  
+  state.recipe.servings = newServings;
 };
 
 const persistBookmarks = function () {
