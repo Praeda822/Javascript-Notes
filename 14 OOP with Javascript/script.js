@@ -55,14 +55,14 @@
 // ========================================
 //
 // As I know, a "class" is basically like site plans but for code
-// In Javascript, classes can be used to create actual objects (object generation, remember?)called INSTANCES
+// In Javascript, classes can be used to create actual objects (object generation, remember?) called INSTANCES
 // This process, where Objects are created (generated) from a class, is called INSTANTIATION
 // And, as I also know, all objects in Javascript are: PROTOTYPES.
 // What's an Array (REALLY)? Well, it's technically speaking, an object that I am able to pass methods() to
 // Remember, PASS the methods to, meaning it's the PROTOTYPE (Blueprint brooo) that ACTUALLY contains the methods, and the Objects themselves are BUILT FROM the site plans!!
-// Technically speaking, this is called
+// Technically speaking, this is called: PROTOTYPAL INHERITANCE
 
-// PROTYPAL INHERITANCE:
+// PROTOTYPAL INHERITANCE:
 // ========================================
 //
 // The prototype contains the methods (behaviours) that are ACCESSIBLE to all objects linked to that prototype
@@ -73,7 +73,7 @@
 // In classic OOP, the behaviour are actually copied from the classes to the objects themselves respectively
 //
 // If I look up arrays on the mdn, it's always formatted as Array.prototype.method()
-// For example, again using ARRAYS because who doesnt love arrays:
+// For example, again using ARRAYS because who doesn't love arrays:
 const myNum = [1, 2, 3];
 myNum.map(v => v * 2);
 console.log(myNum);
@@ -152,7 +152,7 @@ class PersonClDec {
     this.birthYear = birthYear;
   }
   // Next I need to define my methods
-  // Ic an confirm this by looking at the object and inspecting the prototype
+  // I can confirm this by looking at the object and inspecting the prototype
   calcAge() {
     console.log(2037 - this.birthYear);
   }
@@ -275,7 +275,7 @@ console.log(patrick.__proto__.__proto__.__proto__);
 // Points back to person
 console.dir(Person.prototype.constructor);
 
-// THis is actually SICK
+// This is actually SICK
 // I can essentially look up all the prototypal methods available to arrays in javascript:
 const arr = [3, 6, 6, 5, 9, 9, 8]; // new Array === []
 // The above shorthand way is the same as using Javascript's in-built constructors to create an array
