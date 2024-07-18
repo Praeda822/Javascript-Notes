@@ -733,7 +733,7 @@ const davo = Object.create(PeopleProto);
 // Keeping in mind that Object.create() always creates empty objects
 const TradieProto = Object.create(PeopleProto);
 
-// And I'll add an init method to PeopleProto so it's tradie children can inherit it
+// And I'll add an init method to PeopleProto so its tradie children can inherit it
 TradieProto.init = function (firstName, birthYear, start) {
   // In Object.create() I need to remember to use the call() method on my dad object, assigning the .this keyword and passing the SAME arguments
   PeopleProto.init.call(this, firstName, birthYear);
@@ -741,7 +741,7 @@ TradieProto.init = function (firstName, birthYear, start) {
   this.start = start;
 };
 
-// AND i'll add the introduce method
+//  Call the introduce method
 TradieProto.introduce = function () {
   console.log(
     `Gday, I'm ${this.firstName}, and in my trade we start ${this.start} in the morning. `
