@@ -13,7 +13,7 @@
 // Irl, I'll typically be using some kind of library/framework/system to create unique ID's and I most certainly shouldn't be doing it myself
 
 // The Workout Class is assigned the current date and time, and I convert it to a string by concatenating with an empty string (+ '')
-// Then I call the slice method on the resulting string, slice(-10)m which extracts only the last 10 characters of that string
+// Then I call the slice method on the resulting string, slice(-10) which extracts only the last 10 characters of that string
 // This is a surprisingly simple way to generate a unique identifier for each of my Workout objects
 
 class Workout {

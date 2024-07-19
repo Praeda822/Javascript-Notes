@@ -58,7 +58,7 @@
 // 5,5. Regular 'ol script tag: <script>
 //
 // 6. Es6 modules are downloaded & retrieved in an ASYNCHRONOUS WAY, so they'll be handled by the/an WebAPI
-// 6,5. Regular scripts are downloaded by default in a blocking, synchronous way, UNLESS I use the async/defer attributes on my scriptt ag
+// 6,5. Regular scripts are downloaded by default in a blocking, synchronous way, UNLESS I use the async/defer attributes on my script tag
 //
 //
 // How ES6 Modules Are Imported!
