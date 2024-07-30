@@ -138,10 +138,6 @@ const slider1 = new Slider({
 // btnRight: Selector for the right navigation button.
 // dotContainer: Selector for the container holding the dots.
 
-// ========================================
-// How The Fuck Does It Work, Though?
-// ========================================
-
 // The Constructor Method
 // ========================================
 
